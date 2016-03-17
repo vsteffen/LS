@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/16 16:48:10 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/17 19:14:07 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ void	stat_function()
 	struct	stat sb;
 	int		ret;
 
+	DIR *dirp;
+	struct dirent *dp;
+
+	if ((dirp = opendir(".")) == NULL)
+		exitProg("Couldn't open '.'");
+
 	ret = stat("/nfs/2015/v/vsteffen/LS/Makefile", &sb);
 
 	printf("Numéro d'inœud :                   %ld\n", (long) sb.st_ino);
@@ -62,34 +68,41 @@ void	stat_function()
 	printf("Blocs alloués :                    %lld\n",
 			(long long) sb.st_blocks);
 
-	printf("Dernier changement d’état :        %ld\n", sb.st_ctime);
+	printf("Dernier changement d’état :        %s", ctime(&sb.st_ctime));
 	printf("Dernier accès au fichier :         %s", ctime(&sb.st_atime));
 	printf("Dernière modification du fichier:  %s", ctime(&sb.st_mtime));
 
-
-}
-
-void	time_function(void)
-{
-	time_t temps;
-
-	time(&temps);
-	printf("%s", ctime(&temps));
-}
-
-void	learning_function()
-{
-	printf("\n\t-----------------\n");
-	time_function();
-	printf("\n\t-----------------\n");
-	stat_function();
-	printf("\n\t-----------------\n");
-	//	listdir(".", 0);
-}
+	if ((dp = readdir(dirp)) != NULL) {
+		if (strcmp(dp->d_name, arg) != 0)
+			continue;
 
 
-int		main(int ac, char **av)
-{
-	learning_function();
-	return (EXIT_SUCCESS);
-}
+		(void) printf("found %s\n", arg);
+		(void) closedir(dirp);
+		exitProg
+	}
+
+	void	time_function(void)
+	{
+		time_t temps;
+
+		time(&temps);
+		printf("%s", ctime(&temps));
+	}
+
+	void	learning_function()
+	{
+		printf("\n\t-----------------\n");
+		time_function();
+		printf("\n\t-----------------\n");
+		stat_function();
+		printf("\n\t-----------------\n");
+		//	listdir(".", 0);
+	}
+
+
+	int		main(int ac, char **av)
+	{
+		learning_function();
+		return (EXIT_SUCCESS);
+	}
