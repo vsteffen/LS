@@ -6,11 +6,63 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/17 19:14:07 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/18 18:56:27 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+void	exitProg(char *status)
+{
+	ft_putstr(status);
+	exit(0);
+}
+
+float		rounded(float number, int decimal)
+{
+	return (number >= 0) ? ((int)(number * decimal + 0.5) / (decimal * 1.0))
+		: ((int)(number * decimal - 0.5) / (decimal * 1.0));
+}
+
+char	human_function(float *nb)
+{
+	int		count;
+	int		decimal;
+	double	round;
+
+	count = 0;
+	decimal = 0;
+	printf("*nb = %f and count = %d\n", *nb, count);
+	
+	while (*nb / 1000 > 0 && count < 4)
+	{
+		count++;
+		*nb = *nb / 1000;
+	}
+	if (count == 0)
+		return ('B');
+	else
+	{
+		*nb = rounded(*nb, 1);
+		//round = ((int)(*nb * 100 + 0.5) / 100.0);
+		printf("SALUT");
+	}
+		printf("*nb = %f and count = %d\n", *nb, count);
+	if (count == 1)
+		return ('K');
+	if (count == 2)
+		return ('M');
+	if (count == 3)
+		return ('G');
+	if (count == 4)
+		return ('P');
+	return (0);
+}
+
+void	listxattr_function(int argc, char *argv[])
+{
+
+}
 
 /*
    void listdir(const char *name, int level)
@@ -39,7 +91,7 @@
    closedir(dir);
    }*/
 
-void	stat_function()
+void	stat_function(int ac, char **av)
 {
 	struct	stat sb;
 	int		ret;
@@ -72,37 +124,56 @@ void	stat_function()
 	printf("Dernier accès au fichier :         %s", ctime(&sb.st_atime));
 	printf("Dernière modification du fichier:  %s", ctime(&sb.st_mtime));
 
-	if ((dp = readdir(dirp)) != NULL) {
-		if (strcmp(dp->d_name, arg) != 0)
-			continue;
+
+	printf("File Permissions: \t");
+	printf( (S_ISDIR(sb.st_mode)) ? "d" : "-");
+	printf( (sb.st_mode & S_IRUSR) ? "r" : "-");
+	printf( (sb.st_mode & S_IWUSR) ? "w" : "-");
+	printf( (sb.st_mode & S_IXUSR) ? "x" : "-");
+	printf( (sb.st_mode & S_IRGRP) ? "r" : "-");
+	printf( (sb.st_mode & S_IWGRP) ? "w" : "-");
+	printf( (sb.st_mode & S_IXGRP) ? "x" : "-");
+	printf( (sb.st_mode & S_IROTH) ? "r" : "-");
+	printf( (sb.st_mode & S_IWOTH) ? "w" : "-");
+	printf( (sb.st_mode & S_IXOTH) ? "x" : "-");
+	printf("\n\n");
+
+	printf("The file %s a symbolic link\n", (S_ISLNK(sb.st_mode)) ? "is" : "is not");
+}
+void	time_function(void)
+{
+	time_t temps;
+
+	time(&temps);
+	printf("%s", ctime(&temps));
+}
+
+void	learning_function(int ac, char **av)
+{
+	float		nb;
+	char		type;
+
+	printf("\n\t-----------------\n");
+	time_function();
+	printf("\n\t-----------------\n");
+	stat_function(ac, av);
+	printf("\n\t-----------------\n");
+	listxattr_function(ac, av);
+	printf("\n\t-----------------\n");
+	nb = 1.666666;
+	printf("   nb = %f\n", nb);
+	nb = rounded(nb, 1000);
+	//nb = ((int)(nb * 100 + .5) / 100.0);
+	printf("   nb = %f\n", nb);
+	//type = human_function(&nb);
+	//printf("nb = %f%c\n", nb, type);
+	printf("\n\t-----------------\n");
+	//	listdir(".", 0);
+}
 
 
-		(void) printf("found %s\n", arg);
-		(void) closedir(dirp);
-		exitProg
-	}
-
-	void	time_function(void)
-	{
-		time_t temps;
-
-		time(&temps);
-		printf("%s", ctime(&temps));
-	}
-
-	void	learning_function()
-	{
-		printf("\n\t-----------------\n");
-		time_function();
-		printf("\n\t-----------------\n");
-		stat_function();
-		printf("\n\t-----------------\n");
-		//	listdir(".", 0);
-	}
-
-
-	int		main(int ac, char **av)
-	{
-		learning_function();
-		return (EXIT_SUCCESS);
-	}
+int		main(int ac, char **av)
+{
+	learning_function(ac, av);
+	return (EXIT_SUCCESS);
+}
