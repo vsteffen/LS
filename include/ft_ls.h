@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/18 17:27:55 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/21 18:43:16 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,23 @@
 
 typedef struct		data_s
 {
-	int		b;
+	char				*name;
+
+	unsigned long long	total_size;
+	
 }			data_t;
 
 #endif
+
+/*
+ *
+ *		 STRUCTURE MERE : -> name --> structure stat
+ *		 				  -> max_length
+ *		 				  -> 
+ *
+ *
+ *
+ *
+ *
+ *
+ *
