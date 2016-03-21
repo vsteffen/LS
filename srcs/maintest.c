@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/18 18:56:27 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/21 16:51:40 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,18 @@ char	human_function(float *nb)
 {
 	int		count;
 	int		decimal;
+	float	float_nb = 1000;
 	double	round;
 
 	count = 0;
-	decimal = 0;
-	printf("*nb = %f and count = %d\n", *nb, count);
-	
-	while (*nb / 1000 > 0 && count < 4)
+	while (*nb >= 1000 && count < 4)
 	{
 		count++;
-		*nb = *nb / 1000;
+		*nb = (*nb / 1000);
 	}
 	if (count == 0)
-		return ('B');
-	else
-	{
-		*nb = rounded(*nb, 1);
-		//round = ((int)(*nb * 100 + 0.5) / 100.0);
-		printf("SALUT");
-	}
-		printf("*nb = %f and count = %d\n", *nb, count);
+		return ('B');	
+	*nb = rounded(*nb, 10);
 	if (count == 1)
 		return ('K');
 	if (count == 2)
@@ -96,14 +88,14 @@ void	stat_function(int ac, char **av)
 	struct	stat sb;
 	int		ret;
 
-	DIR *dirp;
-	struct dirent *dp;
+	//	DIR *dirp;
+	//	struct dirent *dp;
+	//
+	//	if ((dirp = opendir("/dev")) == NULL)
+	//		exitProg("Couldn't open '.'");
 
-	if ((dirp = opendir(".")) == NULL)
-		exitProg("Couldn't open '.'");
-
-	ret = stat("/nfs/2015/v/vsteffen/LS/Makefile", &sb);
-
+	//ret = stat("/nfs/2015/v/vsteffen/LS/Makefile", &sb);
+	ret = stat("/dev/disk0", &sb);
 	printf("Numéro d'inœud :                   %ld\n", (long) sb.st_ino);
 
 	printf("Mode :                             %lo (octal)\n",
@@ -138,7 +130,14 @@ void	stat_function(int ac, char **av)
 	printf( (sb.st_mode & S_IXOTH) ? "x" : "-");
 	printf("\n\n");
 
+	printf("The file %s a directory\n", (S_ISDIR(sb.st_mode)) ? "is" : "is not");
 	printf("The file %s a symbolic link\n", (S_ISLNK(sb.st_mode)) ? "is" : "is not");
+	printf("The file %s a block special file\n", (S_ISBLK(sb.st_mode)) ? "is" : "is not");
+	printf("The file %s a character special file\n", (S_ISCHR(sb.st_mode)) ? "is" : "is not");
+	printf("The file %s a pipe or FIFO special file\n", (S_ISFIFO(sb.st_mode)) ? "is" : "is not");
+	printf("The file %s a regular file\n", (S_ISREG(sb.st_mode)) ? "is" : "is not");
+	printf("The file %s a socket\n", (S_ISSOCK(sb.st_mode)) ? "is" : "is not");
+
 }
 void	time_function(void)
 {
@@ -147,6 +146,43 @@ void	time_function(void)
 	time(&temps);
 	printf("%s", ctime(&temps));
 }
+
+void	list_dir(void)
+{
+	unsigned int	nb_files;
+	DIR* dir_s = NULL;
+	struct dirent* dir_file = NULL; /* Déclaration d'un pointeur vers la structure dirent. */
+	
+	if ((dir_s = opendir(".")) == NULL)
+		exitProg("Fail to open directory, exit prog\n");
+
+	nb_files = 0;
+	while ((dir_file = readdir(dir_s)) != NULL)/* On lit le premier répertoire du dossier. */
+	{
+		printf("%s\n", dir_file->d_name);
+		nb_files++;
+	}
+	printf("Total %d\n", nb_files);
+	if (closedir(dir_s) == -1)
+		exitProg("Fail to close directory stream\n");
+
+	/*
+	   DIR *dir_stream;
+	   struct dirent *dp;
+
+
+	   if ((dir_stream = opendir(".")) == NULL)
+	   {
+	   perror("couldn't open '.'");
+	   exitProg("Fail to open directory, exit prog\n");
+	   }
+	   if ((dp = readdir(dir_stream)) != NULL)
+	   exitProg("Fail to read directory\n");
+
+	   closedir(dir_stream);
+	   return;*/
+}
+
 
 void	learning_function(int ac, char **av)
 {
@@ -160,14 +196,15 @@ void	learning_function(int ac, char **av)
 	printf("\n\t-----------------\n");
 	listxattr_function(ac, av);
 	printf("\n\t-----------------\n");
-	nb = 1.666666;
-	printf("   nb = %f\n", nb);
-	nb = rounded(nb, 1000);
+	nb = 999;
+	printf("   nb = %0.2f\n", nb);
 	//nb = ((int)(nb * 100 + .5) / 100.0);
-	printf("   nb = %f\n", nb);
-	//type = human_function(&nb);
-	//printf("nb = %f%c\n", nb, type);
+	//printf("   nb = %f\n", nb);
+	type = human_function(&nb);
+	printf("nb = %0.2f %c\n", nb, type);
 	printf("\n\t-----------------\n");
+	list_dir();
+
 	//	listdir(".", 0);
 }
 
