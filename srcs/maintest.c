@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/21 18:43:20 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/22 22:10:27 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	stat_function(int ac, char **av)
 	//		exitProg("Couldn't open '.'");
 
 	//ret = stat("/nfs/2015/v/vsteffen/LS/Makefile", &sb);
-	ret = stat("/dev/disk0", &sb);
+	ret = lstat("/dev/disk0", &sb);
 	printf("Numéro d'inœud :                   %ld\n", (long) sb.st_ino);
 
 	printf("Mode :                             %lo (octal)\n",
@@ -137,8 +137,8 @@ void	stat_function(int ac, char **av)
 	printf("The file %s a pipe or FIFO special file\n", (S_ISFIFO(sb.st_mode)) ? "is" : "is not");
 	printf("The file %s a regular file\n", (S_ISREG(sb.st_mode)) ? "is" : "is not");
 	printf("The file %s a socket\n", (S_ISSOCK(sb.st_mode)) ? "is" : "is not");
-
 }
+
 void	time_function(void)
 {
 	time_t temps;
@@ -147,22 +147,17 @@ void	time_function(void)
 	printf("%s", ctime(&temps));
 }
 
-void	list_dir(void)
+void	list_dir(t_files *ind[1000000000], data_t *data)
 {
-	unsigned int	nb_files;
 	DIR* dir_s = NULL;
 	struct dirent* dir_file = NULL; /* Déclaration d'un pointeur vers la structure dirent. */
 	
 	if ((dir_s = opendir(".")) == NULL)
 		exitProg("Fail to open directory, exit prog\n");
 
-	nb_files = 0;
 	while ((dir_file = readdir(dir_s)) != NULL)/* On lit le premier répertoire du dossier. */
-	{
+		
 		printf("%s\n", dir_file->d_name);
-		nb_files++;
-	}
-	printf("Total %d\n", nb_files);
 	if (closedir(dir_s) == -1)
 		exitProg("Fail to close directory stream\n");
 
@@ -184,11 +179,15 @@ void	list_dir(void)
 }
 
 
+
 void	learning_function(int ac, char **av)
 {
+	data_t		data;
 	float		nb;
 	char		type;
 
+	t_files *ind = malloc(1000000000 * sizeof(*ind));
+	data.index_d = 0;
 	printf("\n\t-----------------\n");
 	time_function();
 	printf("\n\t-----------------\n");
@@ -203,11 +202,15 @@ void	learning_function(int ac, char **av)
 	type = human_function(&nb);
 	printf("nb = %0.2f %c\n", nb, type);
 	printf("\n\t-----------------\n");
-	list_dir();
+	
 
+	//t_files *ind = malloc (100 * 100 * sizeof(*ind));
+	//t_files ind[100][1000];
+
+	list_dir(&ind, &data);
+	printf("\n\t-----------------\n");
 	//	listdir(".", 0);
 }
-
 
 int		main(int ac, char **av)
 {

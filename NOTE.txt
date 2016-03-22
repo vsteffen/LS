@@ -1,0 +1,21 @@
+
+					A FAIRE
+
+Créer la liste doublement chainées
+
+PAR ORDRE :
+1) detecter R / l / r
+2.1) Ouvrir tous les fichiers du document actuel
+2.2) A chaque nouveau fichier de détecté dans le dossier, obtenir les options avancées des fichiers en fonction de la présence de “l”
+2.3) detecter r si présent ou non puis ranger à chaque fin d’ouverture de dossier à l’envers ou à l’endroit (avoir le pointeur sur le dernier élément pour “r”)
+3) En fonction de “R” aller au dossier “suivant” et recommencer chaque étape du 2) ou sinon arrêter le programme.
+
+Fonctions à faire :
+- ouvrir le dossier visé
+- obtenir les options avancées
+- tri à l’endroit ou à l’envers
+- tout ce qui permet le cheminement de la récursive
+
+Notes supplémentaires :
+- stocker directement lstat dans liste ?
+- arg “h” tranformation de B en O ?

@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/21 18:43:16 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/22 21:43:42 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,25 +32,28 @@
 
 # include "libft.h"
 
-typedef struct		data_s
-{
-	char				*name;
-
-	unsigned long long	total_size;
-	
-}			data_t;
-
-#endif
-
 /*
- *
- *		 STRUCTURE MERE : -> name --> structure stat
- *		 				  -> max_length
- *		 				  -> 
- *
- *
- *
- *
- *
- *
- *
+typedef struct		files_s
+{
+	char			*name;
+	int				pouet;
+}					files_t;
+*/
+
+typedef struct			data_s
+{
+	unsigned long int	index_d;
+	char				*path;
+}						data_t;
+
+typedef struct	s_files
+{
+	char			*name;
+	long long		size;
+	int				real;
+}				t_files;
+
+//struct files_t **index_f;
+
+//struct index_f *index_d;
+#endif
