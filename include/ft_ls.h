@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/22 21:43:42 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/23 20:29:21 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,22 @@ typedef struct		files_s
 	int				pouet;
 }					files_t;
 */
+typedef struct		s_list
+{
+	char			*name;
+	long int		nb_link;
+	long long int	size;
+	char			*create;
+	char			*access;
+	char			*modif;
+	char			*path_prev;
+	struct s_list	*next;
+}					t_list;
 
 typedef struct			data_s
 {
-	unsigned long int	index_d;
 	char				*path;
+	t_list				*lst_first;
 }						data_t;
 
 typedef struct	s_files

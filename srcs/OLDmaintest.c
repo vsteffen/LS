@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/23 20:59:52 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/22 22:50:47 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,16 +147,16 @@ void	time_function(void)
 	printf("%s", ctime(&temps));
 }
 
-void	list_dir(void)
+void	list_dir(t_files *ind[1000000000], data_t *data)
 {
 	DIR* dir_s = NULL;
 	struct dirent* dir_file = NULL; /* Déclaration d'un pointeur vers la structure dirent. */
-
+	
 	if ((dir_s = opendir(".")) == NULL)
 		exitProg("Fail to open directory, exit prog\n");
 
 	while ((dir_file = readdir(dir_s)) != NULL)/* On lit le premier répertoire du dossier. */
-
+		
 		printf("%s\n", dir_file->d_name);
 	if (closedir(dir_s) == -1)
 		exitProg("Fail to close directory stream\n");
@@ -178,36 +178,16 @@ void	list_dir(void)
 	   return;*/
 }
 
-Liste *lst_new(t_data *data)
-{
-	t_lst *list = malloc(sizeof(*list));
-
-	if (list == NULL)
-	{
-		exitProg("Failed to initialize the chained list.\n");
-	}
-	list->next = NULL;
-	data->lst_first = list;
-
-	return (list);
-}
-
-void	lst_functions(void)
-{
-	t_data		data;
-	
-	t_data *data = malloc(sizeof(*data));
-	t_lst *list = lst_new(&data);
-	afficherListe(list);
-}
 
 
 void	learning_function(int ac, char **av)
 {
+	data_t		data;
 	float		nb;
 	char		type;
-	int			x;
 
+	t_files *ind = malloc(1000000000 * sizeof(*ind));
+	data.index_d = 0;
 	printf("\n\t-----------------\n");
 	time_function();
 	printf("\n\t-----------------\n");
@@ -222,14 +202,13 @@ void	learning_function(int ac, char **av)
 	type = human_function(&nb);
 	printf("nb = %0.2f %c\n", nb, type);
 	printf("\n\t-----------------\n");
-
+	
 
 	//t_files *ind = malloc (100 * 100 * sizeof(*ind));
 	//t_files ind[100][1000];
 
-	list_dir();
+	list_dir(&ind, &data);
 	printf("\n\t-----------------\n");
-	lst_functions();
 	//	listdir(".", 0);
 }
 
