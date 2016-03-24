@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/23 20:59:52 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/24 17:13:58 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,33 +55,6 @@ void	listxattr_function(int argc, char *argv[])
 {
 
 }
-
-/*
-   void listdir(const char *name, int level)
-   {
-   DIR *dir;
-   struct dirent *entry;
-
-   if (!(dir = opendir(name)))
-   return;
-   if (!(entry = readdir(dir)))
-   return;
-
-   do {
-   if (entry->d_type == DT_DIR) {
-   char path[1024];
-   int len = snprintf(path, sizeof(path)-1, "%s/%s", name, entry->d_name);
-   path[len] = 0;
-   if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
-   continue;
-   printf("%*s[%s]\n", level*2, "", entry->d_name);
-   listdir(path, level + 1);
-   }
-   else
-   printf("%*s- %s\n", level*2, "", entry->d_name);
-   } while (entry = readdir(dir));
-   closedir(dir);
-   }*/
 
 void	stat_function(int ac, char **av)
 {
@@ -178,27 +151,42 @@ void	list_dir(void)
 	   return;*/
 }
 
-Liste *lst_new(t_data *data)
+void	display_list(t_list_ls *list)
 {
-	t_lst *list = malloc(sizeof(*list));
 
-	if (list == NULL)
-	{
-		exitProg("Failed to initialize the chained list.\n");
-	}
+}
+
+t_list_ls *lst_new(void)
+{
+	t_list_ls	*list;
+
+	if (!(list = (t_list_ls*)malloc(sizeof(t_list_ls))))
+		exitProg("Failed to initialize the linked list.\n");
+	list->name = NULL;
+	list->path = NULL;
+	list->dir = 0;
+	list->stat = NULL;
 	list->next = NULL;
-	data->lst_first = list;
-
 	return (list);
+}
+
+void	add_elem(t_list_ls *list)
+{
+	if (!list)
+		return ;
+	while (list->next)
+		list = list->next;
+	list->next = lst_new();
 }
 
 void	lst_functions(void)
 {
 	t_data		data;
-	
-	t_data *data = malloc(sizeof(*data));
-	t_lst *list = lst_new(&data);
-	afficherListe(list);
+
+	data.lst_first = lst_new();
+	add_elem(data.lst_first);
+	display_list(data.lst_first);
+	//return (data);
 }
 
 
@@ -208,6 +196,8 @@ void	learning_function(int ac, char **av)
 	char		type;
 	int			x;
 
+	nb = 999;
+
 	printf("\n\t-----------------\n");
 	time_function();
 	printf("\n\t-----------------\n");
@@ -215,22 +205,15 @@ void	learning_function(int ac, char **av)
 	printf("\n\t-----------------\n");
 	listxattr_function(ac, av);
 	printf("\n\t-----------------\n");
-	nb = 999;
 	printf("   nb = %0.2f\n", nb);
 	//nb = ((int)(nb * 100 + .5) / 100.0);
 	//printf("   nb = %f\n", nb);
 	type = human_function(&nb);
 	printf("nb = %0.2f %c\n", nb, type);
 	printf("\n\t-----------------\n");
-
-
-	//t_files *ind = malloc (100 * 100 * sizeof(*ind));
-	//t_files ind[100][1000];
-
 	list_dir();
 	printf("\n\t-----------------\n");
 	lst_functions();
-	//	listdir(".", 0);
 }
 
 int		main(int ac, char **av)

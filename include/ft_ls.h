@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/23 20:29:21 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/24 17:14:06 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,54 +17,29 @@
 # include <stdio.h>
 # include <string.h>
 # include <fcntl.h>
-
-#include <dirent.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-
-
-#include <math.h>
-
-
-#include <time.h>
-
-#include <sys/xattr.h>
-
+# include <dirent.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <math.h>
+# include <time.h>
+# include <sys/xattr.h>
 # include "libft.h"
 
-/*
-typedef struct		files_s
+typedef struct stat		t_stat;
+typedef struct			s_list_ls
 {
-	char			*name;
-	int				pouet;
-}					files_t;
-*/
-typedef struct		s_list
-{
-	char			*name;
-	long int		nb_link;
-	long long int	size;
-	char			*create;
-	char			*access;
-	char			*modif;
-	char			*path_prev;
-	struct s_list	*next;
-}					t_list;
-
-typedef struct			data_s
-{
+	char				*name;
 	char				*path;
-	t_list				*lst_first;
-}						data_t;
+	int					dir;
+	t_stat				*stat;
+	struct s_list_ls	*next;
+}						t_list_ls;
 
-typedef struct	s_files
+typedef struct			s_data
 {
-	char			*name;
-	long long		size;
-	int				real;
-}				t_files;
+	char				*name;
+	char				*path;
+	t_list_ls			*lst_first;
+}						t_data;
 
-//struct files_t **index_f;
-
-//struct index_f *index_d;
 #endif
