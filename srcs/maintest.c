@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/25 18:05:00 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/25 19:17:54 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void	learning_function(int ac, char **av)
 	printf("\n\t-----------------\n");
 	stat_function(ac, av);
 	printf("\n\t-----------------\n");
-	listxattr_function(ac, av);
 	printf("\n\t-----------------\n");
 	printf("   nb = %0.2f\n", nb);
 	//nb = ((int)(nb * 100 + .5) / 100.0);
@@ -105,16 +104,18 @@ void	learning_function(int ac, char **av)
 	lst_functions();
 }
 
-int		check_arg(int ac, char **av, t_data data)
+int		check_arg(int ac, char **av, t_data *data)
 {
-	
+	data->path = av[0];
+	printf("data->path = %s\n", data->path);
+	return (0);	
 }
 
 int		main(int ac, char **av)
 {
 	t_data      data;
-
-	check_arg(ac, av, data);
+	check_arg(ac, av, &data);
+	printf("data->path = %s\n", data.path);
 //	learning_function(ac, av);
 	return (EXIT_SUCCESS);
 }

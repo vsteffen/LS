@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/25 17:39:41 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/25 17:40:48 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/25 18:50:16 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,5 @@ void	time_function(void)
 	time_t temps;
 
 	time(&temps);
-
+	printf("%s", ctime(&temps));
+}
