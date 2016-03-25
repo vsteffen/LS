@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/24 17:14:06 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/25 16:40:23 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct			s_data
 	char				*name;
 	char				*path;
 	t_list_ls			*lst_first;
+	t_list_ls			*lst_last;
 }						t_data;
 
 #endif

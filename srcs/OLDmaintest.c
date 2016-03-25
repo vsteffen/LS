@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/22 22:50:47 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/25 16:44:08 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,33 +55,6 @@ void	listxattr_function(int argc, char *argv[])
 {
 
 }
-
-/*
-   void listdir(const char *name, int level)
-   {
-   DIR *dir;
-   struct dirent *entry;
-
-   if (!(dir = opendir(name)))
-   return;
-   if (!(entry = readdir(dir)))
-   return;
-
-   do {
-   if (entry->d_type == DT_DIR) {
-   char path[1024];
-   int len = snprintf(path, sizeof(path)-1, "%s/%s", name, entry->d_name);
-   path[len] = 0;
-   if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
-   continue;
-   printf("%*s[%s]\n", level*2, "", entry->d_name);
-   listdir(path, level + 1);
-   }
-   else
-   printf("%*s- %s\n", level*2, "", entry->d_name);
-   } while (entry = readdir(dir));
-   closedir(dir);
-   }*/
 
 void	stat_function(int ac, char **av)
 {
@@ -147,47 +120,82 @@ void	time_function(void)
 	printf("%s", ctime(&temps));
 }
 
-void	list_dir(t_files *ind[1000000000], data_t *data)
+t_list_ls *lst_new(void)
 {
-	DIR* dir_s = NULL;
-	struct dirent* dir_file = NULL; /* Déclaration d'un pointeur vers la structure dirent. */
-	
-	if ((dir_s = opendir(".")) == NULL)
-		exitProg("Fail to open directory, exit prog\n");
+	t_list_ls	*list;
 
-	while ((dir_file = readdir(dir_s)) != NULL)/* On lit le premier répertoire du dossier. */
-		
-		printf("%s\n", dir_file->d_name);
-	if (closedir(dir_s) == -1)
-		exitProg("Fail to close directory stream\n");
-
-	/*
-	   DIR *dir_stream;
-	   struct dirent *dp;
-
-
-	   if ((dir_stream = opendir(".")) == NULL)
-	   {
-	   perror("couldn't open '.'");
-	   exitProg("Fail to open directory, exit prog\n");
-	   }
-	   if ((dp = readdir(dir_stream)) != NULL)
-	   exitProg("Fail to read directory\n");
-
-	   closedir(dir_stream);
-	   return;*/
+	if (!(list = (t_list_ls*)malloc(sizeof(t_list_ls))))
+		exitProg("Failed to initialize the linked list.\n");
+	list->name = NULL;
+	list->path = NULL;
+	list->dir = 0;
+	list->stat = NULL;
+	list->next = NULL;
+	return (list);
 }
 
+void	add_elem(t_list_ls *list)
+{
+	if (!list)
+		return ;
+	while (list->next)
+		list = list->next;
+	list->next = lst_new();
+}
+
+void	list_dir(t_list_ls *list, t_data *data)
+{
+	DIR* dir_s = NULL;
+	struct dirent* dir_file = NULL;
+
+	if ((dir_s = opendir(data->path)) == NULL)
+		exitProg("Fail to open directory, exit prog\n");
+	while ((dir_file = readdir(dir_s)) != NULL)
+	{
+		list->name = dir_file->d_name;
+		printf("%s add to linked list\n", dir_file->d_name);
+		add_elem(list);
+		list = list->next;
+	}
+	data->lst_last = list;
+	if (closedir(dir_s) == -1)
+		exitProg("Fail to close directory stream\n");
+}
+
+void	display_list(t_list_ls *list)
+{
+	while (list != NULL)
+	{
+		printf("Nom = %s\n", list->name);
+		list = list->next;
+	}
+	printf("\nEnd of linked list\n");
+}
+
+void	lst_functions(void)
+{
+	t_data		data;
+
+	data.lst_first = lst_new();
+	add_elem(data.lst_first);
+	display_list(data.lst_first);
+	data.path = ".";
+	list_dir(data.lst_first, &data);
+	data.path = "./libft";
+	list_dir(data.lst_first, &data);
+	display_list(data.lst_first);
+	//return (data);
+}
 
 
 void	learning_function(int ac, char **av)
 {
-	data_t		data;
 	float		nb;
 	char		type;
+	int			x;
 
-	t_files *ind = malloc(1000000000 * sizeof(*ind));
-	data.index_d = 0;
+	nb = 999;
+
 	printf("\n\t-----------------\n");
 	time_function();
 	printf("\n\t-----------------\n");
@@ -195,21 +203,14 @@ void	learning_function(int ac, char **av)
 	printf("\n\t-----------------\n");
 	listxattr_function(ac, av);
 	printf("\n\t-----------------\n");
-	nb = 999;
 	printf("   nb = %0.2f\n", nb);
 	//nb = ((int)(nb * 100 + .5) / 100.0);
 	//printf("   nb = %f\n", nb);
 	type = human_function(&nb);
 	printf("nb = %0.2f %c\n", nb, type);
 	printf("\n\t-----------------\n");
-	
-
-	//t_files *ind = malloc (100 * 100 * sizeof(*ind));
-	//t_files ind[100][1000];
-
-	list_dir(&ind, &data);
 	printf("\n\t-----------------\n");
-	//	listdir(".", 0);
+	lst_functions();
 }
 
 int		main(int ac, char **av)

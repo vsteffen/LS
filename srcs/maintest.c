@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/24 17:13:58 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/25 16:44:08 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,42 +120,6 @@ void	time_function(void)
 	printf("%s", ctime(&temps));
 }
 
-void	list_dir(void)
-{
-	DIR* dir_s = NULL;
-	struct dirent* dir_file = NULL; /* Déclaration d'un pointeur vers la structure dirent. */
-
-	if ((dir_s = opendir(".")) == NULL)
-		exitProg("Fail to open directory, exit prog\n");
-
-	while ((dir_file = readdir(dir_s)) != NULL)/* On lit le premier répertoire du dossier. */
-
-		printf("%s\n", dir_file->d_name);
-	if (closedir(dir_s) == -1)
-		exitProg("Fail to close directory stream\n");
-
-	/*
-	   DIR *dir_stream;
-	   struct dirent *dp;
-
-
-	   if ((dir_stream = opendir(".")) == NULL)
-	   {
-	   perror("couldn't open '.'");
-	   exitProg("Fail to open directory, exit prog\n");
-	   }
-	   if ((dp = readdir(dir_stream)) != NULL)
-	   exitProg("Fail to read directory\n");
-
-	   closedir(dir_stream);
-	   return;*/
-}
-
-void	display_list(t_list_ls *list)
-{
-
-}
-
 t_list_ls *lst_new(void)
 {
 	t_list_ls	*list;
@@ -179,12 +143,46 @@ void	add_elem(t_list_ls *list)
 	list->next = lst_new();
 }
 
+void	list_dir(t_list_ls *list, t_data *data)
+{
+	DIR* dir_s = NULL;
+	struct dirent* dir_file = NULL;
+
+	if ((dir_s = opendir(data->path)) == NULL)
+		exitProg("Fail to open directory, exit prog\n");
+	while ((dir_file = readdir(dir_s)) != NULL)
+	{
+		list->name = dir_file->d_name;
+		printf("%s add to linked list\n", dir_file->d_name);
+		add_elem(list);
+		list = list->next;
+	}
+	data->lst_last = list;
+	if (closedir(dir_s) == -1)
+		exitProg("Fail to close directory stream\n");
+}
+
+void	display_list(t_list_ls *list)
+{
+	while (list != NULL)
+	{
+		printf("Nom = %s\n", list->name);
+		list = list->next;
+	}
+	printf("\nEnd of linked list\n");
+}
+
 void	lst_functions(void)
 {
 	t_data		data;
 
 	data.lst_first = lst_new();
 	add_elem(data.lst_first);
+	display_list(data.lst_first);
+	data.path = ".";
+	list_dir(data.lst_first, &data);
+	data.path = "./libft";
+	list_dir(data.lst_first, &data);
 	display_list(data.lst_first);
 	//return (data);
 }
@@ -211,7 +209,6 @@ void	learning_function(int ac, char **av)
 	type = human_function(&nb);
 	printf("nb = %0.2f %c\n", nb, type);
 	printf("\n\t-----------------\n");
-	list_dir();
 	printf("\n\t-----------------\n");
 	lst_functions();
 }
