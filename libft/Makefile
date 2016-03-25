@@ -6,7 +6,7 @@
 #    By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/06 20:52:05 by vsteffen          #+#    #+#              #
-#    Updated: 2016/03/15 18:27:05 by vsteffen         ###   ########.fr        #
+#    Updated: 2016/03/25 17:33:47 by vsteffen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,9 @@ SRC = ft_atoi.c \
 	  ft_toupper.c \
 	  ft_clear.c \
 	  ft_colors.c \
-	  get_next_line.c
+	  get_next_line.c \
+	  ft_exit_prog.c \
+	  ft_rounded.c
 
 OBJ = $(patsubst %.c, $(OPATH)/%.o, $(SRC))
 

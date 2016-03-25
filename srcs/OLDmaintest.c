@@ -6,19 +6,23 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/25 16:44:08 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/25 17:36:34 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	exitProg(char *status)
+void	ft_exit_prog(char *status, int color, int debug)
 {
+	ft_colors(color);
 	ft_putstr(status);
+	ft_colors(0);
+	if (debug == 0)
+	perror("\nperror message ");
 	exit(0);
 }
 
-float		rounded(float number, int decimal)
+float		ft_rounded(float number, int decimal)
 {
 	return (number >= 0) ? ((int)(number * decimal + 0.5) / (decimal * 1.0))
 		: ((int)(number * decimal - 0.5) / (decimal * 1.0));
@@ -39,7 +43,7 @@ char	human_function(float *nb)
 	}
 	if (count == 0)
 		return ('B');	
-	*nb = rounded(*nb, 10);
+	*nb = ft_rounded(*nb, 10);
 	if (count == 1)
 		return ('K');
 	if (count == 2)
@@ -125,7 +129,7 @@ t_list_ls *lst_new(void)
 	t_list_ls	*list;
 
 	if (!(list = (t_list_ls*)malloc(sizeof(t_list_ls))))
-		exitProg("Failed to initialize the linked list.\n");
+		ft_exit_prog("Failed to initialize the linked list.\n", 31, 0);
 	list->name = NULL;
 	list->path = NULL;
 	list->dir = 0;
@@ -149,7 +153,7 @@ void	list_dir(t_list_ls *list, t_data *data)
 	struct dirent* dir_file = NULL;
 
 	if ((dir_s = opendir(data->path)) == NULL)
-		exitProg("Fail to open directory, exit prog\n");
+		ft_exit_prog("Fail to open directory, exit prog\n", 31, 0);
 	while ((dir_file = readdir(dir_s)) != NULL)
 	{
 		list->name = dir_file->d_name;
@@ -159,7 +163,7 @@ void	list_dir(t_list_ls *list, t_data *data)
 	}
 	data->lst_last = list;
 	if (closedir(dir_s) == -1)
-		exitProg("Fail to close directory stream\n");
+		ft_exit_prog("Fail to close directory stream\n", 31, 0);
 }
 
 void	display_list(t_list_ls *list)
@@ -215,6 +219,7 @@ void	learning_function(int ac, char **av)
 
 int		main(int ac, char **av)
 {
+	ft_exit_prog("pouet\n", 31, 1);
 	learning_function(ac, av);
 	return (EXIT_SUCCESS);
 }

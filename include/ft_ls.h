@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/25 16:40:23 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/25 17:47:25 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@
 # include <time.h>
 # include <sys/xattr.h>
 # include "libft.h"
+
+void					stat_function(int ac, char **av);
+void					time_function(void);
+char					human_function(float *nb);
 
 typedef struct stat		t_stat;
 typedef struct			s_list_ls

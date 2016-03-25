@@ -6,7 +6,7 @@
 /*   By: vsteffen <vsteffen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/22 20:42:40 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/15 18:24:44 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/25 17:34:38 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
+# include <stdio.h>
 # define BUFF_SIZE 1
 
 void				ft_bzero(void *s, size_t n);
@@ -80,7 +81,9 @@ int					ft_isprint(int c);
 
 void				ft_clear(void);
 void				ft_colors(int nbcolor);
-int                 get_next_line(const int fd, char **line);
+int					get_next_line(const int fd, char **line);
+void				ft_exit_prog(char *status, int color, int debug);
+float				ft_rounded(float number, int decimal);
 
 typedef struct		s_list
 {
