@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/25 19:17:54 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/25 20:24:18 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,34 +79,14 @@ void	lst_functions(void)
 	//return (data);
 }
 
-
-void	learning_function(int ac, char **av)
-{
-	float		nb;
-	char		type;
-	int			x;
-
-	nb = 999;
-
-	printf("\n\t-----------------\n");
-	time_function();
-	printf("\n\t-----------------\n");
-	stat_function(ac, av);
-	printf("\n\t-----------------\n");
-	printf("\n\t-----------------\n");
-	printf("   nb = %0.2f\n", nb);
-	//nb = ((int)(nb * 100 + .5) / 100.0);
-	//printf("   nb = %f\n", nb);
-	type = human_function(&nb);
-	printf("nb = %0.2f %c\n", nb, type);
-	printf("\n\t-----------------\n");
-	printf("\n\t-----------------\n");
-	lst_functions();
-}
-
 int		check_arg(int ac, char **av, t_data *data)
 {
-	data->path = av[0];
+	if (ac == 1)
+	{
+		data->arg = 1;
+		return (0);
+	}
+	check_av(ac, av, &data);
 	printf("data->path = %s\n", data->path);
 	return (0);	
 }
@@ -117,5 +97,6 @@ int		main(int ac, char **av)
 	check_arg(ac, av, &data);
 	printf("data->path = %s\n", data.path);
 //	learning_function(ac, av);
+	lst_functions();
 	return (EXIT_SUCCESS);
 }
