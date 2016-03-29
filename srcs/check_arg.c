@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 17:46:10 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/29 18:03:17 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/29 22:37:40 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,23 +70,68 @@ void		tab_arg_display(t_data *data)
 	}
 }
 
+void		ft_swap_str(char **a, char **b)
+{
+	char	*tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+int			arg_reorder(int ac, char **av, t_data *data)
+{
+	unsigned int	left;
+	unsigned int	right;
+	unsigned int	tp;
+	unsigned char	*tmp;
+	unsigned int	length;
+
+	while (1)
+	{
+		left = 1;
+		right = ac;
+		while (left != right)
+		{
+			if (left > right)
+			{
+				tp = right;
+				left = right;
+				right = tp;
+				left++;
+			}
+			right++;
+		}
+		if (right == 1)
+			return (0);
+	}
+}
+
 int			check_av(int ac, char **av, t_data *data)
 {
 	int		ac_var;
+	char	*value1 = "POUETTE";
+	char	*value2 = "CACA";
+	int		nb1 = 2;
+	int		nb2 = 3;
+	int		*p1 = &nb1;
+	int 	*p2 = &nb2;
+
 
 	if (ac == 1)
 	{
 		data->arg = 0;
+		data->path = ".";
 		return (0);
 	}
 	ac_var = 1;
+//	arg_reorder(ac, av, data);
 	while (ac_var < ac)
 	{
 		check_arg(ac, av, data, &ac_var);
 		ac_var++;
 	}
-	if (ft_strcmp(data->path, "") == 0)
+	if (ft_strequ(data->path, "") == 1)
 		data->path = ".";
-	printf("IN CHECK_AV data->path = %s\n", data->path);
 	return (0);
 }

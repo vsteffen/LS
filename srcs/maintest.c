@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/29 18:03:34 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/29 20:47:34 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,88 +79,6 @@ void		lst_functions(void)
 	display_list(data.lst_first);
 }
 
-/*
-int			check_arg_spe(char arg_tmp, t_data *data)
-{
-	if (arg_tmp == 'L')
-		return (data->tab_arg[0] = 1);
-	else if (arg_tmp == 'R')
-		data->tab_arg[1] = 1;
-	else if (arg_tmp == 'a')
-		data->tab_arg[2] = 1;
-	else if (arg_tmp == 'l')
-		data->tab_arg[3] = 1;
-	else if (arg_tmp == 'r')
-		data->tab_arg[4] = 1;
-	else if (arg_tmp == '1')
-		data->tab_arg[5] = 1;
-	else
-	{
-		printf("ls: illegal option -- %c\n", arg_tmp);
-		printf("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1]");
-		printf("[file ...]\n");
-		exit(0);
-	}
-	return (0);
-}
-
-int			check_arg(int ac, char **av, t_data *data, int *ac_var)
-{
-	int		i;
-
-	i = 1;
-	if (av[*ac_var][0] == '-' && av[*ac_var][1] == '\0')
-		data->path = ft_strjoin(data->path, "- ");
-	else if (av[*ac_var][0] == '-')
-	{
-		while (av[*ac_var][i] != '\0')
-		{
-			check_arg_spe(av[*ac_var][i], data);
-			i++;
-		}
-	}
-	else
-	{
-		data->path = ft_strjoin(data->path, av[*ac_var]);
-		data->path = ft_strjoin(data->path, " ");
-	}
-	return (0);
-}
-
-void		tab_arg_display(t_data *data)
-{
-	int		ac_var;
-
-	ac_var = 0;
-	while (ac_var != 6)
-	{
-		printf("data->tab_arg[%d] = %d\n", ac_var, data->tab_arg[ac_var]);
-		ac_var++;
-	}
-}
-
-int			check_av(int ac, char **av, t_data *data)
-{
-	int		ac_var;
-
-	if (ac == 1)
-	{
-		data->arg = 0;
-		return (0);
-	}
-	ac_var = 1;
-	while (ac_var < ac)
-	{
-		check_arg(ac, av, data, &ac_var);
-		ac_var++;
-	}
-	if (ft_strcmp(data->path, "") == 0)
-		data->path = ".";
-	printf("IN CHECK_AV data->path = %s\n", data->path);
-	return (0);
-}
-*/
-
 void		struct_ini(t_data *data)
 {
 	int		i;
@@ -182,8 +100,8 @@ int			main(int ac, char **av)
 
 	struct_ini(&data);
 	check_av(ac, av, &data);
-//	printf("data->path = %s\n", data.path);
+	printf("data->path = %s\n", data.path);
 //	learning_function(ac, av);
-	lst_functions();
+//	lst_functions();
 	return (EXIT_SUCCESS);
 }
