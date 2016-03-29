@@ -6,7 +6,7 @@
 #    By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/03 17:41:16 by vsteffen          #+#    #+#              #
-#    Updated: 2016/03/25 20:16:40 by vsteffen         ###   ########.fr        #
+#    Updated: 2016/03/29 17:57:36 by vsteffen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ OBJ_NAME = $(wildcard $(ROOT)/srcs/*.c)
 
 SRC = maintest.c \
 	get_stat.c \
-	arg_h.c
+	arg_h.c \
+	check_arg.c
 
 OBJ = $(patsubst %.c, $(OPATH)/%.o, $(SRC))
 

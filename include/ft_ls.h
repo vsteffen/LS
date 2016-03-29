@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/25 17:47:25 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/29 18:03:56 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,6 @@
 # include <sys/xattr.h>
 # include "libft.h"
 
-void					stat_function(int ac, char **av);
-void					time_function(void);
-char					human_function(float *nb);
-
 typedef struct stat		t_stat;
 typedef struct			s_list_ls
 {
@@ -43,8 +39,21 @@ typedef struct			s_data
 {
 	char				*name;
 	char				*path;
+	int					arg;
+	int					tab_arg[6];
 	t_list_ls			*lst_first;
 	t_list_ls			*lst_last;
 }						t_data;
+
+int						main(int ac, char **av);
+
+void					stat_function(int ac, char **av);
+void					time_function(void);
+char					human_function(float *nb);
+
+int						check_av(int ac, char **av, t_data *data);
+void					check_arg(int ac, char **av, t_data *data, int *ac_var);
+int						check_arg_spe(char arg_tmp, t_data *data);
+void					tab_arg_display(t_data *data);
 
 #endif
