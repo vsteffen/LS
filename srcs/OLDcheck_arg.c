@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 17:46:10 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/30 19:57:08 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/03/30 19:32:30 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,133 @@ void		tab_arg_display(t_data *data)
 		ac_var++;
 	}
 }
+
+void		ft_swap_str(char **a, char **b)
+{
+	char	*tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+void		ft_swap_char(char *a, char *b)
+{
+	char	tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+void		ft_swap_int(int *a, int *b)
+{
+	int		tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+int			arg_reorder(int ac, char **av, t_data *data)
+{
+	unsigned int	left;
+	unsigned int	right;
+	unsigned int	tp;
+	unsigned char	*tmp;
+	unsigned int	length;
+
+	printf("ENTERING IN ARG_REORDER\n");
+	while (1)
+	{
+		left = 1;
+		right = 6;//ac;
+		while (left != right)
+		{
+			if (data->tab_arg[left] > data->tab_arg[right])
+			{
+				ft_swap_int(&data->tab_arg[left], &data->tab_arg[right]);
+				//				tp = right;
+				//				left = right;
+				//				right = tp;
+				printf("BOUCLE left = %d /// right = %d\n", left, right);
+				left++;
+			}
+			printf("BESIDE BOUCLE left = %d /// right = %d\n", left, right);
+			right--;
+		}
+		if (right == 1 && left != 1)
+			return (1);
+		if (right == 1 && left == 1)
+			return (0);
+	}
+}
 /*
-void		ft_qsort_tab_int(int array[], int first, int last)
+int		partition(int tab[], int left, int right)
+{
+	int		pivot;
+	int		i;
+	int		j;
+	int		tmp;
+
+	pivot = tab[left];
+	i = left;
+	j = right + 1;
+	while (1)
+	{
+		++i;
+		while (tab[i] <= pivot && i <= right)
+			i++;
+		--j;
+		while (tab[j] > pivot)
+			--j;
+		if (i >= j)
+			break ;
+		ft_swap_int(&tab[i], &tab[j]);
+	}
+	ft_swap_int(&tab[left], &tab[j]);
+	return (j);
+}
+
+void	ft_quick_sort(int tab[], int left, int right)
+{
+	int j;
+
+	if (left < right)
+	{
+		j = partition(tab, left, right);
+		ft_quick_sort(tab, left, j - 1);
+		ft_quick_sort(tab, j + 1, right);
+	}
+}
+
+int		test(void)
+{
+	int a[] = { 9, 12, 1, -2, 0, 15, 1, 11, 7};
+	int i;
+
+	printf("\n\nUnsorted array is:  ");
+	for(i = 0; i < 9; ++i)
+		printf(" %d ", a[i]);
+	ft_quick_sort(a, 0, 8);
+	printf("\n\nSorted array is:  ");
+	for (i = 0; i < 9; ++i)
+		printf(" %d ", a[i]);
+	return (0);
+}
+*/
+
+void ft_quick_sort(int array[], int first, int last)
 {
 	int left;
 	int right;
-	int pivot;
+	const int pivot;
 
 	left = first - 1;
 	right = last + 1;
 	pivot = array[first];
 	if (first >= last)
-		return ;
+		return (0);
 	while (1)
 	{
 		right--;
@@ -91,13 +206,11 @@ void		ft_qsort_tab_int(int array[], int first, int last)
 			left++;
 		if (left < right)
 			ft_swap_int(&array[left], &array[right]);
-		else
-			break ;
+		else break;
 	}
-	ft_qsort_tab_int(array, first, right);
-	ft_qsort_tab_int(array, right + 1, last);
+	ft_quick_sort(array, first, right);
+	ft_quick_sort(array, right + 1, last);
 }
-*/
 
 int			check_av(int ac, char **av, t_data *data)
 {
@@ -110,6 +223,7 @@ int			check_av(int ac, char **av, t_data *data)
 	int 	*p2 = &nb2;
 	int		ret;
 
+
 	if (ac == 1)
 	{
 		data->arg = 0;
@@ -118,6 +232,9 @@ int			check_av(int ac, char **av, t_data *data)
 	}
 	ac_var = 1;
 	ret = 1;
+	//	while (arg_reorder(ac, av, data))
+	//		nb1 = nb2;
+	//	arg_reorder(ac, av, data);
 	while (ac_var < ac)
 	{
 		check_arg(ac, av, data, &ac_var);
@@ -127,8 +244,12 @@ int			check_av(int ac, char **av, t_data *data)
 		data->path = ".";
 	tab_arg_display(data);
 	ft_putchar('\n');
+	//	test();
 	printf("\n\n");
-	ft_qsort_tab_int(data->tab_arg, 0, 5);
+	ft_quick_sort(data->tab_arg, 0, 5);
+	//	ft_quick_sort(data->tab_arg, 0, 5);
+	//	while (arg_reorder(ac, av, data))
+	//		nb1 = nb2;
 	tab_arg_display(data);
 	return (0);
 }
