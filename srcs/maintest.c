@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/30 15:08:04 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/01 18:36:42 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,31 @@ t_list_ls	*lst_new(void)
 	return (list);
 }
 
-void		add_elem(t_list_ls *list)
+void		add_elem(t_list_ls *list, t_data *data)
 {
 	if (!list)
 		return ;
 	while (list->next)
 		list = list->next;
 	list->next = lst_new();
+	data->lst_last = list->next;
 }
 
 void		list_dir(t_list_ls *list, t_data *data)
 {
 	DIR				*dir_s;
 	struct dirent	*dir_file;
-
+	t_list_ls 		*list_tmp;
+	
+	list_tmp = list;
 	dir_s = NULL;
 	dir_file = NULL;
 	if ((dir_s = opendir(data->path)) == NULL)
 		ft_exit_prog("Fail to open directory, exit prog\n", 31, 0);
 	while ((dir_file = readdir(dir_s)) != NULL)
 	{
+		add_elem(list, data);
 		list->name = dir_file->d_name;
-		printf("%s add to linked list\n", dir_file->d_name);
-		add_elem(list);
 		list = list->next;
 	}
 	data->lst_last = list;
@@ -56,27 +58,21 @@ void		list_dir(t_list_ls *list, t_data *data)
 		ft_exit_prog("Fail to close directory stream\n", 31, 0);
 }
 
-void		display_list(t_list_ls *list)
+void		lst_functions(t_data *data)
 {
-	while (list != NULL)
-	{
-		printf("Nom = %s\n", list->name);
-		list = list->next;
-	}
-	printf("\nEnd of linked list\n");
-}
+	data->lst_first = lst_new();
+	data->lst_last = data->lst_first;
+//	display_list(data->lst_first);
+//	add_elem(data->lst_first);
 
-void		lst_functions(void)
-{
-	t_data		data;
 
-	data.lst_first = lst_new();
-	add_elem(data.lst_first);
-	display_list(data.lst_first);
-	list_dir(data.lst_first, &data);
-	data.path = "./libft";
-	list_dir(data.lst_first, &data);
-	display_list(data.lst_first);
+
+	list_dir(data->lst_last, data);
+	display_list(data->lst_first);
+
+	data->path = "./libft";
+	list_dir(data->lst_last, data);
+	display_list(data->lst_first);
 }
 
 void		struct_ini(t_data *data)
@@ -100,8 +96,9 @@ int			main(int ac, char **av)
 
 	struct_ini(&data);
 	check_av(ac, av, &data);
-	printf("data->path = %s\n", data.path);
+//	printf("data->path = %s\n", data.path);
+//	ls_core(av, &data);
 //	learning_function(ac, av);
-//	lst_functions();
+	lst_functions(&data);
 	return (EXIT_SUCCESS);
 }

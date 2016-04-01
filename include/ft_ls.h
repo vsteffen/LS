@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/29 20:47:36 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/01 17:54:00 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,9 @@ int						check_av(int ac, char **av, t_data *data);
 void					check_arg(int ac, char **av, t_data *data, int *ac_var);
 int						check_arg_spe(char arg_tmp, t_data *data);
 void					tab_arg_display(t_data *data);
+
+void					display_list(t_list_ls *list);
+void					tab_arg_display(t_data *data);
+void					av_display(int ac, char **av);
 
 #endif
