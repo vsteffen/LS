@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 16:37:42 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/01 18:08:39 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/01 21:51:24 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	display_list(t_list_ls *list)
 {
 	printf("\n");
-	while (list->next != NULL)
+	while (list != NULL)
 	{
 		printf("Nom = %s\n", list->name);
 		list = list->next;
