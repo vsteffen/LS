@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/01 22:43:49 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/02 19:22:25 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,54 +143,63 @@ void mergeSort(nodePtr *source)
 
 
 
-t_list_ls	*lst_new(void)
+t_list_ls	*lst_new(char *d_name, char *path)
 {
 	t_list_ls	*list;
 
 	if (!(list = (t_list_ls*)malloc(sizeof(t_list_ls))))
 		ft_exit_prog("Failed to initialize the linked list.\n", 31, 0);
-	list->name = NULL;
-	list->path = NULL;
-	list->dir = 0;
-	list->stat = NULL;
+	list->name = d_name;
+	list->path = path;
+//	list->dir = 0;
+//	list->stat = NULL;
 	list->next = NULL;
 	return (list);
 }
 
-void		add_elem(t_list_ls *list, t_data *data)
+void		add_elem(t_list_ls *list, t_data *data, char *d_name)
 {
 	if (!list)
 		return ;
 	while (list->next)
 		list = list->next;
-	list->next = lst_new();
+	list->next = lst_new(d_name, data->path);
 	data->lst_last = list->next;
 }
 
-void		add_elem_2(t_list_ls *list, t_data *data, struct dirent dir_file)
+t_list_ls	*add_elem_2(t_list_ls *list, t_data *data, char *d_name)
 {
+	t_list_ls *debut;
+
 	if (!list)
-		return ;
+	{
+		list = lst_new(d_name, data->path);
+		data->lst_last = list;
+		data->lst_first = list;
+		return (list);
+	}
+	debut = list;
 	while (list->next)
 		list = list->next;
-	list->next = lst_new();
-	list->name = dir_file.d_name;
-	data->lst_last = list->next;
+	list->next = lst_new(ft_strdup(d_name), ft_strdup(data->path));
+//	data->lst_last = list->next;
+	return (debut);
 }
+
 void		list_dir(t_list_ls *list, t_data *data)
 {
 	DIR				*dir_s;
 	struct dirent	*dir_file;
 	t_list_ls 		*list_tmp;
 
-	list_tmp = list;
 	dir_s = NULL;
 	dir_file = NULL;
+	data->lst_last = list;
 	if ((dir_s = opendir(data->path)) == NULL)
 		ft_exit_prog("Fail to open directory, exit prog\n", 31, 0);
 	while ((dir_file = readdir(dir_s)) != NULL)
-		add_elem_2(list, data, *dir_file);
-	data->lst_last = list;
+		list = add_elem_2(list, data, dir_file->d_name);
+//	data->lst_last = list;
 	if (closedir(dir_s) == -1)
 		ft_exit_prog("Fail to close directory stream\n", 31, 0);
 }
@@ -284,8 +293,8 @@ QuickSortList(pCurrent, pRight);
 	 */
 void		lst_functions(t_data *data)
 {
-	data->lst_first = lst_new();
-	data->lst_last = data->lst_first;
+//	data->lst_first = lst_new();
+//	data->lst_last = data->lst_first;
 
 	//	display_list(data->lst_first);
 	//	add_elem(data->lst_first);
@@ -294,11 +303,13 @@ void		lst_functions(t_data *data)
 	list_dir(data->lst_last, data);
 	display_list(data->lst_first);
 	mergeSort(&data->lst_first);
+	display_list(data->lst_first);
 	
 	//	ft_qsort_list_str(data->lst_first, data);
 	
 	data->path = "./libft";
 	list_dir(data->lst_last, data);
+//	mergeSort(&data->lst_last);
 	display_list(data->lst_first);
 }
 
@@ -327,6 +338,6 @@ int			main(int ac, char **av)
 	//	printf("data->path = %s\n", data.path);
 	//	ls_core(av, &data);
 	//	learning_function(ac, av);
-//	list_functions(&data);
+	lst_functions(&data);
 	return (EXIT_SUCCESS);
 }
