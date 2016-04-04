@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/01 22:43:51 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/04 20:39:57 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct			s_list_ls
 	int					dir;
 	t_stat				*stat;
 	struct s_list_ls	*next;
+	struct s_list_ls	*prev;
 }						t_list_ls;
 
 typedef struct			s_data
@@ -40,11 +41,19 @@ typedef struct			s_data
 	char				*name;
 	char				*path;
 	int					arg;
+	unsigned int		lst_length;
 	int					tab_arg[6];
 	t_list_ls			*tab_node;
-	t_list_ls			*lst_first;
-	t_list_ls			*lst_last;
+	t_list_ls			*lst_deb;
+	t_list_ls			*lst_actual;
+	t_list_ls			*lst_end;
 }						t_data;
+
+typedef struct			s_sortab
+{
+	t_list_ls           *list_ptr;
+	char				*name;
+}						t_sortab;
 
 int						main(int ac, char **av);
 
