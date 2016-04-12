@@ -6,13 +6,13 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 19:53:28 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/30 19:54:53 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/10 20:19:25 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_qsortr_tab_int(int array[], int first, int last)
+void		ft_qsortr_tab_int(int *array, int first, int last)
 {
 	int left;
 	int right;
@@ -26,16 +26,16 @@ void		ft_qsortr_tab_int(int array[], int first, int last)
 	while (1)
 	{
 		right--;
-		while (array[right] > pivot)
+		while (array[right] < pivot)
 			right--;
 		left++;
-		while (array[left] < pivot)
+		while (array[left] > pivot)
 			left++;
 		if (left < right)
 			ft_swap_int(&array[left], &array[right]);
 		else
 			break ;
 	}
-	ft_qsort_tab_int(array, first, right);
-	ft_qsort_tab_int(array, right + 1, last);
+	ft_qsortr_tab_int(array, first, right);
+	ft_qsortr_tab_int(array, right + 1, last);
 }

@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_qsort_tab_int.c                                 :+:      :+:    :+:   */
+/*   ft_qsortr_tab_str.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/30 19:38:33 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/10 20:18:54 by vsteffen         ###   ########.fr       */
+/*   Created: 2016/04/10 20:14:30 by vsteffen          #+#    #+#             */
+/*   Updated: 2016/04/10 20:21:03 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_qsort_tab_int(int *array, int first, int last)
+void		ft_qsortr_tab_str(char **array, int first, int last)
 {
-	int left;
-	int right;
-	int pivot;
+	int		left;
+	int		right;
+	char	*pivot;
 
 	left = first - 1;
 	right = last + 1;
@@ -26,16 +26,16 @@ void		ft_qsort_tab_int(int *array, int first, int last)
 	while (1)
 	{
 		right--;
-		while (array[right] > pivot)
+		while (ft_strcmp(array[right], pivot) < 0)
 			right--;
 		left++;
-		while (array[left] < pivot)
+		while (ft_strcmp(array[left], pivot) > 0)
 			left++;
 		if (left < right)
-			ft_swap_int(&array[left], &array[right]);
+			ft_swap_str(&array[left], &array[right]);
 		else
 			break ;
 	}
-	ft_qsort_tab_int(array, first, right);
-	ft_qsort_tab_int(array, right + 1, last);
+	ft_qsortr_tab_str(array, first, right);
+	ft_qsortr_tab_str(array, right + 1, last);
 }

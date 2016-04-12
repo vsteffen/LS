@@ -6,7 +6,7 @@
 /*   By: vsteffen <vsteffen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/22 20:42:40 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/03/30 19:55:03 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/10 20:25:04 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,17 @@ void				ft_clear(void);
 void				ft_colors(int nbcolor);
 int					get_next_line(const int fd, char **line);
 void				ft_exit_prog(char *status, int color, int debug);
+
 float				ft_rounded(float number, int decimal);
+
 void				ft_swap_str(char **a, char **b);
 void				ft_swap_char(char *a, char *b);
 void				ft_swap_int(int *a, int *b);
-void				ft_qsort_tab_int(int array[], int first, int last);
-void				ft_qsortr_tab_int(int array[], int first, int last);
+
+void				ft_qsort_tab_int(int *array, int first, int last);
+void				ft_qsortr_tab_int(int *array, int first, int last);
+void				ft_qsort_tab_str(char **array, int first, int last);
+void				ft_qsortr_tab_str(char **array, int first, int last);
 
 typedef struct		s_list
 {

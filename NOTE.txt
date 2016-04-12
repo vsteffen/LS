@@ -19,3 +19,9 @@ Fonctions à faire :
 Notes supplémentaires :
 - stocker directement lstat dans liste ?
 - arg “h” tranformation de B en O ?
+
+
+
+
+Ajout :
+- Fix the path at the end of check_av with argv detected

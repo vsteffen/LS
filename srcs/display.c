@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 16:37:42 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/01 21:51:24 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/11 19:05:43 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void	display_list(t_list_ls *list)
 	printf("\nEnd of linked list\n");
 }
 
-void		tab_arg_display(t_data *data)
+void		tab_option_display(t_d *d)
 {
 	int		ac_var;
 
 	ac_var = 0;
-	while (ac_var != 6)
+	while (ac_var != 7)
 	{
-		printf("data->tab_arg[%d] = %d\n", ac_var, data->tab_arg[ac_var]);
+		printf("d->tab_option[%d] = %d\n", ac_var, d->tab_option[ac_var]);
 		ac_var++;
 	}
 }

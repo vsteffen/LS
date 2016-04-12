@@ -6,7 +6,7 @@
 #    By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/03 17:41:16 by vsteffen          #+#    #+#              #
-#    Updated: 2016/04/01 16:40:23 by vsteffen         ###   ########.fr        #
+#    Updated: 2016/04/12 20:31:18 by vsteffen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,9 @@ SRC = maintest.c \
 	get_stat.c \
 	arg_h.c \
 	check_arg.c \
+	true_arg.c \
+	ft_merge_sort_list.c \
+	ft_merge_sortr_list.c \
 	display.c
 
 OBJ = $(patsubst %.c, $(OPATH)/%.o, $(SRC))
