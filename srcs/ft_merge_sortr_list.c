@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/12 20:24:53 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/12 20:43:14 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/18 16:08:05 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void		ft_merge_sortr_list(nodePtr *source)
 	a = NULL;
 	b = NULL;
 	if (head == NULL || head->next == NULL)
-		return (0);
+		return ;
 	partition_r(head, &a, &b);
 	ft_merge_sortr_list(&a);
 	ft_merge_sortr_list(&b);

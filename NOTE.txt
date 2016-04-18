@@ -25,3 +25,7 @@ Notes supplémentaires :
 
 Ajout :
 - Fix the path at the end of check_av with argv detected
+- Try the instruction "continue"
+
+Warning :
+- Modified nb_option for -123 (now != 1)
