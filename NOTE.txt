@@ -28,4 +28,5 @@ Ajout :
 - Try the instruction "continue"
 
 Warning :
-- Modified nb_option for -123 (now != 1)
+- Modified nb_option for -123 (now != 1) - CHECK OK
+- In qsort_test, second while, change second condition (right -----> d->left)

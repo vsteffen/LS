@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/18 19:11:02 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/18 21:01:15 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,9 +134,10 @@ int			main(int ac, char **av)
 	check_av(ac, av, &d);
 //	av_display(ac, av);
 	tab_option_display(&d);
-	printf("******************************************** AFTER ALL\nd->tab_arg[0].name = %s ///// d->tab_arg[1].name = %s //// d->tab_arg[2].name = %s ///// d->tab_arg[3].name = %s\n", d.tab_arg[0].name, d.tab_arg[1].name, d.tab_arg[2].name, d.tab_arg[3].name);
+	printf("******************************************** AFTER ALL\n[0].name = %s ///// [1].name = %s //// [2].name = %s ///// [3].name = %s\n", d.tab_arg[0].name, d.tab_arg[1].name, d.tab_arg[2].name, d.tab_arg[3].name);
 //	lst_functions(&d);
 //	display_list(d.lst_deb);
+	printf("\n\n0 --> name = %s and dir = %d\n", d.tab_arg[0].name, d.tab_arg[0].dir);
 	ls_core(&d);	
 //	printf("d.arg = %d //// d.arg_true = %d\n", d.arg, d.arg_true);
 //	printf("name = %s\n",d.lst_deb->name);

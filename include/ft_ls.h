@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/18 16:27:21 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/18 19:48:42 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct			s_d
 	unsigned int		lst_length;
 	t_argv				*tab_arg;
 	char				*pn;
-	int					l;
+	int					left;
 	int					tab_option[7];
 	int					nb_option;
 	int					arg_true;
@@ -89,7 +89,7 @@ int						check_arg_spe(char arg_tmp, t_d *d);
 void					assign_name_value_arg(char **av, t_d *d, int *ac_var);
 void					assign_double_dash(t_d *d);
 
-void					detect_arg_true(t_d *d);
+void					detect_arg_true(t_d *d, int ret);
 void					qsort_tab_argv(t_d *d, int first, int last, int p);
 void					swap_tab_arg(t_d *d, int left, int right);
 void					del_elem_tab_arg(t_d *d, int tmp);

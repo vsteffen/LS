@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 17:46:10 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/18 19:39:31 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/18 19:44:20 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int			check_av(int ac, char **av, t_d *d)
 	}
 	if (d->nb_option + 1 != ac)
 	{
-		detect_arg_true(d);
+		detect_arg_true(d, 0);
 		d->arg = 1;
 	}
 	return (0);

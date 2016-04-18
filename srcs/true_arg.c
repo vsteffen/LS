@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/11 18:09:51 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/18 19:36:08 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/18 22:40:26 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,67 +25,34 @@ void		swap_tab_arg(t_d *d, int left, int right)
 	d->tab_arg[right].dir = tmp_dir;
 }
 
-void		ft_qsort_test(t_d *d, int first, int last)
+void		qsort_array(t_d *d, int first, int last, int pd)
 {
-	int		left;
 	int		right;
-	char	*pivot;
-	int		pivotd;
 
-	left = first - 1;
+	d->left = first - 1;
 	right = last + 1;
-	pivotd = d->tab_arg[first].dir;
-	pivot = d->tab_arg[first].name;
-	if (first >= last)
-		return ;
-	while (1)
-	{
-		right--;
-		while (ft_strcmp(d->tab_arg[right].name, pivot) > 0 &&
-				d->tab_arg[right].dir >= pivotd)
-			right--;
-		left++;
-		while (ft_strcmp(d->tab_arg[left].name, pivot) < 0 &&
-				d->tab_arg[right].dir <= pivotd)
-				//(ft_strcmp(d->tab_arg[left].name, pivot) < 0 && d->tab_arg[left].dir >= pivotd) ||
-				//d->tab_arg[left].dir < pivotd)
-			left++;
-		if (left < right)
-			swap_tab_arg(d, left, right);
-		else
-			break ;
-	}
-	ft_qsort_test(d, first, right);
-	ft_qsort_test(d, right + 1, last);
-}
-
-void		qsort_tab_argv(t_d *d, int first, int last, int p)
-{
-	int		r;
-
-	d->l = first - 1;
-	r = last + 1;
+	pd = d->tab_arg[first].dir;
 	d->pn = d->tab_arg[first].name;
-	p = d->tab_arg[first].dir;
 	if (first >= last)
 		return ;
 	while (1)
 	{
-		r--;
-		while ((ft_strcmp(d->tab_arg[r].name, d->pn) > 0 &&
-					d->tab_arg[r].dir <= p) || d->tab_arg[r].dir < p)
-			r--;
-		d->l++;
-		while ((ft_strcmp(d->tab_arg[d->l].name, d->pn) < 0 &&
-					d->tab_arg[d->l].dir >= p) || d->tab_arg[d->l].dir > p)
-			d->l++;
-		if (d->l < r)
-			swap_tab_arg(d, d->l, r);
+		printf("HELLO BITCH\n");
+		right--;
+		while ((ft_strcmp(d->tab_arg[right].name, d->pn) > 0))//&&
+				//d->tab_arg[right].dir >= pd) && d->tab_arg[right].dir >= pd)// || d->tab_arg[right].dir < pd)
+			right--;
+		d->left++;
+		while ((ft_strcmp(d->tab_arg[d->left].name, d->pn) < 0)) // &&
+			//	d->tab_arg[d->left].dir <= pd) && d->tab_arg[right].dir <= pd)// || d->tab_arg[right].dir > pd)
+			d->left++;
+		if (d->left < right)
+			swap_tab_arg(d, d->left, right);
 		else
 			break ;
 	}
-	qsort_tab_argv(d, first, r, 2);
-	qsort_tab_argv(d, r + 1, last, 2);
+	qsort_array(d, first, right, 1);
+	qsort_array(d, right + 1, last, 1);
 }
 
 void		del_elem_tab_arg(t_d *d, int tmp)
@@ -140,10 +107,9 @@ void		revert_array(t_d *d)
 	}
 }
 
-void		detect_arg_true(t_d *d)
+void		detect_arg_true(t_d *d, int ret)
 {
 	int				tmp;
-	int				ret;
 	struct stat		sb;
 
 	tmp = 0;
@@ -154,20 +120,18 @@ void		detect_arg_true(t_d *d)
 			printf("ls: %s: No such file or directory\n",
 					d->tab_arg[tmp].name);
 			del_elem_tab_arg(d, tmp);
+			continue ;
 		}
+		if (S_ISDIR(sb.st_mode))
+			d->tab_arg[tmp].dir = 1;
 		else
-		{	
-			if (S_ISDIR(sb.st_mode))
-				d->tab_arg[tmp].dir = 1;
-			else
-				d->tab_arg[tmp].dir = 0;
-			tmp++;
-		}
+			d->tab_arg[tmp].dir = 0;
+		tmp++;
 	}
 	if (d->arg_true > 1)
 	{
-		ft_qsort_test(d, 0, d->arg_true - 1);
-		if (d->tab_option[5] == 1)
-			revert_array(d);
+		qsort_array(d, 0, d->arg_true - 1, 1);
+//		if (d->tab_option[5] == 1)
+//			revert_array(d);
 	}
 }
