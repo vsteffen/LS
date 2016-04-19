@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit_prog.c                                     :+:      :+:    :+:   */
+/*   ft_rounded.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/25 16:54:41 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/19 19:02:01 by vsteffen         ###   ########.fr       */
+/*   Created: 2016/03/25 16:52:20 by vsteffen          #+#    #+#             */
+/*   Updated: 2016/03/25 16:54:09 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_exit_prog(char *status, char *color, int debug)
+float	ft_rounded(float number, int decimal)
 {
-	ft_color_style(color, status);
-	if (debug == 0)
-		perror("\nperror message ");
-	exit(0);
+	return (number >= 0) ? ((int)(number * decimal + 0.5) / (decimal * 1.0))
+	: ((int)(number * decimal - 0.5) / (decimal * 1.0));
 }

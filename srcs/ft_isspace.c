@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit_prog.c                                     :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vsteffen <vsteffen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/25 16:54:41 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/19 19:02:01 by vsteffen         ###   ########.fr       */
+/*   Created: 2015/12/22 21:03:49 by vsteffen          #+#    #+#             */
+/*   Updated: 2015/12/22 21:03:59 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_exit_prog(char *status, char *color, int debug)
+int		ft_isspace(int c)
 {
-	ft_color_style(color, status);
-	if (debug == 0)
-		perror("\nperror message ");
-	exit(0);
+	return (c == '\t' || c == '\n' || c == '\v' ||
+			c == '\f' || c == '\r' || c == ' ');
 }

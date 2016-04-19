@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/11 18:09:51 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/18 22:40:26 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/19 16:53:10 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,13 @@ void		qsort_array(t_d *d, int first, int last, int pd)
 		return ;
 	while (1)
 	{
-		printf("HELLO BITCH\n");
 		right--;
-		while ((ft_strcmp(d->tab_arg[right].name, d->pn) > 0))//&&
-				//d->tab_arg[right].dir >= pd) && d->tab_arg[right].dir >= pd)// || d->tab_arg[right].dir < pd)
+		while (d->tab_arg[right].dir > pd || (ft_strcmp(d->tab_arg[right].name,
+						d->pn) > 0 && d->tab_arg[right].dir == pd))
 			right--;
 		d->left++;
-		while ((ft_strcmp(d->tab_arg[d->left].name, d->pn) < 0)) // &&
-			//	d->tab_arg[d->left].dir <= pd) && d->tab_arg[right].dir <= pd)// || d->tab_arg[right].dir > pd)
+		while (d->tab_arg[d->left].dir < pd || (ft_strcmp(d->tab_arg[d->left].
+						name, d->pn) < 0 && d->tab_arg[d->left].dir == pd))
 			d->left++;
 		if (d->left < right)
 			swap_tab_arg(d, d->left, right);
@@ -63,48 +62,6 @@ void		del_elem_tab_arg(t_d *d, int tmp)
 		tmp++;
 	}
 	d->arg_true--;
-}
-
-int			revert_file(t_d *d)
-{
-	int		deb;
-	int		end;
-	int		tmp;
-
-	deb = 0;
-	end = 0;
-	while (d->tab_arg[end].dir == 0 && end < d->arg_true)
-		end++;
-	if (end > deb)
-		end--;
-	tmp = end;
-	if (end > deb)
-	{
-		while (end > deb)
-		{
-			swap_tab_arg(d, deb, end);
-			deb++;
-			end--;
-		}
-	}
-	return (tmp + 1);
-}
-
-void		revert_array(t_d *d)
-{
-	int		file_end;
-	int		end_array;
-
-	file_end = revert_file(d);
-	if (file_end >= d->arg_true)
-		return ;
-	end_array = d->arg_true - 1;
-	while (end_array > file_end)
-	{
-		swap_tab_arg(d, file_end, end_array);
-		file_end++;
-		end_array--;
-	}
 }
 
 void		detect_arg_true(t_d *d, int ret)
@@ -131,7 +88,7 @@ void		detect_arg_true(t_d *d, int ret)
 	if (d->arg_true > 1)
 	{
 		qsort_array(d, 0, d->arg_true - 1, 1);
-//		if (d->tab_option[5] == 1)
-//			revert_array(d);
+		if (d->tab_option[5] == 1)
+			revert_array(d);
 	}
 }

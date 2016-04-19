@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit_prog.c                                     :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vsteffen <vsteffen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/25 16:54:41 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/19 19:02:01 by vsteffen         ###   ########.fr       */
+/*   Created: 2015/12/22 22:19:06 by vsteffen          #+#    #+#             */
+/*   Updated: 2015/12/23 04:02:50 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_exit_prog(char *status, char *color, int debug)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	ft_color_style(color, status);
-	if (debug == 0)
-		perror("\nperror message ");
-	exit(0);
+	if (!s1 && !s2)
+		return (0);
+	while (*s1)
+	{
+		if (*s1 != *s2)
+			return (((unsigned char)*s1 - (unsigned char)*s2));
+		s1++;
+		s2++;
+	}
+	return (((unsigned char)*s1 - (unsigned char)*s2));
 }

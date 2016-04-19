@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit_prog.c                                     :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vsteffen <vsteffen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/25 16:54:41 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/19 19:02:01 by vsteffen         ###   ########.fr       */
+/*   Created: 2015/12/23 00:03:24 by vsteffen          #+#    #+#             */
+/*   Updated: 2015/12/23 01:23:14 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_exit_prog(char *status, char *color, int debug)
+int		ft_isprint(int c)
 {
-	ft_color_style(color, status);
-	if (debug == 0)
-		perror("\nperror message ");
-	exit(0);
+	if (32 <= c && c <= 126)
+		return (1);
+	return (0);
 }

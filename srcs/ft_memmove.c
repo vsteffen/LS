@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit_prog.c                                     :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vsteffen <vsteffen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/25 16:54:41 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/19 19:02:01 by vsteffen         ###   ########.fr       */
+/*   Created: 2015/12/22 21:24:23 by vsteffen          #+#    #+#             */
+/*   Updated: 2015/12/23 04:49:43 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_exit_prog(char *status, char *color, int debug)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	ft_color_style(color, status);
-	if (debug == 0)
-		perror("\nperror message ");
-	exit(0);
+	char *tmp;
+
+	tmp = (char *)malloc(sizeof(char) * n);
+	if (!tmp)
+		return (NULL);
+	ft_memcpy(tmp, src, n);
+	ft_memcpy(dest, tmp, n);
+	free(tmp);
+	return (dest);
 }

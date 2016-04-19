@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/18 19:48:42 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/19 16:53:12 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ void					detect_arg_true(t_d *d, int ret);
 void					qsort_tab_argv(t_d *d, int first, int last, int p);
 void					swap_tab_arg(t_d *d, int left, int right);
 void					del_elem_tab_arg(t_d *d, int tmp);
+
+int						revert_file(t_d *d);
+void					revert_array(t_d *d);
 
 void					ls_core(t_d *d);
 
