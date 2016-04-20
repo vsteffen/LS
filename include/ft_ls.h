@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/20 17:11:18 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/20 21:46:23 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct			s_d
 	int					tab_option[7];
 	int					nb_option;
 	int					arg_true;
+	int					true_tmp;
 	t_list_ls			*lst_deb;
 	t_list_ls			*lst_actual;
 	t_list_ls			*lst_end;
@@ -97,7 +98,11 @@ void					del_elem_tab_arg(t_d *d, int tmp);
 int						revert_file(t_d *d);
 void					revert_array(t_d *d);
 
-void					ls_core(t_d *d);
+void					ls_core(t_d *d, char *path);
+t_list_ls				*lst_new(char *d_name, char *path);
+t_list_ls				*add_elem_4(t_list_ls *list, t_d *d, char *d_name);
+t_list_ls				*add_elem_5(t_list_ls *list, t_d *d, char *d_name);
+void					list_dir(t_list_ls *list, t_d *dar, char *path);
 
 void                    ft_merge_sort_list(nodePtr *source);
 void					ft_merge_sortr_list(nodePtr *source);

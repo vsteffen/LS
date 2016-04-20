@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/20 17:23:56 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/20 21:46:20 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ t_list_ls	*add_elem_5(t_list_ls *list, t_d *d, char *d_name)
 	return (list->next);
 }
 
+/*
 void		list_dir(t_list_ls *list, t_d *d)
 {
 	DIR				*dir_s;
@@ -95,7 +96,7 @@ void		lst_functions(t_d *d)
 //	printf("list->lst_length = %u\n\n", d->lst_length);
 //	display_list(d->lst_deb);
 	//	ft_qsort_list_str(d->lst_deb, d);
-/*
+
 	d->path = "./libft";
 	list_dir(d->lst_end, d);
 	display_list(d->lst_deb);
@@ -104,9 +105,9 @@ void		lst_functions(t_d *d)
 //	printf("list->lst_length = %u\n\n", d->lst_length);
 	//mergeSort(&d->lst_deb);
 	//	display_list(d->lst_deb);
-*/
-}
 
+}
+*/
 void		struct_ini(t_d *d, int ac)
 {
 	int		i;
@@ -115,6 +116,7 @@ void		struct_ini(t_d *d, int ac)
 	d->arg = 0;
 	d->dash = 0;
 	d->arg_true = 0;
+	d->true_tmp = 0;
 	d->ac = ac;
 	d->nb_option = 0;
 	i = 0;
@@ -134,11 +136,11 @@ int			main(int ac, char **av)
 	check_av(ac, av, &d);
 //	av_display(ac, av);
 	tab_option_display(&d);
-	printf("******************************************** AFTER ALL\n[0].name = %s ///// [1].name = %s //// [2].name = %s ///// [3].name = %s\n", d.tab_arg[0].name, d.tab_arg[1].name, d.tab_arg[2].name, d.tab_arg[3].name);
-	lst_functions(&d);
+//	printf("******************************************** AFTER ALL\n[0].name = %s ///// [1].name = %s //// [2].name = %s ///// [3].name = %s\n", d.tab_arg[0].name, d.tab_arg[1].name, d.tab_arg[2].name, d.tab_arg[3].name);
+//	lst_functions(&d);
 //	display_list(d.lst_deb);
 	printf("\n\n0 --> name = %s and dir = %d\n", d.tab_arg[0].name, d.tab_arg[0].dir);
-//	ls_core(&d);	
+	ls_core(&d, ".");
 //	printf("d.arg = %d //// d.arg_true = %d\n", d.arg, d.arg_true);
 //	printf("name = %s\n",d.lst_deb->name);
 	if (d.arg >= 1)
