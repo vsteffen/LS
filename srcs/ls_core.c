@@ -6,15 +6,10 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 17:23:09 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/18 16:32:12 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/20 17:06:06 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
 
-void	ls_core(t_d *d)
-{
-	if (d->tab_option[2] == 0)
-		printf("nb_option = %d ///// arg_true = %d\n", d->nb_option, d->arg_true);
-}

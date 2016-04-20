@@ -6,7 +6,7 @@
 /*   By: vsteffen <vsteffen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/22 20:42:40 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/19 16:10:32 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/20 16:18:18 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ int					ft_isxdigit(int c);
 int					ft_isprint(int c);
 
 void				ft_clear(void);
-void				ft_colors(int nbcolor);
+void				ft_color_style(char *color, char *str);
 int					get_next_line(const int fd, char **line);
-void				ft_exit_prog(char *status, int color, int debug);
+void				ft_exit_prog(char *status, char *color, int debug);
 
 float				ft_rounded(float number, int decimal);
 
