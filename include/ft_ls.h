@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/21 17:36:02 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/21 19:20:36 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void					time_function(void);
 char					human_function(float *nb);
 
 void					tab_arg_display(t_d *d);
-void					display_list(t_list_ls *list);
+void					display_list(t_list_ls *list, t_d *d, char *path);
 void					tab_option_display(t_d *d);
 void					av_display(int ac, char **av);
 

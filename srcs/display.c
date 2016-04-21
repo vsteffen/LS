@@ -6,21 +6,21 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 16:37:42 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/21 18:28:25 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/21 19:20:34 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	display_list(t_list_ls *list)
+void	display_list(t_list_ls *list, t_d *d, char *path)
 {
-	printf("\n");
+	printf("%s:\n", path);
 	while (list != NULL)
 	{
-		printf("Nom = %s\n", list->name);
+		printf("%s\n", list->name);
 		list = list->next;
 	}
-	printf("\nEnd of linked list\n");
+	printf("\n\n");
 }
 
 void		tab_option_display(t_d *d)
