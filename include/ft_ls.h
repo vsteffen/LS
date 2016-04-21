@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/20 21:46:23 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/21 17:36:02 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef struct			s_list_ls
 {
 	char				*name;
 	char				*path;
-	int					dir;
-	t_stat				*stat;
+	int					type;
+	t_stat				stat;
 	struct s_list_ls	*next;
 	struct s_list_ls	*prev;
 }						t_list_ls;
@@ -99,10 +99,11 @@ int						revert_file(t_d *d);
 void					revert_array(t_d *d);
 
 void					ls_core(t_d *d, char *path);
-t_list_ls				*lst_new(char *d_name, char *path);
-t_list_ls				*add_elem_4(t_list_ls *list, t_d *d, char *d_name);
-t_list_ls				*add_elem_5(t_list_ls *list, t_d *d, char *d_name);
-void					list_dir(t_list_ls *list, t_d *dar, char *path);
+char					*ft_pathjoin(char const *s1, char const *s2);
+//t_list_ls				*lst_new(char *d_name, char *path);
+//t_list_ls				*add_elem_4(t_list_ls *list, t_d *d, char *d_name);
+//t_list_ls				*add_elem_5(t_list_ls *list, t_d *d, char *d_name);
+//void					list_dir(t_list_ls *list, t_d *dar, char *path);
 
 void                    ft_merge_sort_list(nodePtr *source);
 void					ft_merge_sortr_list(nodePtr *source);

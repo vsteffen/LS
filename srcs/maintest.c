@@ -6,12 +6,12 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/20 21:46:20 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/21 18:27:23 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
+/*
 t_list_ls	*lst_new(char *d_name, char *path)
 {
 	t_list_ls	*list;
@@ -33,12 +33,14 @@ t_list_ls	*add_elem_4(t_list_ls *list, t_d *d, char *d_name)
 //	d->lst_length++;
 	if (!list)
 	{
+		printf("CHECKPOINT 4-1\n");
 		list = lst_new(d_name, d->path);
 		d->lst_deb = list;
 		d->lst_actual = list;
 		d->lst_end = list;
 		return (list);
 	}
+	printf("CHECKPOINT 4-2\n");
 	tmp = list;
 	list->next = lst_new(ft_strdup(d_name), ft_strdup(d->path));
 	d->lst_actual = list->next;
@@ -62,7 +64,7 @@ t_list_ls	*add_elem_5(t_list_ls *list, t_d *d, char *d_name)
 	list->next = lst_new(ft_strdup(d_name), ft_strdup(d->path));
 	return (list->next);
 }
-
+*/
 /*
 void		list_dir(t_list_ls *list, t_d *d)
 {
@@ -135,11 +137,12 @@ int			main(int ac, char **av)
 	struct_ini(&d, ac);
 	check_av(ac, av, &d);
 //	av_display(ac, av);
-	tab_option_display(&d);
+//	tab_option_display(&d);
 //	printf("******************************************** AFTER ALL\n[0].name = %s ///// [1].name = %s //// [2].name = %s ///// [3].name = %s\n", d.tab_arg[0].name, d.tab_arg[1].name, d.tab_arg[2].name, d.tab_arg[3].name);
 //	lst_functions(&d);
 //	display_list(d.lst_deb);
-	printf("\n\n0 --> name = %s and dir = %d\n", d.tab_arg[0].name, d.tab_arg[0].dir);
+//	printf("\n\n0 --> name = %s and dir = %d\n", d.tab_arg[0].name, d.tab_arg[0].dir);
+	printf("CHECKPOINT 1\n");
 	ls_core(&d, ".");
 //	printf("d.arg = %d //// d.arg_true = %d\n", d.arg, d.arg_true);
 //	printf("name = %s\n",d.lst_deb->name);
