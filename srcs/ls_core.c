@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 17:23:09 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/21 19:20:31 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/22 19:04:51 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,15 @@ t_list_ls		*read_hidden2(t_list_ls *list, t_d *d, char *path, char *d_name)
 
 int			read_hidden(char *d_name, int status)
 {
-	if (status == 1)
+	if (status == 0)
 	{
 		if (d_name[0] == '.')
-			return (1);
-		else
 			return (0);
+		else
+			return (1);
 	}
 	else
-		return (0);
+		return (1);
 }
 
 
@@ -100,17 +100,23 @@ t_list_ls	*list_dir(t_list_ls *list, t_d *d, char *path, t_list_ls *lst_deb)
 	dir_file = NULL;
 	if ((dir_s = opendir(path)) == NULL)
 	{
-		printf("ls: %s: Permission denied\n", path);
+		//printf("ls: %s: Permission denied\n", path);
+		d->denied = 1;
 		return (NULL);
 	}
-	if ((dir_file = readdir(dir_s)) != NULL)// && read_hidden(dir_file->d_name, d->tab_option[3]))
-//		list = read_hidden2(list, d, path, dir_file->d_name);
-		list = add_elem_4(list, d, dir_file->d_name, path);
-	lst_deb = list;
-	while ((dir_file = readdir(dir_s)) != NULL)// && read_hidden(dir_file->d_name, d->tab_option[3]))
-	{	//		list = read_hidden2(list, d, path, dir_file->d_name);
-		list = add_elem_4(list, d, dir_file->d_name, path);
+	while ((dir_file = readdir(dir_s)) != NULL)
+	{
+		if (read_hidden(dir_file->d_name, d->tab_option[3]))
+		{
+			list = add_elem_4(list, d, dir_file->d_name, path);
+			break ;
+		}
 	}
+	lst_deb = list;
+	while ((dir_file = readdir(dir_s)) != NULL)
+		if (read_hidden(dir_file->d_name, d->tab_option[3]))
+			list = add_elem_4(list, d, dir_file->d_name, path);
+
 	if (closedir(dir_s) == -1)
 		ft_exit_prog("Fail to close directory stream\n", FG_RED, 0);
 	if (d->tab_option[5] == 0)
@@ -148,23 +154,25 @@ t_list_ls   *test_function(t_list_ls *list, t_d *d, char *path, t_list_ls *lst_d
 	return (lst_deb);
 }
 
-void	ls_core(t_d *d, char *path)
+void	ls_core(t_d *d, char *path)//, int recur)
 {
 	t_list_ls   *list;
 	t_list_ls   *lst_deb;
 
-	lst_deb = list_dir(list, d, path, lst_deb);;
+	if (d->line_feed == 1)
+		printf("\n");
+	d->line_feed = 1;
+	d->denied = 0;
+	lst_deb = list_dir(list, d, path, lst_deb);
 	display_list(lst_deb, d, path);
-	if (d->tab_option[2] == 1)
-	{
-		while (lst_deb != NULL)
+	while (lst_deb != NULL && d->tab_option[2] == 1)//&& recur == 1)
 		{
 			//	printf("lst_deb.name = %s ////  lst_deb->type = %d\n", lst_deb->name, lst_deb->type);
-			if (lst_deb->type == 1 && ft_strcmp("..", lst_deb->name) != 0 && ft_strcmp(".", lst_deb->name) != 0 && ft_strcmp(".git", lst_deb->name))
-				ls_core(d, lst_deb->path);
+			if (lst_deb->type == 1 && ft_strcmp("..", lst_deb->name) != 0 && ft_strcmp(".", lst_deb->name) != 0) //&& ft_strcmp(".git", lst_deb->name))
+				ls_core(d, lst_deb->path);//, recur);
 			lst_deb = lst_deb->next;
 		}
-	}
+
 	//if (!lst_deb)
 	//	ft_lstdel(lst_deb, "next");
 }

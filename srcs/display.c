@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 16:37:42 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/21 19:20:34 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/22 19:04:53 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,22 @@
 
 void	display_list(t_list_ls *list, t_d *d, char *path)
 {
-	printf("%s:\n", path);
+	if (d->tab_option[2] == 1 || d->arg_true > 1)
+		printf("%s:\n", path);
+	if (d->denied == 1)
+		printf("ls: %s: Permission denied", path);
 	while (list != NULL)
 	{
-		printf("%s\n", list->name);
+		//if (list->name[0] != '.')
+			printf("%s\n", list->name);
 		list = list->next;
 	}
-	printf("\n\n");
+//	printf("\n");
+}
+
+void	display_file(t_d *d, int arg_pos, t_argv *tab_arg)
+{
+	printf("%s\n\n", tab_arg[arg_pos].name);
 }
 
 void		tab_option_display(t_d *d)

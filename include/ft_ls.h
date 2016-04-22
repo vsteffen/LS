@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/21 19:20:36 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/22 19:04:55 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <dirent.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <sys/ioctl.h>
 # include <math.h>
 # include <time.h>
 # include <sys/xattr.h>
@@ -62,6 +63,9 @@ typedef struct			s_d
 	t_list_ls			*lst_deb;
 	t_list_ls			*lst_actual;
 	t_list_ls			*lst_end;
+	int					denied;
+	int					line_feed;
+	int					width;
 }						t_d;
 
 typedef struct			s_sortab
@@ -81,6 +85,7 @@ char					human_function(float *nb);
 
 void					tab_arg_display(t_d *d);
 void					display_list(t_list_ls *list, t_d *d, char *path);
+void					display_file(t_d *d, int arg_pos, t_argv *tab_arg);
 void					tab_option_display(t_d *d);
 void					av_display(int ac, char **av);
 
@@ -98,7 +103,7 @@ void					del_elem_tab_arg(t_d *d, int tmp);
 int						revert_file(t_d *d);
 void					revert_array(t_d *d);
 
-void					ls_core(t_d *d, char *path);
+void					ls_core(t_d *d, char *path);//, int recur);
 char					*ft_pathjoin(char const *s1, char const *s2);
 //t_list_ls				*lst_new(char *d_name, char *path);
 //t_list_ls				*add_elem_4(t_list_ls *list, t_d *d, char *d_name);
