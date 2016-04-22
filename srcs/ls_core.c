@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 17:23:09 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/22 19:35:27 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/22 22:22:42 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ void	ls_core(t_d *d, char *path)//, int recur)
 	d->denied = 0;
 	lst_deb = list_dir(list, d, path, lst_deb);
 	display_list(lst_deb, d, path);
+	d->nb_display = 1;
 	while (lst_deb != NULL && d->tab_option[2] == 1)//&& recur == 1)
 		{
 			//	printf("lst_deb.name = %s ////  lst_deb->type = %d\n", lst_deb->name, lst_deb->type);

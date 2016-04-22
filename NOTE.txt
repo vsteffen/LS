@@ -11,17 +11,24 @@ PAR ORDRE :
 3) En fonction de “R” aller au dossier “suivant” et recommencer chaque étape du 2) ou sinon arrêter le programme.
 
 Fonctions à faire :
-- ouvrir le dossier visé
-- obtenir les options avancées
-- tri à l’endroit ou à l’envers
-- tout ce qui permet le cheminement de la récursive
+- ouvrir le dossier visé - OK
+- obtenir les options avancées - A FAIRE
+- tri à l’endroit ou à l’envers - OK
+- tri en fcontion du temps - A FAIRE
+- tout ce qui permet le cheminement de la récursive - OK
 
 Notes supplémentaires :
-- stocker directement lstat dans liste ?
-- arg “h” tranformation de B en O ?
+- stocker directement lstat dans liste ? - OK
+- arg “h” tranformation de B en O ? - A FAIRE
 
 
 
 
 Ajout :
 - Fix the path at the end of check_av with argv detected
+
+- Afficher repertoire recursive pour les autres types detecte quand arg_true = 1
+- Ajouter les types
+- Affichage en fonction du 1 ou L POUR LE LS DE BASE
+- Malloc d ?
+- Free tout ce qui est alloc

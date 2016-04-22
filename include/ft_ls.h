@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/22 19:17:12 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/22 22:22:39 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ typedef struct			s_d
 	int					line_feed;
 	int					width;
 	int					len_max;
+	int					nb_display;
+	int					ok;
 }						t_d;
 
 typedef struct			s_sortab
@@ -87,6 +89,7 @@ char					human_function(float *nb);
 
 void					tab_arg_display(t_d *d);
 void					display_list(t_list_ls *list, t_d *d, char *path);
+void					display_list1(t_list_ls *list, t_d *d, char *path);
 void					display_file(t_d *d, int arg_pos, t_argv *tab_arg);
 void					tab_option_display(t_d *d);
 void					av_display(int ac, char **av);

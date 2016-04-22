@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/22 20:58:46 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/22 22:23:37 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void		struct_ini(t_d *d, int ac)
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 	d->width = w.ws_col;
 	d->len_max = 0;
+	d->nb_display = 0;
+	d->ok = 1;
 	i = 0;
 	while (i < 6)
 	{
