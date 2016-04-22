@@ -32,3 +32,10 @@ Ajout :
 - Affichage en fonction du 1 ou L POUR LE LS DE BASE
 - Malloc d ?
 - Free tout ce qui est alloc
+
+LS_COLOR :
+- rouge = exec
+- cyan = lien
+- bleu = dir
+- etc ...
+
