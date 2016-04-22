@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/22 19:04:58 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/22 19:33:27 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void		struct_ini(t_d *d, int ac)
 	d->line_feed = 0;
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 	d->width = w.ws_col;
+	d->len_max = 0;
 	i = 0;
 	while (i < 6)
 	{
@@ -44,6 +45,7 @@ int			main(int ac, char **av)
 	
 	struct_ini(&d, ac);
 	check_av(ac, av, &d);
+//	printf("len_max = %d", d.len_max);
 	//	av_display(ac, av);
 	//	tab_option_display(&d);
 	//	printf("******************************************** AFTER ALL\n[0].name = %s ///// [1].name = %s //// [2].name = %s ///// [3].name = %s\n", d.tab_arg[0].name, d.tab_arg[1].name, d.tab_arg[2].name, d.tab_arg[3].name);
@@ -66,6 +68,7 @@ int			main(int ac, char **av)
 		ls_core(&d, ".");//, d.tab_option[2]);
 	//	printf("d.arg = %d //// d.arg_true = %d\n", d.arg, d.arg_true);
 	//	printf("name = %s\n",d.lst_deb->name);
+	printf("d.len_max = %d\n", d.len_max);
 	if (d.arg >= 1)
 		free(d.tab_arg);
 	return (EXIT_SUCCESS);

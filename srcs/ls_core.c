@@ -6,21 +6,25 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 17:23:09 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/22 19:04:51 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/22 19:35:27 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_list_ls	*lst_new(char *d_name, char *path)
+t_list_ls	*lst_new(char *d_name, char *path, t_d *d)
 {
 	t_list_ls		*list;
 	int				ret;
 	struct stat     sb;
+	int				size_name;
 
 	if (!(list = (t_list_ls*)malloc(sizeof(t_list_ls))))
 		ft_exit_prog("Failed to initialize the linked list.\n",FG_RED, 0);
 	list->name = d_name;
+	list->len_name = ft_strlen(d_name);
+	if (list->len_name > d->len_max)
+		d->len_max = list->len_name;
 	list->path = ft_pathjoin(path, d_name);
 	if ((ret = lstat(list->path, &(list->stat))) == -1)
 		ft_exit_prog("Don't have found file or directory in lst_new\n",FG_RED, 0);
@@ -37,43 +41,12 @@ t_list_ls	*add_elem_4(t_list_ls *list, t_d *d, char *d_name, char *path)
 {
 	if (!list)
 	{
-		list = lst_new(d_name, path);
+		list = lst_new(d_name, path, d);
 		return (list);
 	}
-	list->next = lst_new(ft_strdup(d_name), ft_strdup(path));
+	list->next = lst_new(ft_strdup(d_name), ft_strdup(path), d);
 	return (list->next);
 }
-
-t_list_ls	*add_elem_5(t_list_ls *list, t_d *d, char *d_name, char *path)
-{
-	t_list_ls	*tmp;
-	//	printf("ADD ELEM 5\n");
-	//	d->lst_length++;
-	if (!list)
-	{
-		list = lst_new(d_name, path);
-		return (list);
-	}
-	list->next = lst_new(ft_strdup(d_name), ft_strdup(path));
-	return (list->next);
-}
-
-
-t_list_ls		*read_hidden2(t_list_ls *list, t_d *d, char *path, char *d_name)
-{
-	if (d->tab_option[3] == 1)
-	{
-		if (d_name[0] == '.')
-			return (NULL);
-		else
-			return (add_elem_4(list, d, d_name, path));
-	}
-	else
-		return (add_elem_4(list, d, d_name, path));
-}
-
-
-
 
 int			read_hidden(char *d_name, int status)
 {

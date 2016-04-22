@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/22 19:04:55 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/22 19:17:12 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct			s_list_ls
 	char				*path;
 	int					type;
 	t_stat				stat;
+	int					len_name;
 	struct s_list_ls	*next;
 	struct s_list_ls	*prev;
 }						t_list_ls;
@@ -66,6 +67,7 @@ typedef struct			s_d
 	int					denied;
 	int					line_feed;
 	int					width;
+	int					len_max;
 }						t_d;
 
 typedef struct			s_sortab
