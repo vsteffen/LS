@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 16:37:42 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/22 19:46:53 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/22 20:59:02 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	display_list(t_list_ls *list, t_d *d, char *path)
 			tmp = nb_name;
 		}
 	}
-	//	printf("\n");
+		printf("\n");
 }
 
 void	display_list1(t_list_ls *list, t_d *d, char *path)

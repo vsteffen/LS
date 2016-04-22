@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/22 19:33:27 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/22 20:58:46 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int			main(int ac, char **av)
 		ls_core(&d, ".");//, d.tab_option[2]);
 	//	printf("d.arg = %d //// d.arg_true = %d\n", d.arg, d.arg_true);
 	//	printf("name = %s\n",d.lst_deb->name);
-	printf("d.len_max = %d\n", d.len_max);
+//	printf("d.len_max = %d\n", d.len_max);
 	if (d.arg >= 1)
 		free(d.tab_arg);
 	return (EXIT_SUCCESS);
