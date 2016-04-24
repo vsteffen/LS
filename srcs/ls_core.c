@@ -6,11 +6,35 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 17:23:09 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/22 22:22:42 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/24 22:54:36 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+int			type_file(t_list_ls *list, t_d *d)
+{
+	int				ret;
+
+	if ((ret = lstat(list->path, &(list->stat))) == -1)
+		ft_exit_prog("Don't have found file or directory in lst_new\n", FG_RED, 0);
+	if (S_ISREG(list->stat.st_mode))
+		return (0);
+	else if (S_ISDIR(list->stat.st_mode))
+		return (1);
+	else if (S_ISCHR(list->stat.st_mode))
+		return (2);
+	else if (S_ISBLK(list->stat.st_mode))
+		return (3);
+	else if (S_ISFIFO(list->stat.st_mode))
+		return (4);
+	else if (S_ISLNK(list->stat.st_mode))
+		return (5);
+	else if (S_ISSOCK(list->stat.st_mode))
+		return (6);
+	else
+		return (0);
+}
 
 t_list_ls	*lst_new(char *d_name, char *path, t_d *d)
 {
@@ -20,18 +44,13 @@ t_list_ls	*lst_new(char *d_name, char *path, t_d *d)
 	int				size_name;
 
 	if (!(list = (t_list_ls*)malloc(sizeof(t_list_ls))))
-		ft_exit_prog("Failed to initialize the linked list.\n",FG_RED, 0);
+		ft_exit_prog("Failed to initialize the linked list.\n", FG_RED, 0);
 	list->name = d_name;
 	list->len_name = ft_strlen(d_name);
 	if (list->len_name > d->len_max)
 		d->len_max = list->len_name;
 	list->path = ft_pathjoin(path, d_name);
-	if ((ret = lstat(list->path, &(list->stat))) == -1)
-		ft_exit_prog("Don't have found file or directory in lst_new\n",FG_RED, 0);
-	if (list->stat.st_mode & S_IFDIR)
-		list->type = 1;
-	else
-		list->type = 0;
+	list->type = type_file(list, d);
 	//	printf("list->type = %d /// list->name = %s /// list->stat.st_mtime = %ld\n", list->type, list->name, list->stat.st_mtime);
 	list->next = NULL;
 	return (list);
@@ -144,9 +163,8 @@ void	ls_core(t_d *d, char *path)//, int recur)
 			//	printf("lst_deb.name = %s ////  lst_deb->type = %d\n", lst_deb->name, lst_deb->type);
 			if (lst_deb->type == 1 && ft_strcmp("..", lst_deb->name) != 0 && ft_strcmp(".", lst_deb->name) != 0) //&& ft_strcmp(".git", lst_deb->name))
 				ls_core(d, lst_deb->path);//, recur);
+			list = lst_deb;
 			lst_deb = lst_deb->next;
+			free(list);
 		}
-
-	//if (!lst_deb)
-	//	ft_lstdel(lst_deb, "next");
 }

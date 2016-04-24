@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 17:46:10 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/20 17:13:47 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/24 21:23:39 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ int			check_av(int ac, char **av, t_d *d)
 
 	if (ac == 1)
 		return (0);
-	d->tab_arg = malloc(ac * sizeof(t_argv));
+	if ((d->tab_arg = malloc(ac * sizeof(t_argv))) == NULL)
+		ft_exit_prog("Fail to malloc d->tab_arg\n", FG_RED, 0);
 	ac_var = 1;
 	dash = 0;
 	while (ac_var < ac)

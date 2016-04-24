@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 16:37:42 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/22 22:22:44 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/24 22:51:08 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,36 @@ int		verif_recur_one_arg(t_list_ls *list, t_d *d)
 	return (0);
 }
 
+
+void		print_elem_in_color(t_list_ls *list, t_d *d)
+{
+	if (list->type == 0)
+		printf(CS_RESET);
+	else if (list->type == 1)
+		printf(FG_LCYAN);
+	else if (list->type == 2)
+		printf("%s%s", FG_BLUE, BG_YELLOW);
+	else if (list->type == 3)
+		printf("%s%s", FG_BLUE, BG_CYAN);
+	else if (list->type == 4)
+		printf(FG_YELLOW);
+	else if (list->type == 5)
+		printf(FG_MAGENTA);
+	else if (list->type == 6)
+		printf(FG_GREEN);
+	printf("%s", list->name);
+	printf(CS_RESET);
+}
+
+
+
+
+
+
+
+
+
+
 void	display_list(t_list_ls *list, t_d *d, char *path)
 {
 	int		nb_name;
@@ -44,7 +74,8 @@ void	display_list(t_list_ls *list, t_d *d, char *path)
 		printf("ls: %s: Permission denied", path);
 	while (list != NULL)
 	{
-		printf("%s", list->name);
+		print_elem_in_color(list, d);
+//		printf("%s", list->name);
 		while (list->len_name < d->len_max)
 		{
 			printf(" ");

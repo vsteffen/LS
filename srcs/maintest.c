@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/22 22:23:37 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/24 23:04:02 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void		struct_ini(t_d *d, int ac)
 	int				i;
 	struct winsize	w;
 
+//	if (!(d = (t_d*)malloc(sizeof(t_d))))
+//		ft_exit_prog("Fail to malloc data structure\n", FG_RED, 0);
 	d->path = ".";
 	d->arg = 0;
 	d->dash = 0;
@@ -73,5 +75,6 @@ int			main(int ac, char **av)
 //	printf("d.len_max = %d\n", d.len_max);
 	if (d.arg >= 1)
 		free(d.tab_arg);
+	pause();
 	return (EXIT_SUCCESS);
 }
