@@ -32,6 +32,7 @@ Ajout :
 - Affichage en fonction du 1 ou L POUR LE LS DE BASE
 - Malloc d ?
 - Free tout ce qui est alloc
+- ne pas afficher repertoire courant sur -R
 
 LS_COLOR :
 - rouge = exec
