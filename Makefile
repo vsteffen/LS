@@ -6,7 +6,7 @@
 #    By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/03 17:41:16 by vsteffen          #+#    #+#              #
-#    Updated: 2016/04/20 18:13:19 by vsteffen         ###   ########.fr        #
+#    Updated: 2016/04/25 17:18:58 by vsteffen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,8 @@ SRC = maintest.c \
 	reverse_argv.c \
 	ft_merge_sort_list.c \
 	ft_merge_sortr_list.c \
+	ft_merge_sort_time.c \
+	ft_merge_sortr_time.c \
 	ls_core.c \
 	display.c
 

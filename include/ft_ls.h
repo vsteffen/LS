@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/24 23:09:25 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/25 17:19:27 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct			s_d
 	t_argv				*tab_arg;
 	char				*pn;
 	int					left;
-	int					tab_option[7];
+	int					tab_option[8];
 	int					nb_option;
 	int					arg_true;
 	int					true_tmp;
@@ -117,5 +117,6 @@ char					*ft_pathjoin(char const *s1, char const *s2);
 
 void                    ft_merge_sort_list(nodePtr *source);
 void					ft_merge_sortr_list(nodePtr *source);
-
+void					ft_merge_sort_time(nodePtr *source);
+void					ft_merge_sortr_time(nodePtr *source);
 #endif

@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 16:37:42 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/24 23:09:21 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/25 17:15:04 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void		tab_option_display(t_d *d)
 	int		ac_var;
 
 	ac_var = 0;
-	while (ac_var != 7)
+	while (ac_var != 8)
 	{
 		printf("d->tab_option[%d] = %d\n", ac_var, d->tab_option[ac_var]);
 		ac_var++;

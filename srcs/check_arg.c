@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 17:46:10 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/24 21:23:39 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/25 17:02:02 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int			check_arg_spe(char arg_tmp, t_d *d)
 		return (d->tab_option[5] = 1);
 	else if (arg_tmp == '1')
 		return (d->tab_option[6] = 1);
+	else if (arg_tmp == 't')
+		return (d->tab_option[7] = 1);
 	else
 	{
 		printf("ls: illegal option -- %c\n", arg_tmp);

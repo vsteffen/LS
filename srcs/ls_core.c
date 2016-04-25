@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 17:23:09 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/24 23:09:23 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/25 17:18:03 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,32 @@ int			read_hidden(char *d_name, int status)
 		return (1);
 }
 
-
+void		choose_sort(t_list_ls *lst_deb, t_d *d)
+{
+	if (d->tab_option[5] == 0)
+	{
+		if (d->tab_option[7] == 0)
+		{
+			ft_merge_sort_list(&lst_deb);
+			return ;
+		}
+		else
+		{
+			ft_merge_sort_time(&lst_deb);
+			return ;
+		}
+	}
+	else
+	{
+		if (d->tab_option[7] == 0)
+		{
+			ft_merge_sortr_list(&lst_deb);
+			return ;
+		}
+		else
+			ft_merge_sortr_time(&lst_deb);
+	}
+}
 
 t_list_ls	*list_dir(t_list_ls *list, t_d *d, char *path, t_list_ls *lst_deb)
 {
@@ -111,10 +136,7 @@ t_list_ls	*list_dir(t_list_ls *list, t_d *d, char *path, t_list_ls *lst_deb)
 
 	if (closedir(dir_s) == -1)
 		ft_exit_prog("Fail to close directory stream\n", FG_RED, 0);
-	if (d->tab_option[5] == 0)
-		ft_merge_sort_list(&lst_deb);
-	else
-		ft_merge_sortr_list(&lst_deb);
+	choose_sort(lst_deb, d);
 	return (lst_deb);
 }
 
