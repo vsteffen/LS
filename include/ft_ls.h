@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/25 17:19:27 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/27 22:30:11 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,13 @@
 # include <math.h>
 # include <time.h>
 # include <sys/xattr.h>
+# include <pwd.h>
+# include <grp.h>
 # include "../libft/include/libft.h"
+# define MAJOR(x)    ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
+# define MINOR(x)    ((int32_t)((x) & 0xffffff))
+# define MAKEDEV(x,y)    ((dev_t)(((x) << 24) | (y)))
+
 
 typedef struct stat		t_stat;
 
@@ -39,7 +45,7 @@ typedef struct			s_list_ls
 {
 	char				*name;
 	char				*path;
-	int					type;
+//	int					type;
 	char				c_type;
 	t_stat				stat;
 	int					len_name;

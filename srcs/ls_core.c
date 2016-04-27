@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 17:23:09 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/25 17:18:03 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/27 20:09:49 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,29 @@ int			type_file(t_list_ls *list, t_d *d)
 		}	
 	}
 	if (S_ISREG(list->stat.st_mode))
-		return (0);
+		return ('-');
+//		return (0);
 	else if (S_ISDIR(list->stat.st_mode))
-		return (1);
+		return ('d');
+//		return (1);
 	else if (S_ISCHR(list->stat.st_mode))
-		return (2);
+		return ('c');
+//		return (2);
 	else if (S_ISBLK(list->stat.st_mode))
-		return (3);
+		return ('b');
+//		return (3);
 	else if (S_ISFIFO(list->stat.st_mode))
-		return (4);
+		return ('f');
+//		return (4);
 	else if (S_ISLNK(list->stat.st_mode))
-		return (5);
+		return ('l');
+//		return (5);
 	else if (S_ISSOCK(list->stat.st_mode))
-		return (6);
+		return ('s');
+//		return (6);
 	else
-		return (0);
+		return ('-');
+//		return (0);
 }
 
 t_list_ls	*lst_new(char *d_name, char *path, t_d *d)
@@ -56,7 +64,7 @@ t_list_ls	*lst_new(char *d_name, char *path, t_d *d)
 	if (list->len_name > d->len_max)
 		d->len_max = list->len_name;
 	list->path = ft_pathjoin(path, ft_strdup(d_name));
-	list->type = type_file(list, d);
+	list->c_type = type_file(list, d);
 	//	printf("list->type = %d /// list->name = %s /// list->stat.st_mtime = %ld\n", list->type, list->name, list->stat.st_mtime);
 	d->total = d->total + list->stat.st_blocks;
 //	printf("d->total = %lld\n", d->total);
@@ -210,7 +218,7 @@ void	ls_core(t_d *d, char *path)//, int recur)
 	{
 		//	printf("lst_deb.name = %s ////  lst_deb->type = %d\n", lst_deb->name, lst_deb->type);
 		test = ft_strdup(lst_deb->path);	
-			if (lst_deb->type == 1 && ft_strcmp("..", lst_deb->name) != 0 && ft_strcmp(".", lst_deb->name) != 0) //&& ft_strcmp(".git", lst_deb->name))
+			if (lst_deb->c_type == 'd' && ft_strcmp("..", lst_deb->name) != 0 && ft_strcmp(".", lst_deb->name) != 0) //&& ft_strcmp(".git", lst_deb->name))
 			ls_core(d, test);//lst_deb->path);//, recur);
 		list = lst_deb;
 		lst_deb = lst_deb->next;

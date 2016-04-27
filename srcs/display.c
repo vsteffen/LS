@@ -6,12 +6,12 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 16:37:42 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/25 17:15:04 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/04/27 22:26:56 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
+/*
 int		verif_recur_one_arg(t_list_ls *list, t_d *d)
 {
 	t_list_ls	*list_tmp;
@@ -25,34 +25,50 @@ int		verif_recur_one_arg(t_list_ls *list, t_d *d)
 	}
 	return (0);
 }
-
+*/
 
 void		print_elem_in_color(t_list_ls *list, t_d *d)
 {
-	if (list->type == 0)
-		printf(CS_RESET);
-	else if (list->type == 1)
+	if (list->c_type == '-')
+	{
+		if (list->stat.st_mode & S_IXUSR || list->stat.st_mode & S_IXGRP || list->stat.st_mode & S_IXOTH)
+			printf(FG_RED);
+		else
+			printf(CS_RESET);
+	}
+	else if (list->c_type == 'd')
 		printf(FG_LCYAN);
-	else if (list->type == 2)
+	else if (list->c_type == 'c')
 		printf("%s%s", FG_BLUE, BG_YELLOW);
-	else if (list->type == 3)
+	else if (list->c_type == 'b')
 		printf("%s%s", FG_BLUE, BG_CYAN);
-	else if (list->type == 4)
+	else if (list->c_type == 'f')
 		printf(FG_YELLOW);
-	else if (list->type == 5)
+	else if (list->c_type == 'l')
 		printf(FG_MAGENTA);
-	else if (list->type == 6)
+	else if (list->c_type == 's')
 		printf(FG_GREEN);
 	printf("%s", list->name);
 	printf(CS_RESET);
 }
 
 
-
-
-
-
-
+/*
+static inline __int32_t  major_ls(__uint32_t _x)
+{
+	return (__int32_t)(((__uint32_t)_x >> 24) & 0xff);
+}
+		
+static inline __int32_t  minor_ls(__uint32_t _x)
+{
+	return (__int32_t)((_x) & 0xffffff);
+}
+		
+static inline dev_t  makedev_ls(__uint32_t _major_var, __uint32_t _minor_var)
+{
+    return (dev_t)(((_major_var) << 24) | (_minor_var));
+}
+*/
 
 
 
@@ -60,16 +76,25 @@ void	display_list(t_list_ls *list, t_d *d, char *path)
 {
 	int		nb_name;
 	int		tmp;
-	char		*time;
+	char		*time_str;
 	int		white_sp;
+	int		pos;
+	struct passwd *pw;
+	struct group  *gr;
 
+	char buf[1024];
+	ssize_t len;
+
+	dev_t	make_dev;
+	int		major;
+	int		minor;
 
 
 	printf("total %ld\n", d->total);
 
 	while (list != NULL)
-	{
-		printf("-");
+	{	
+		printf("%c", list->c_type);
 		printf((list->stat.st_mode & S_IRUSR) ? "r" : "-");
 		printf((list->stat.st_mode & S_IWUSR) ? "w" : "-");
 		printf((list->stat.st_mode & S_IXUSR) ? "x" : "-");
@@ -79,35 +104,54 @@ void	display_list(t_list_ls *list, t_d *d, char *path)
 		printf((list->stat.st_mode & S_IROTH) ? "r" : "-");
 		printf((list->stat.st_mode & S_IWOTH) ? "w" : "-");
 		printf((list->stat.st_mode & S_IXOTH) ? "x" : "-");
-//		printf(list->c_type);
 		printf(" %d", list->stat.st_nlink);
-		printf(" %d", list->stat.st_uid);
-		printf(" %d", list->stat.st_gid);
-		printf(" %lld ", list->stat.st_size);
-/*		while (white_sp > 1)
-		{
-			printf(ctime[pos]);
-			white_sp--;
+		pw = getpwuid(list->stat.st_uid);
+		gr = getgrgid(list->stat.st_gid);
+		printf(" %s", pw->pw_name);//getgrgid(list->stat.st_gid));//list->stat.st_gid);
+		printf(" %s", gr->gr_name);//getgrgid(list->stat.st_gid));//list->stat.st_uid);
+		if (list->c_type == 'c' || list->c_type == 'b')
+		{	
+	//		make_dev = makedev(list->stat.st_rdev, list->stat.st_rdev);//makedev_ls(major_ls(list->stat.st_rdev), minor_ls(list->stat.st_rdev)));
+			printf(" %d,", MAJOR(list->stat.st_rdev));//MAKEDEV(MAJOR(list->stat.st_rdev), MINOR(list->stat.st_rdev)));
 		}
-		if (timestamp > timeactual - 5ans)
+		printf(" %lld ", list->stat.st_size);
+		time_str = ctime(&list->stat.st_mtime);
+		pos = 4;
+		while (pos < 10)
 		{
-			afficher heure
+			printf("%c", time_str[pos]);
+			pos++;
+		}
+		white_sp = 1;
+		if (list->stat.st_mtime > time(NULL) - 157788000)
+		{
+			while (pos < 16)
+			{
+				printf("%c", time_str[pos]);
+				pos++;
+			}
 		}
 		else
 		{
-			afficher year
+			pos = 19;
+			while (pos < 24)
+			{
+				printf("%c", time_str[pos]);
+				pos++;
+			}
 		}
-		printf("%c%c%c", time[4], time[5], time[6]);
-		(
-
-
-
-*/
+		printf(" ");
+//		printf("%c%c%c", time[4], time[5], time[6]);
 		print_elem_in_color(list, d);
+		if (list->c_type == 'l')
+		{
+			if ((len = readlink(list->path, buf, sizeof(buf)-1)) != -1)
+				    buf[len] = '\0';
+			printf(" -> %s", buf);
+		}
 		printf("\n");
 		list = list->next;
 	}
-
 	return ;
 
 
