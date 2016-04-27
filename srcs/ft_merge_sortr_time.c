@@ -50,8 +50,8 @@ nodePtr		merge_list_tr(nodePtr a, nodePtr b)
 		return (b);
 	else if (b == NULL)
 		return (a);
-	if ((ft_strcmp(a->name, b->name) >= 0 || a->stat.st_mtime >=
-				b->stat.st_mtime) && a->stat.st_mtime >= b->stat.st_mtime)
+	if ((ft_strcmp(a->name, b->name) >= 0 && a->stat.st_mtime
+== b->stat.st_mtime) || a->stat.st_mtime < b->stat.st_mtime)	
 	{
 		merged_list = a;
 		merged_list->next = merge_list_tr(a->next, b);

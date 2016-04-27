@@ -40,6 +40,7 @@ typedef struct			s_list_ls
 	char				*name;
 	char				*path;
 	int					type;
+	char				c_type;
 	t_stat				stat;
 	int					len_name;
 	struct s_list_ls	*next;
@@ -69,7 +70,8 @@ typedef struct			s_d
 	int					width;
 	int					len_max;
 	int					nb_display;
-	int					ok;
+	unsigned long int			total;
+	int					ok;	
 }						t_d;
 
 typedef struct			s_sortab

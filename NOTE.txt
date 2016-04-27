@@ -20,23 +20,28 @@ Fonctions à faire :
 Notes supplémentaires :
 - stocker directement lstat dans liste ? - OK
 - arg “h” tranformation de B en O ? - A FAIRE
-
+- mettre "ok" en commentaire dans include fait bus error ????
 
 
 
 Ajout :
 - Fix the path at the end of check_av with argv detected
 
-- Afficher repertoire recursive pour les autres types detecte quand arg_true = 1
+- Afficher repertoire recursive pour les autres types detecte quand arg_true = 1 - FAIT ?
 - Ajouter les types
 - Affichage en fonction du 1 ou L POUR LE LS DE BASE
 - Malloc d ?
 - Free tout ce qui est alloc
-- ne pas afficher repertoire courant sur -R
+- ne pas afficher repertoire courant sur -R - OK
+-  vérifier si DIR_DENIED MARCHE ! (ne marche plus)
+
+
+http://unix.stackexchange.com/questions/103114/what-do-the-fields-in-ls-al-output-mean
+
+
 
 LS_COLOR :
 - rouge = exec
 - cyan = lien
 - bleu = dir
 - etc ...
-

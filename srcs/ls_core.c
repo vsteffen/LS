@@ -17,7 +17,13 @@ int			type_file(t_list_ls *list, t_d *d)
 	int				ret;
 
 	if ((ret = lstat(list->path, &(list->stat))) == -1)
-		ft_exit_prog("Don't have found file or directory in lst_new\n", FG_RED, 0);
+	{
+		printf("1 - Don't have found \"%s\" in lst_new\n", list->path);
+		if ((ret = lstat(list->path, &(list->stat))) == -1)
+		{
+ 		ft_exit_prog("Don't have found file or directory in lst_new\n", FG_RED, 0);
+		}	
+	}
 	if (S_ISREG(list->stat.st_mode))
 		return (0);
 	else if (S_ISDIR(list->stat.st_mode))
@@ -49,9 +55,12 @@ t_list_ls	*lst_new(char *d_name, char *path, t_d *d)
 	list->len_name = ft_strlen(d_name);
 	if (list->len_name > d->len_max)
 		d->len_max = list->len_name;
-	list->path = ft_pathjoin(path, d_name);
+	list->path = ft_pathjoin(path, ft_strdup(d_name));
 	list->type = type_file(list, d);
 	//	printf("list->type = %d /// list->name = %s /// list->stat.st_mtime = %ld\n", list->type, list->name, list->stat.st_mtime);
+	d->total = d->total + list->stat.st_blocks;
+//	printf("d->total = %lld\n", d->total);
+//	printf("list->stat.st_blocks = %d\n", list->stat.st_blocks);
 	list->next = NULL;
 	return (list);
 }
@@ -80,18 +89,18 @@ int			read_hidden(char *d_name, int status)
 		return (1);
 }
 
-void		choose_sort(t_list_ls *lst_deb, t_d *d)
+void		choose_sort(t_list_ls **lst_deb, t_d *d)
 {
 	if (d->tab_option[5] == 0)
 	{
 		if (d->tab_option[7] == 0)
 		{
-			ft_merge_sort_list(&lst_deb);
+			ft_merge_sort_list(lst_deb);
 			return ;
 		}
 		else
 		{
-			ft_merge_sort_time(&lst_deb);
+			ft_merge_sort_time(lst_deb);
 			return ;
 		}
 	}
@@ -99,11 +108,11 @@ void		choose_sort(t_list_ls *lst_deb, t_d *d)
 	{
 		if (d->tab_option[7] == 0)
 		{
-			ft_merge_sortr_list(&lst_deb);
+			ft_merge_sortr_list(lst_deb);
 			return ;
 		}
 		else
-			ft_merge_sortr_time(&lst_deb);
+			ft_merge_sortr_time(lst_deb);
 	}
 }
 
@@ -111,13 +120,17 @@ t_list_ls	*list_dir(t_list_ls *list, t_d *d, char *path, t_list_ls *lst_deb)
 {
 	DIR				*dir_s;
 	struct dirent	*dir_file;
-	//	t_list_ls 		*list_tmp;
+	int				no_null;	
+//	t_list_ls 		*list_tmp;
 
 	dir_s = NULL;
 	dir_file = NULL;
+	no_null = 0; // sert a savoir lst_deb ne va pas etre null et ne va pas segfault dans display
 	if ((dir_s = opendir(path)) == NULL)
 	{
-		//printf("ls: %s: Permission denied\n", path);
+		printf("ls: %s: Empty or permission denied ?", path);
+		if (closedir(dir_s) == -1)
+                ft_exit_prog("Fail to close directory stream\n", FG_RED, 0);
 		d->denied = 1;
 		return (NULL);
 	}
@@ -126,17 +139,20 @@ t_list_ls	*list_dir(t_list_ls *list, t_d *d, char *path, t_list_ls *lst_deb)
 		if (read_hidden(dir_file->d_name, d->tab_option[3]))
 		{
 			list = add_elem_4(list, d, dir_file->d_name, path);
+			no_null++;
 			break ;
 		}
 	}
-	lst_deb = list;
+	if (no_null == 0)
+		return (NULL);
+		lst_deb = list;
 	while ((dir_file = readdir(dir_s)) != NULL)
 		if (read_hidden(dir_file->d_name, d->tab_option[3]))
 			list = add_elem_4(list, d, dir_file->d_name, path);
 
 	if (closedir(dir_s) == -1)
 		ft_exit_prog("Fail to close directory stream\n", FG_RED, 0);
-	choose_sort(lst_deb, d);
+	choose_sort(&lst_deb, d);
 	return (lst_deb);
 }
 
@@ -145,11 +161,18 @@ char	*ft_pathjoin(char const *s1, char const *s2)
 	size_t	len_t;
 	size_t	len_s1;
 	char	*str_null;
-
+	
 	if (s1 && s2)
 	{
 		len_s1 = ft_strlen(s1);
 		len_t = len_s1 + ft_strlen(s2) + 1;
+		if (s1[0] == '/' && len_s1 == 1)
+		{
+			str_null = ft_strnew(len_t - 1);
+			str_null[0] = '/';
+			str_null = ft_strcat(str_null, s2);
+			return (str_null);
+		}
 		str_null = ft_strnew(len_t);
 		if (str_null)
 		{
@@ -172,21 +195,26 @@ void	ls_core(t_d *d, char *path)//, int recur)
 {
 	t_list_ls   *list;
 	t_list_ls   *lst_deb;
+	char		*test;
 
 	if (d->line_feed == 1)
 		printf("\n");
 	d->line_feed = 1;
 	d->denied = 0;
-	lst_deb = list_dir(list, d, path, lst_deb);
-	display_list(lst_deb, d, path);
-	d->nb_display = 1;
+	d->total = 0;
+	lst_deb = list_dir(list, d, ft_strdup(path), lst_deb);
+	display_list(lst_deb, d, ft_strdup(path));
+//	exit(0);
+	d->nb_display = 1;	
 	while (lst_deb != NULL && d->tab_option[2] == 1)//&& recur == 1)
-		{
-			//	printf("lst_deb.name = %s ////  lst_deb->type = %d\n", lst_deb->name, lst_deb->type);
+	{
+		//	printf("lst_deb.name = %s ////  lst_deb->type = %d\n", lst_deb->name, lst_deb->type);
+		test = ft_strdup(lst_deb->path);	
 			if (lst_deb->type == 1 && ft_strcmp("..", lst_deb->name) != 0 && ft_strcmp(".", lst_deb->name) != 0) //&& ft_strcmp(".git", lst_deb->name))
-				ls_core(d, lst_deb->path);//, recur);
-			list = lst_deb;
-			lst_deb = lst_deb->next;
-			free(list);
-		}
+			ls_core(d, test);//lst_deb->path);//, recur);
+		list = lst_deb;
+		lst_deb = lst_deb->next;
+		//free(list);
+	}
+//	exit(0);
 }

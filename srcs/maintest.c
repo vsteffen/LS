@@ -31,9 +31,9 @@ void		struct_ini(t_d *d, int ac)
 	d->width = w.ws_col;
 	d->len_max = 0;
 	d->nb_display = 0;
-	d->ok = 1;
+//	d->ok = 1;
 	i = 0;
-	while (i < 6)
+	while (i < 7)
 	{
 		d->tab_option[i] = 0;
 		i++;
@@ -69,12 +69,12 @@ int			main(int ac, char **av)
 		}
 	}
 	else
-		ls_core(&d, ".");//, d.tab_option[2]);
+		ls_core(&d, ".");// d.tab_option[2]);
 	//	printf("d.arg = %d //// d.arg_true = %d\n", d.arg, d.arg_true);
 	//	printf("name = %s\n",d.lst_deb->name);
 //	printf("d.len_max = %d\n", d.len_max);
 	if (d.arg >= 1)
 		free(d.tab_arg);
-	pause();
 	return (EXIT_SUCCESS);
+	exit(0);
 }
