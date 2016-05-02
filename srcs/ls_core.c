@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 17:23:09 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/27 22:36:37 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/02 21:37:29 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,9 +136,9 @@ t_list_ls	*list_dir(t_list_ls *list, t_d *d, char *path, t_list_ls *lst_deb)
 	no_null = 0; // sert a savoir lst_deb ne va pas etre null et ne va pas segfault dans display
 	if ((dir_s = opendir(path)) == NULL)
 	{
-		printf("ls: %s: Empty or permission denied ?", path);
-		if (closedir(dir_s) == -1)
-                ft_exit_prog("Fail to close directory stream\n", FG_RED, 0);
+		printf("ls: %s: Permission denied LOL\n", path);
+//		if (closedir(dir_s) == -1)
+//            ft_exit_prog("Fail to close directory stream\n", FG_RED, 0);
 		d->denied = 1;
 		return (NULL);
 	}
@@ -208,12 +208,12 @@ void	ls_core(t_d *d, char *path)//, int recur)
 	if (d->line_feed == 1)
 		printf("\n");
 	d->line_feed = 1;
-	d->denied = 0;
 	d->total = 0;
 	lst_deb = list_dir(list, d, ft_strdup(path), lst_deb);
-	display_list(lst_deb, d, ft_strdup(path));
-//	exit(0);
-	d->nb_display = 1;	
+	if (d->denied == 0)
+		display_choose(lst_deb, d, ft_strdup(path));
+	d->denied = 0;
+	d->nb_display = 1;
 	while (lst_deb != NULL && d->tab_option[2] == 1)//&& recur == 1)
 	{
 		//	printf("lst_deb.name = %s ////  lst_deb->type = %d\n", lst_deb->name, lst_deb->type);

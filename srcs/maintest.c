@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/24 23:04:02 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/02 21:38:06 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void		struct_ini(t_d *d, int ac)
 	d->ac = ac;
 	d->nb_option = 0;
 	d->line_feed = 0;
+	d->denied = 0;
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 	d->width = w.ws_col;
 	d->len_max = 0;
@@ -59,6 +60,8 @@ int			main(int ac, char **av)
 	if (d.arg_true > 0)
 	{
 		arg_pos = 0;
+		if (d.arg_true > 1)
+			d.nb_display = 1;
 		while (arg_pos < d.arg_true)
 		{
 			if (d.tab_arg[arg_pos].dir == 1)

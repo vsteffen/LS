@@ -33,8 +33,8 @@ Ajout :
 - Malloc d ?
 - Free tout ce qui est alloc
 - ne pas afficher repertoire courant sur -R - OK
--  vérifier si DIR_DENIED MARCHE ! (ne marche plus)
-
+- vérifier si DIR_DENIED MARCHE ! + empty directory (ne marche plus)
+- verifier si ls -Ra / marche
 
 http://unix.stackexchange.com/questions/103114/what-do-the-fields-in-ls-al-output-mean
 

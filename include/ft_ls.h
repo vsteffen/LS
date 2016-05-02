@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/27 22:30:11 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/02 19:48:57 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,9 @@ void					time_function(void);
 char					human_function(float *nb);
 
 void					tab_arg_display(t_d *d);
+void					display_choose(t_list_ls *list, t_d *d, char *path);
 void					display_list(t_list_ls *list, t_d *d, char *path);
-void					display_list1(t_list_ls *list, t_d *d, char *path);
+void					display_list_1(t_list_ls *list, t_d *d, char *path);
 void					display_file(t_d *d, int arg_pos, t_argv *tab_arg);
 void					tab_option_display(t_d *d);
 void					av_display(int ac, char **av);
