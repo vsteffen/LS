@@ -36,6 +36,8 @@ Ajout :
 - vérifier si DIR_DENIED MARCHE ! + empty directory (ne marche plus)
 - verifier si ls -Ra / marche
 
+
+
 http://unix.stackexchange.com/questions/103114/what-do-the-fields-in-ls-al-output-mean
 
 
@@ -45,3 +47,12 @@ LS_COLOR :
 - cyan = lien
 - bleu = dir
 - etc ...
+
+
+
+
+FINAL :
+- faire le ft_ls /tmp
+- free
+- changer printf
+- mettre a la norme
