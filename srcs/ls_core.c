@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 17:23:09 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/03 17:03:20 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/03 18:01:33 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ int			type_file(t_list_ls *list, t_d *d)
 	if ((ret = lstat(list->path, &(list->stat))) == -1)
 	{
 		
-		/*printf("1 - Don't have found \"%s\" in lst_new\n", list->path);
+		/*printf("1 - Haven't found \"%s\" in lst_new\n", list->path);
 		if ((ret = lstat(list->path, &(list->stat))) == -1)
 		{
  		ft_exit_prog("Don't have found file or directory in lst_new\n", FG_RED, 0);
 		}
-		*/	
+		*/
+		printf("ls: %s: Permission denied\n", list->name);
+		return (-1);
 	}
 	if (S_ISREG(list->stat.st_mode))
 		return ('-');
@@ -59,7 +61,8 @@ t_list_ls	*lst_new(char *d_name, char *path, t_d *d)
 	int				ret;
 	struct stat     sb;
 	int				size_name;
-
+	int				type;
+	
 	if (!(list = (t_list_ls*)malloc(sizeof(t_list_ls))))
 		ft_exit_prog("Failed to initialize the linked list.\n", FG_RED, 0);
 	list->name = d_name;
@@ -67,11 +70,14 @@ t_list_ls	*lst_new(char *d_name, char *path, t_d *d)
 	if (list->len_name > d->len_max)
 		d->len_max = list->len_name;
 	list->path = ft_pathjoin(path, ft_strdup(d_name));
-	list->c_type = type_file(list, d);
+	type = type_file(list, d);
+	if (type == -1)
+		return (NULL);
+	list->c_type = type;
 	//	printf("list->type = %d /// list->name = %s /// list->stat.st_mtime = %ld\n", list->type, list->name, list->stat.st_mtime);
 	d->total = d->total + list->stat.st_blocks;
-//	printf("d->total = %lld\n", d->total);
-//	printf("list->stat.st_blocks = %d\n", list->stat.st_blocks);
+	//	printf("d->total = %lld\n", d->total);
+	//	printf("list->stat.st_blocks = %d\n", list->stat.st_blocks);
 	list->next = NULL;
 	return (list);
 }
@@ -143,32 +149,40 @@ t_list_ls	*list_dir(t_list_ls *list, t_d *d, char *path, t_list_ls *lst_deb)
 //			printf("ls: %s: Permission denied\n", path);
 		printf ("ls: %s: %s\n", path, strerror(errno));
 //		printf("ls: %s", path);
-	//	perror("NULL");
+//		perror("NULL");
 //		if (closedir(dir_s) == -1)
 //            ft_exit_prog("Fail to close directory stream\n", FG_RED, 0);
 		d->denied = 1;
 		return (NULL);
 	}
 	while ((dir_file = readdir(dir_s)) != NULL)
+		if (read_hidden(dir_file->d_name, d->tab_option[3]))
+		{
+			list = add_elem_4(list, d, dir_file->d_name, path);
+			if (list == NULL)
+			{
+				d->denied = 1;
+				return(NULL);
+			}
+			if (no_null == 0)
+				lst_deb = list;
+			no_null++;
+		}
+	/*while ((dir_file = readdir(dir_s)) != NULL)
 	{
 		if (read_hidden(dir_file->d_name, d->tab_option[3]))
 		{
 			list = add_elem_4(list, d, ft_strdup(dir_file->d_name), path);
 			no_null++;
-			break ;
+			break;
 		}
 	}
-	if (no_null == 0)
+*/	if (no_null == 0)
 	{
-	//	if (closedir(dir_s) == -1)
-	//		ft_exit_prog("Fail to close directory stream\n", FG_RED, 0);
-		return (NULL);
+		if (closedir(dir_s) == -1)
+			ft_exit_prog("Fail to close directory stream\n", FG_RED, 0);
+			return (NULL);
 	}
-		lst_deb = list;
-	while ((dir_file = readdir(dir_s)) != NULL)
-		if (read_hidden(dir_file->d_name, d->tab_option[3]))
-			list = add_elem_4(list, d, dir_file->d_name, path);
-
 	if (closedir(dir_s) == -1)
 		ft_exit_prog("Fail to close directory stream FUCK 2\n", FG_RED, 0);
 	choose_sort(&lst_deb, d);
@@ -217,6 +231,7 @@ void	ls_core(t_d *d, char *path)//, int recur)
 	t_list_ls   *lst_deb;
 	char		*test;
 
+	list = NULL;
 	if (d->line_feed == 1)
 		printf("\n");
 	d->line_feed = 1;
@@ -230,16 +245,99 @@ void	ls_core(t_d *d, char *path)//, int recur)
 		return ;
 	}
 	d->nb_display = 1;
-	while (lst_deb != NULL && d->tab_option[2] == 1)//&& recur == 1)
+	list = lst_deb;
+	while (list != NULL && d->tab_option[2] == 1)//&& recur == 1)
 	{
-		//	printf("lst_deb.name = %s ////  lst_deb->type = %d\n", lst_deb->name, lst_deb->type);
-		test = ft_strdup(lst_deb->path);	
-			if (lst_deb->c_type == 'd' && ft_strcmp("..", lst_deb->name) != 0 && ft_strcmp(".", lst_deb->name) != 0) //&& ft_strcmp(".git", lst_deb->name))
-			ls_core(d, test);//lst_deb->path);//, recur);
-		list = lst_deb;
-		lst_deb = lst_deb->next;
-		free_element(list);
+	//	printf("lst_deb.name = %s ////  lst_deb->type = %d\n", lst_deb->name, lst_deb->type); 
+		if (list->c_type == 'd' && ft_strcmp("..", list->name) != 0 && ft_strcmp(".", list->name) != 0) //&& ft_strcmp(".git", list->name))
+		{
+			test = ft_strdup(list->path);
+			ls_core(d, test);//list->path);//, recur);
+			free(test);
+		}
+		list = list->next;
 	}
-//	free(path);
+	//free_list(lst_deb);
 //	exit(0);
 }
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

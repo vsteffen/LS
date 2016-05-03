@@ -64,8 +64,14 @@ void	left_side(t_list_ls *list, t_d *d)
 	printf(" %d", list->stat.st_nlink);
 	pw = getpwuid(list->stat.st_uid);
 	gr = getgrgid(list->stat.st_gid);
-	printf(" %s", pw->pw_name);
-	printf(" %s", gr->gr_name);
+	if (pw != NULL)
+		printf(" %s", pw->pw_name);
+	else
+		printf(" %d", list->stat.st_uid);
+	if (gr != NULL)
+		printf(" %s", gr->gr_name);
+	else
+		printf(" %d", list->stat.st_gid);
 }
 
 void	read_link(t_list_ls *list, t_d *d)
