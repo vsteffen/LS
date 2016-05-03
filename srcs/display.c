@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 16:37:42 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/02 21:38:25 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/03 15:28:11 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ void	display_list(t_list_ls *list, t_d *d, char *path)
 
 	if (d->denied == 1)
 	{
-		printf("ls: %s: Permission denied FUCK", path);
+		printf("ls: %s: Permission denied FUCK THIS HORRIBLE PROJECT BLBLBLBLBL", path);
 		return ;
 	}
 	d->len_max++;
@@ -196,7 +196,7 @@ void	display_list_1(t_list_ls *list, t_d *d, char *path)
 	}
 	while (list != NULL)
 	{
-		//printf("list->stat.st_mtime = %ld\t", list->stat.st_mtime);
+	//	printf("list->stat.st_mtime = %ld\t", list->stat.st_mtime);
 		print_elem_in_color(list, d);
 		printf("\n");
 		list = list->next;

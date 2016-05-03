@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/02 19:48:57 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/03 11:37:33 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <string.h>
 # include <fcntl.h>
 # include <dirent.h>
+# include <sys/errno.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/ioctl.h>
