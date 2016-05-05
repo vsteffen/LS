@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 17:23:09 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/03 18:01:33 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/06 00:09:34 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,12 @@ t_list_ls	*lst_new(char *d_name, char *path, t_d *d)
 	list->len_name = ft_strlen(d_name);
 	if (list->len_name > d->len_max)
 		d->len_max = list->len_name;
-	list->path = ft_pathjoin(path, ft_strdup(d_name));
+	list->path = ft_pathjoin(path, d_name);
 	type = type_file(list, d);
 	if (type == -1)
 		return (NULL);
 	list->c_type = type;
-	//	printf("list->type = %d /// list->name = %s /// list->stat.st_mtime = %ld\n", list->type, list->name, list->stat.st_mtime);
 	d->total = d->total + list->stat.st_blocks;
-	//	printf("d->total = %lld\n", d->total);
-	//	printf("list->stat.st_blocks = %d\n", list->stat.st_blocks);
 	list->next = NULL;
 	return (list);
 }
@@ -138,20 +135,13 @@ t_list_ls	*list_dir(t_list_ls *list, t_d *d, char *path, t_list_ls *lst_deb)
 	DIR				*dir_s;
 	struct dirent	*dir_file;
 	int				no_null;	
-//	t_list_ls 		*list_tmp;
 
 	dir_s = NULL;
 	dir_file = NULL;
-	no_null = 0; // sert a savoir lst_deb ne va pas etre null et ne va pas segfault dans display
+	no_null = 0;
 	if ((dir_s = opendir(path)) == NULL)
 	{
-//		if (errno == EACCES)
-//			printf("ls: %s: Permission denied\n", path);
 		printf ("ls: %s: %s\n", path, strerror(errno));
-//		printf("ls: %s", path);
-//		perror("NULL");
-//		if (closedir(dir_s) == -1)
-//            ft_exit_prog("Fail to close directory stream\n", FG_RED, 0);
 		d->denied = 1;
 		return (NULL);
 	}
@@ -168,16 +158,7 @@ t_list_ls	*list_dir(t_list_ls *list, t_d *d, char *path, t_list_ls *lst_deb)
 				lst_deb = list;
 			no_null++;
 		}
-	/*while ((dir_file = readdir(dir_s)) != NULL)
-	{
-		if (read_hidden(dir_file->d_name, d->tab_option[3]))
-		{
-			list = add_elem_4(list, d, ft_strdup(dir_file->d_name), path);
-			no_null++;
-			break;
-		}
-	}
-*/	if (no_null == 0)
+	if (no_null == 0)
 	{
 		if (closedir(dir_s) == -1)
 			ft_exit_prog("Fail to close directory stream\n", FG_RED, 0);
@@ -220,9 +201,16 @@ char	*ft_pathjoin(char const *s1, char const *s2)
 
 void	free_element(t_list_ls *list)
 {
-//	free(list->name);
-//	free(list->path);
-//	free(list);
+	t_list_ls   *tmp;
+
+	while (list != NULL)
+	{	
+		free(list->name);
+		free(list->path);
+		tmp = list->next;
+		free(list);
+		list = tmp;
+	}
 }
 
 void	ls_core(t_d *d, char *path)//, int recur)
@@ -236,108 +224,27 @@ void	ls_core(t_d *d, char *path)//, int recur)
 		printf("\n");
 	d->line_feed = 1;
 	d->total = 0;
-	lst_deb = list_dir(list, d, ft_strdup(path), lst_deb);
+	lst_deb = list_dir(list, d, path, lst_deb);
 	if (d->denied == 0)
-		display_choose(lst_deb, d, ft_strdup(path));
+		display_choose(lst_deb, d, path);
 	else
 	{
 		d->denied = 0;
+		free_element(lst_deb);
 		return ;
 	}
 	d->nb_display = 1;
 	list = lst_deb;
 	while (list != NULL && d->tab_option[2] == 1)//&& recur == 1)
 	{
-	//	printf("lst_deb.name = %s ////  lst_deb->type = %d\n", lst_deb->name, lst_deb->type); 
-		if (list->c_type == 'd' && ft_strcmp("..", list->name) != 0 && ft_strcmp(".", list->name) != 0) //&& ft_strcmp(".git", list->name))
+		if (list->c_type == 'd' && ft_strcmp("..", list->name) != 0 && ft_strcmp(".", list->name) != 0)
 		{
 			test = ft_strdup(list->path);
-			ls_core(d, test);//list->path);//, recur);
+			ls_core(d, test);
 			free(test);
 		}
 		list = list->next;
 	}
-	//free_list(lst_deb);
+	free_element(lst_deb);
 //	exit(0);
 }
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

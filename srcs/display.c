@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 16:37:42 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/03 15:28:11 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/05 20:04:08 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,11 +207,6 @@ void	display_list_1(t_list_ls *list, t_d *d, char *path)
 		printf("\n");
 		list = list->next;
 	}
-}
-
-void	display_file(t_d *d, int arg_pos, t_argv *tab_arg)
-{
-	printf("%s\n\n", tab_arg[arg_pos].name);
 }
 
 void	tab_option_display(t_d *d)

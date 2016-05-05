@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/03 11:37:33 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/06 00:09:28 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,10 @@ typedef struct			s_list_ls
 {
 	char				*name;
 	char				*path;
-//	int					type;
 	char				c_type;
 	t_stat				stat;
 	int					len_name;
 	struct s_list_ls	*next;
-	struct s_list_ls	*prev;
 }						t_list_ls;
 
 typedef struct			s_d
@@ -100,7 +98,7 @@ void					tab_arg_display(t_d *d);
 void					display_choose(t_list_ls *list, t_d *d, char *path);
 void					display_list(t_list_ls *list, t_d *d, char *path);
 void					display_list_1(t_list_ls *list, t_d *d, char *path);
-void					display_file(t_d *d, int arg_pos, t_argv *tab_arg);
+void					display_file(t_d *d, char *path, int arg_pos);
 void					tab_option_display(t_d *d);
 void					av_display(int ac, char **av);
 
@@ -125,8 +123,32 @@ char					*ft_pathjoin(char const *s1, char const *s2);
 //t_list_ls				*add_elem_5(t_list_ls *list, t_d *d, char *d_name);
 //void					list_dir(t_list_ls *list, t_d *dar, char *path);
 
+t_list_ls				*lst_new(char *d_name, char *path, t_d *d);
+
+void	print_elem_in_color(t_list_ls *list, t_d *d);
+void	major_minor(t_list_ls *list, t_d *d);
+void	left_side(t_list_ls *list, t_d *d);
+void	read_link(t_list_ls *list, t_d *d);
+void	get_time_print(char *time_str, int *pos);
+void	get_time(t_list_ls *list, t_d *d);
+void	long_list_format(t_list_ls *list, t_d *d, char *path);
+void	display_list_part_1(t_list_ls *list, t_d *d);
+void	display_list_part_2(t_list_ls *list, t_d *d, int *tmp, int nb_name);
+
 void                    ft_merge_sort_list(nodePtr *source);
 void					ft_merge_sortr_list(nodePtr *source);
 void					ft_merge_sort_time(nodePtr *source);
 void					ft_merge_sortr_time(nodePtr *source);
+
+void        ini_tab(t_d *d);
+
+void		print_elem_in_color_file(t_d *d, t_stat stat, char *path, char c_type);
+char		type_file_file(t_d *d, t_stat *stat, char *path);
+void		left_side_file(t_d *d, t_stat *stat, char c_type);
+void		major_minor_file(t_d *d, t_stat *stat);
+void		get_time_print_file(char *time_str, int *pos);
+void		get_time_file(t_d *d, t_stat stat);
+void		read_link_file(t_d *d, t_stat stat, char *path, int c_type);
+void		long_list_format_file(t_d *d, char *path);
+void		display_file(t_d *d, char *path, int arg_pos);
 #endif

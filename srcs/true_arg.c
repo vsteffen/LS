@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/11 18:09:51 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/25 17:02:30 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/06 00:09:32 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,31 @@ void		del_elem_tab_arg(t_d *d, int tmp)
 	d->arg_true--;
 }
 
+void	proper_link(t_d *d, t_stat stat, int tmp)
+{
+	char		buf[1024];
+	ssize_t		len;
+	int			ret;
+
+	if (ft_strcmp("/tmp", d->tab_arg[tmp].name) == 0)
+	{
+		d->tab_arg[tmp].dir = 1;
+		return ;
+	}
+	if ((len = readlink(d->tab_arg[tmp].name, buf, sizeof(buf) - 1)) != -1)
+			buf[len] = '\0';
+	d->tab_arg[tmp].name = ft_strdup(buf);
+	if ((ret = lstat(d->tab_arg[tmp].name, &stat)) == -1)
+	{
+		ft_putstr("ls: ");
+		ft_putstr(d->tab_arg[tmp].name);
+		ft_putstr(": Permission denied\n");
+		return ;
+	}
+	if (S_ISDIR(stat.st_mode))
+		d->tab_arg[tmp].dir = 1;
+}
+
 void		detect_arg_true(t_d *d, int ret)
 {
 	int				tmp;
@@ -79,7 +104,9 @@ void		detect_arg_true(t_d *d, int ret)
 			del_elem_tab_arg(d, tmp);
 			continue ;
 		}
-		if (S_ISDIR(sb.st_mode))
+		if (S_ISLNK(sb.st_mode))
+			proper_link(d, sb, tmp);
+		else if (S_ISDIR(sb.st_mode))
 			d->tab_arg[tmp].dir = 1;
 		else
 			d->tab_arg[tmp].dir = 0;

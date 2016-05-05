@@ -6,7 +6,7 @@
 #    By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/03 17:41:16 by vsteffen          #+#    #+#              #
-#    Updated: 2016/04/25 17:18:58 by vsteffen         ###   ########.fr        #
+#    Updated: 2016/05/05 21:15:45 by vsteffen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,9 @@ SRC = maintest.c \
 	ft_merge_sort_time.c \
 	ft_merge_sortr_time.c \
 	ls_core.c \
-	display.c
+	display.c \
+	display_file.c \
+	display_file2.c
 
 OBJ = $(patsubst %.c, $(OPATH)/%.o, $(SRC))
 
