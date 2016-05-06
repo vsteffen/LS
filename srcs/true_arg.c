@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/11 18:09:51 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/06 15:40:28 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/06 19:10:57 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void		del_elem_tab_arg(t_d *d, int tmp)
 	d->arg_true--;
 }
 
-void	proper_link(t_d *d, t_stat stat, int tmp)
+void		proper_link(t_d *d, t_stat stat, int tmp)
 {
 	char		buf[1024];
 	ssize_t		len;
@@ -75,18 +75,21 @@ void	proper_link(t_d *d, t_stat stat, int tmp)
 		d->tab_arg[tmp].dir = 1;
 		return ;
 	}
-	if ((len = readlink(d->tab_arg[tmp].name, buf, sizeof(buf) - 1)) != -1)
-			buf[len] = '\0';
-	d->tab_arg[tmp].name = ft_strdup(buf);
-	if ((ret = lstat(d->tab_arg[tmp].name, &stat)) == -1)
+	if (d->tab_option[1] == 1)
 	{
-		ft_putstr("ls: ");
-		ft_putstr(d->tab_arg[tmp].name);
-		ft_putstr(": Permission denied\n");
-		return ;
+		if ((len = readlink(d->tab_arg[tmp].name, buf, sizeof(buf) - 1)) != -1)
+			buf[len] = '\0';
+		d->tab_arg[tmp].name = ft_strdup(buf);
+		if ((ret = lstat(d->tab_arg[tmp].name, &stat)) == -1)
+		{
+			ft_putstr("ls: ");
+			ft_putstr(d->tab_arg[tmp].name);
+			ft_putstr(": Permission denied\n");
+			return ;
+		}
+		if (S_ISDIR(stat.st_mode))
+			d->tab_arg[tmp].dir = 1;
 	}
-	if (S_ISDIR(stat.st_mode))
-		d->tab_arg[tmp].dir = 1;
 }
 
 void		detect_arg_true(t_d *d, int ret)
@@ -99,10 +102,7 @@ void		detect_arg_true(t_d *d, int ret)
 	{
 		if ((ret = lstat(d->tab_arg[tmp].name, &sb)) == -1)
 		{
-			ft_putstr("ls: ");
-			ft_putstr(d->tab_arg[tmp].name);
-			ft_putstr(": No such file or directory\n");
-			del_elem_tab_arg(d, tmp);
+			detect_arg_true2(d, tmp);
 			continue ;
 		}
 		if (S_ISLNK(sb.st_mode))

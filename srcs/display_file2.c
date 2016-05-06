@@ -6,17 +6,11 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 16:37:42 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/06 18:20:03 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/06 18:52:55 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
-void	get_time_print_file(char *time_str, int *pos)
-{
-	ft_putchar(time_str[*(pos)]);
-	(*pos)++;
-}
 
 void	get_time_file(t_d *d, t_stat stat)
 {
@@ -27,17 +21,17 @@ void	get_time_file(t_d *d, t_stat stat)
 	time_str = ctime(&stat.st_mtime);
 	pos = 4;
 	while (pos < 10)
-		get_time_print_file(time_str, &pos);
+		get_time_print(time_str, &pos);
 	if (stat.st_mtime > time(NULL) - 157788000)
 	{
 		while (pos < 16)
-			get_time_print_file(time_str, &pos);
+			get_time_print(time_str, &pos);
 	}
 	else
 	{
 		pos = 19;
 		while (pos < 24)
-			get_time_print_file(time_str, &pos);
+			get_time_print(time_str, &pos);
 	}
 	ft_putchar(' ');
 }
@@ -56,10 +50,10 @@ void	read_link_file(t_d *d, t_stat stat, char *path, int c_type)
 	}
 }
 
-void    display_size_file(t_d *d, t_stat stat)
+void	display_size_file(t_d *d, t_stat stat)
 {
-	char        type;
-	float       nb;
+	char		type;
+	float		nb;
 
 	if (d->tab_option[10] == 0)
 	{

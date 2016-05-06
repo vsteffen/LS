@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 17:23:09 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/06 17:57:43 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/06 19:32:15 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int			type_file(t_list_ls *list, t_d *d)
 {
 	int				ret;
-	
+
 	if ((ret = lstat(list->path, &(list->stat))) == -1)
 	{
 		ft_putstr("ls: ");
@@ -45,10 +45,10 @@ t_list_ls	*lst_new(char *d_name, char *path, t_d *d)
 {
 	t_list_ls		*list;
 	int				ret;
-	struct stat     sb;
+	struct stat		sb;
 	int				size_name;
 	int				type;
-	
+
 	if (!(list = (t_list_ls*)malloc(sizeof(t_list_ls))))
 		ft_exit_prog("Failed to initialize the linked list.\n", FG_RED, 0);
 	list->name = d_name;
@@ -147,7 +147,7 @@ t_list_ls	*list_dir(t_list_ls *list, t_d *d, char *path, t_list_ls *lst_deb)
 {
 	DIR				*dir_s;
 	struct dirent	*dir_file;
-	int				no_null;	
+	int				no_null;
 
 	dir_s = NULL;
 	dir_file = NULL;
@@ -169,7 +169,7 @@ t_list_ls	*list_dir(t_list_ls *list, t_d *d, char *path, t_list_ls *lst_deb)
 			if (list == NULL)
 			{
 				d->denied = 1;
-				return(NULL);
+				return (NULL);
 			}
 			if (no_null == 0)
 				lst_deb = list;
@@ -179,7 +179,6 @@ t_list_ls	*list_dir(t_list_ls *list, t_d *d, char *path, t_list_ls *lst_deb)
 	{
 		if (closedir(dir_s) == -1)
 			ft_exit_prog("Fail to close directory stream\n", FG_RED, 0);
-			return (NULL);
 	}
 	if (closedir(dir_s) == -1)
 		ft_exit_prog("Fail to close directory stream\n", FG_RED, 0);
@@ -195,7 +194,7 @@ char	*ft_pathjoin(char const *s1, char const *s2)
 	size_t	len_t;
 	size_t	len_s1;
 	char	*str_null;
-	
+
 	if (s1 && s2)
 	{
 		len_s1 = ft_strlen(s1);
@@ -221,10 +220,10 @@ char	*ft_pathjoin(char const *s1, char const *s2)
 
 void	free_element(t_list_ls *list)
 {
-	t_list_ls   *tmp;
+	t_list_ls	*tmp;
 
 	while (list != NULL)
-	{	
+	{
 		free(list->name);
 		free(list->path);
 		tmp = list->next;
@@ -233,31 +232,40 @@ void	free_element(t_list_ls *list)
 	}
 }
 
-void	ls_core(t_d *d, char *path)//, int recur)
+void	ls_core2(t_d *d)
 {
-	t_list_ls   *list;
-	t_list_ls   *lst_deb;
-	char		*test;
-
-	list = NULL;
 	if (d->line_feed == 1)
 		ft_putchar('\n');
 	d->line_feed = 1;
 	d->total = 0;
+}
+
+void	ls_core3(t_d *d, t_list_ls *lst_deb)
+{
+	d->denied = 0;
+	free_element(lst_deb);
+	return ;
+}
+
+void	ls_core(t_d *d, char *path)
+{
+	t_list_ls	*list;
+	t_list_ls	*lst_deb;
+	char		*test;
+
+	list = NULL;
+	ls_core2(d);
 	lst_deb = list_dir(list, d, path, lst_deb);
 	if (d->denied == 0)
 		display_choose(lst_deb, d, path);
 	else
-	{
-		d->denied = 0;
-		free_element(lst_deb);
-		return ;
-	}
+		return (ls_core3(d, lst_deb));
 	d->nb_display = 1;
 	list = lst_deb;
 	while (list != NULL && d->tab_option[2] == 1)
 	{
-		if (list->c_type == 'd' && ft_strcmp("..", list->name) != 0 && ft_strcmp(".", list->name) != 0)
+		if (list->c_type == 'd' && ft_strcmp("..", list->name) != 0
+				&& ft_strcmp(".", list->name) != 0)
 		{
 			test = ft_strdup(list->path);
 			ls_core(d, test);

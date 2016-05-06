@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/25 16:49:06 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/03 11:25:57 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/06 19:08:02 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void		partition_t(nodePtr head, nodePtr *front, nodePtr *back)
 
 	if (head == NULL || head->next == NULL)
 	{
-		*front = head; // &a
-		*back = NULL; // &b
+		*front = head;
+		*back = NULL;
 	}
 	else
 	{
@@ -35,8 +35,8 @@ void		partition_t(nodePtr head, nodePtr *front, nodePtr *back)
 				fast = fast->next;
 			}
 		}
-		*front = head; // a
-		*back = slow->next; // b
+		*front = head;
+		*back = slow->next;
 		slow->next = NULL;
 	}
 }
@@ -51,7 +51,7 @@ nodePtr		merge_list_t(nodePtr a, nodePtr b)
 	else if (b == NULL)
 		return (a);
 	if ((ft_strcmp(a->name, b->name) <= 0 && a->stat.st_mtime
-== b->stat.st_mtime) || a->stat.st_mtime > b->stat.st_mtime)
+				== b->stat.st_mtime) || a->stat.st_mtime > b->stat.st_mtime)
 	{
 		merged_list = a;
 		merged_list->next = merge_list_t(a->next, b);

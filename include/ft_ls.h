@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/06 16:53:40 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/06 19:11:18 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,20 @@ void		ft_merge_sortr_size(nodePtr *source);
 
 void        ini_tab(t_d *d);
 
+void	print_elem_in_color(t_list_ls *list, t_d *d);
+void	major_minor(t_list_ls *list, t_d *d);
+void	left_side(t_list_ls *list, t_d *d);
+void	read_link(t_list_ls *list, t_d *d);
+void	get_time_print(char *time_str, int *pos);
+void	get_time(t_list_ls *list, t_d *d);
+void	display_size(t_list_ls *list, t_d *d);
+void	long_list_format(t_list_ls *list, t_d *d, char *path);
+void	display_list_part_1(t_list_ls *list, t_d *d);
+void	display_list_part_2(t_list_ls *list, t_d *d, int *tmp, int nb_name);
+void	display_choose(t_list_ls *list, t_d *d, char *path);
+void	display_list(t_list_ls *list, t_d *d, char *path);
+void	display_list_1(t_list_ls *list, t_d *d, char *path);
+
 void		print_elem_in_color_file_norme(char *color1, char *color2);
 void		print_elem_in_color_file(t_d *d, t_stat stat, char *path, char c_type);
 char		type_file_file(t_d *d, t_stat *stat, char *path);
@@ -156,4 +170,7 @@ void		get_time_file(t_d *d, t_stat stat);
 void		read_link_file(t_d *d, t_stat stat, char *path, int c_type);
 void		long_list_format_file(t_d *d, char *path);
 void		display_file(t_d *d, char *path, int arg_pos);
+
+int			check_arg_spe2(char arg_tmp, t_d *d);
+void		detect_arg_true2(t_d *d, int ret);
 #endif

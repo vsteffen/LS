@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 16:25:08 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/06 17:56:40 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/06 19:12:47 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ nodePtr		merge_list_ur(nodePtr a, nodePtr b)
 	else if (b == NULL)
 		return (a);
 	if ((ft_strcmp(a->name, b->name) >= 0 && a->stat.st_atime
-== b->stat.st_atime) || a->stat.st_atime < b->stat.st_atime)	
+				== b->stat.st_atime) || a->stat.st_atime < b->stat.st_atime)
 	{
 		merged_list = a;
 		merged_list->next = merge_list_ur(a->next, b);

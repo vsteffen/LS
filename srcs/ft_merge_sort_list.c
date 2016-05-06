@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/12 19:13:55 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/22 15:59:28 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/06 19:00:15 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void		partition(nodePtr head, nodePtr *front, nodePtr *back)
 
 	if (head == NULL || head->next == NULL)
 	{
-		*front = head; // &a
-		*back = NULL; // &b
+		*front = head;
+		*back = NULL;
 	}
 	else
 	{
@@ -35,8 +35,8 @@ void		partition(nodePtr head, nodePtr *front, nodePtr *back)
 				fast = fast->next;
 			}
 		}
-		*front = head; // a
-		*back = slow->next; // b
+		*front = head;
+		*back = slow->next;
 		slow->next = NULL;
 	}
 }
