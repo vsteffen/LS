@@ -6,7 +6,7 @@
 #    By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/03 17:41:16 by vsteffen          #+#    #+#              #
-#    Updated: 2016/05/05 21:15:45 by vsteffen         ###   ########.fr        #
+#    Updated: 2016/05/06 16:54:45 by vsteffen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,6 @@ LIBS = -framework OpenGL \
 OBJ_NAME = $(wildcard $(ROOT)/srcs/*.c)
 
 SRC = maintest.c \
-	get_stat.c \
 	arg_h.c \
 	check_arg.c \
 	true_arg.c \
@@ -35,6 +34,10 @@ SRC = maintest.c \
 	ft_merge_sortr_list.c \
 	ft_merge_sort_time.c \
 	ft_merge_sortr_time.c \
+	ft_merge_sort_time_u.c \
+	ft_merge_sortr_time_u.c \
+	ft_merge_sort_size.c \
+	ft_merge_sortr_size.c \
 	ls_core.c \
 	display.c \
 	display_file.c \

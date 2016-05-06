@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 16:37:42 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/05 21:08:37 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/06 16:15:39 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ char	type_file_file(t_d *d, t_stat *stat, char *path)
 
 	if ((ret = lstat(path, stat)) == -1)
 	{
-		printf("ls: %s: Permission denied\n", path);
+		ft_putstr("ls: ");
+		ft_putstr(path);
+		ft_putstr(": Permission denied\n");
 		return (-1);
 	}
 	if (S_ISREG(stat->st_mode))

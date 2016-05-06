@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/06 00:09:28 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/06 16:53:40 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct			s_d
 	t_argv				*tab_arg;
 	char				*pn;
 	int					left;
-	int					tab_option[8];
+	int					tab_option[11];
 	int					nb_option;
 	int					arg_true;
 	int					true_tmp;
@@ -135,13 +135,18 @@ void	long_list_format(t_list_ls *list, t_d *d, char *path);
 void	display_list_part_1(t_list_ls *list, t_d *d);
 void	display_list_part_2(t_list_ls *list, t_d *d, int *tmp, int nb_name);
 
-void                    ft_merge_sort_list(nodePtr *source);
-void					ft_merge_sortr_list(nodePtr *source);
-void					ft_merge_sort_time(nodePtr *source);
-void					ft_merge_sortr_time(nodePtr *source);
+void		ft_merge_sort_list(nodePtr *source);
+void		ft_merge_sortr_list(nodePtr *source);
+void		ft_merge_sort_time(nodePtr *source);
+void		ft_merge_sortr_time(nodePtr *source);
+void		ft_merge_sort_time_u(nodePtr *source);
+void		ft_merge_sortr_time_u(nodePtr *source);
+void		ft_merge_sort_size(nodePtr *source);
+void		ft_merge_sortr_size(nodePtr *source);
 
 void        ini_tab(t_d *d);
 
+void		print_elem_in_color_file_norme(char *color1, char *color2);
 void		print_elem_in_color_file(t_d *d, t_stat stat, char *path, char c_type);
 char		type_file_file(t_d *d, t_stat *stat, char *path);
 void		left_side_file(t_d *d, t_stat *stat, char c_type);

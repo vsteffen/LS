@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/11 18:09:51 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/06 00:09:32 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/06 15:40:28 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,9 @@ void		detect_arg_true(t_d *d, int ret)
 	{
 		if ((ret = lstat(d->tab_arg[tmp].name, &sb)) == -1)
 		{
-			printf("ls: %s: No such file or directory\n",
-					d->tab_arg[tmp].name);
+			ft_putstr("ls: ");
+			ft_putstr(d->tab_arg[tmp].name);
+			ft_putstr(": No such file or directory\n");
 			del_elem_tab_arg(d, tmp);
 			continue ;
 		}

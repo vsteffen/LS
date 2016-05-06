@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 17:23:09 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/06 00:09:34 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/06 17:57:43 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,43 +16,29 @@ int			type_file(t_list_ls *list, t_d *d)
 {
 	int				ret;
 	
-//	list->stat = (t_stat*)malloc(sizeof(t_stat));
 	if ((ret = lstat(list->path, &(list->stat))) == -1)
 	{
-		
-		/*printf("1 - Haven't found \"%s\" in lst_new\n", list->path);
-		if ((ret = lstat(list->path, &(list->stat))) == -1)
-		{
- 		ft_exit_prog("Don't have found file or directory in lst_new\n", FG_RED, 0);
-		}
-		*/
-		printf("ls: %s: Permission denied\n", list->name);
+		ft_putstr("ls: ");
+		ft_putstr(list->name);
+		ft_putstr(": Permission denied\n");
 		return (-1);
 	}
 	if (S_ISREG(list->stat.st_mode))
 		return ('-');
-//		return (0);
 	else if (S_ISDIR(list->stat.st_mode))
 		return ('d');
-//		return (1);
 	else if (S_ISCHR(list->stat.st_mode))
 		return ('c');
-//		return (2);
 	else if (S_ISBLK(list->stat.st_mode))
 		return ('b');
-//		return (3);
 	else if (S_ISFIFO(list->stat.st_mode))
 		return ('f');
-//		return (4);
 	else if (S_ISLNK(list->stat.st_mode))
 		return ('l');
-//		return (5);
 	else if (S_ISSOCK(list->stat.st_mode))
 		return ('s');
-//		return (6);
 	else
 		return ('-');
-//		return (0);
 }
 
 t_list_ls	*lst_new(char *d_name, char *path, t_d *d)
@@ -130,6 +116,33 @@ void		choose_sort(t_list_ls **lst_deb, t_d *d)
 	}
 }
 
+void		choose_sort2(t_list_ls **lst_deb, t_d *d)
+{
+	if (d->tab_option[5] == 0)
+	{
+		if (d->tab_option[8] == 1)
+		{
+			ft_merge_sort_time_u(lst_deb);
+			return ;
+		}
+		else
+		{
+			ft_merge_sort_size(lst_deb);
+			return ;
+		}
+	}
+	else
+	{
+		if (d->tab_option[8] == 1)
+		{
+			ft_merge_sortr_time_u(lst_deb);
+			return ;
+		}
+		else
+			ft_merge_sortr_size(lst_deb);
+	}
+}
+
 t_list_ls	*list_dir(t_list_ls *list, t_d *d, char *path, t_list_ls *lst_deb)
 {
 	DIR				*dir_s;
@@ -141,7 +154,11 @@ t_list_ls	*list_dir(t_list_ls *list, t_d *d, char *path, t_list_ls *lst_deb)
 	no_null = 0;
 	if ((dir_s = opendir(path)) == NULL)
 	{
-		printf ("ls: %s: %s\n", path, strerror(errno));
+		ft_putstr("ls:");
+		ft_putstr(path);
+		ft_putstr(": ");
+		ft_putstr(strerror(errno));
+		ft_putchar('\n');
 		d->denied = 1;
 		return (NULL);
 	}
@@ -165,8 +182,11 @@ t_list_ls	*list_dir(t_list_ls *list, t_d *d, char *path, t_list_ls *lst_deb)
 			return (NULL);
 	}
 	if (closedir(dir_s) == -1)
-		ft_exit_prog("Fail to close directory stream FUCK 2\n", FG_RED, 0);
-	choose_sort(&lst_deb, d);
+		ft_exit_prog("Fail to close directory stream\n", FG_RED, 0);
+	if (d->tab_option[8] == 0 && d->tab_option[9] == 0)
+		choose_sort(&lst_deb, d);
+	else
+		choose_sort2(&lst_deb, d);
 	return (lst_deb);
 }
 
@@ -221,7 +241,7 @@ void	ls_core(t_d *d, char *path)//, int recur)
 
 	list = NULL;
 	if (d->line_feed == 1)
-		printf("\n");
+		ft_putchar('\n');
 	d->line_feed = 1;
 	d->total = 0;
 	lst_deb = list_dir(list, d, path, lst_deb);
@@ -235,7 +255,7 @@ void	ls_core(t_d *d, char *path)//, int recur)
 	}
 	d->nb_display = 1;
 	list = lst_deb;
-	while (list != NULL && d->tab_option[2] == 1)//&& recur == 1)
+	while (list != NULL && d->tab_option[2] == 1)
 	{
 		if (list->c_type == 'd' && ft_strcmp("..", list->name) != 0 && ft_strcmp(".", list->name) != 0)
 		{
@@ -246,5 +266,4 @@ void	ls_core(t_d *d, char *path)//, int recur)
 		list = list->next;
 	}
 	free_element(lst_deb);
-//	exit(0);
 }

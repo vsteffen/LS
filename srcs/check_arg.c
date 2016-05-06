@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 17:46:10 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/04/25 17:02:02 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/06 17:26:32 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,18 @@ int			check_arg_spe(char arg_tmp, t_d *d)
 		return (d->tab_option[6] = 1);
 	else if (arg_tmp == 't')
 		return (d->tab_option[7] = 1);
+	else if (arg_tmp == 'u')
+		return (d->tab_option[8] = 1);
+	else if (arg_tmp == 'S')
+		return (d->tab_option[9] = 1);
+	else if (arg_tmp == 'h')
+		return (d->tab_option[10] = 1);
 	else
 	{
-		printf("ls: illegal option -- %c\n", arg_tmp);
-		printf("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1]");
-		printf("[file ...]\n");
+		ft_putstr("ls: illegal option -- ");
+		ft_putchar(arg_tmp);
+		ft_putstr("\nusage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1]");
+		ft_putstr(" [file ...]\n");
 		exit(0);
 	}
 	return (0);
@@ -101,6 +108,8 @@ int			check_av(int ac, char **av, t_d *d)
 	{
 		detect_arg_true(d, 0);
 		d->arg = 1;
+		if (d->arg_true == 0)
+			exit(0);
 	}
 	return (0);
 }

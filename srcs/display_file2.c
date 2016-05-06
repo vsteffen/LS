@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 16:37:42 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/05 22:01:16 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/06 18:20:03 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,26 @@ void	read_link_file(t_d *d, t_stat stat, char *path, int c_type)
 	}
 }
 
+void    display_size_file(t_d *d, t_stat stat)
+{
+	char        type;
+	float       nb;
+
+	if (d->tab_option[10] == 0)
+	{
+		ft_putnbr(stat.st_size);
+		ft_putchar(' ');
+		return ;
+	}
+	else
+	{
+		nb = stat.st_size;
+		type = human_function(&nb);
+		ft_putnbr(nb);
+		ft_putchar(type);
+	}
+}
+
 void	long_list_format_file(t_d *d, char *path)
 {
 	int		ret;
@@ -69,7 +89,9 @@ void	long_list_format_file(t_d *d, char *path)
 	if (c_type == 'c' || c_type == 'b')
 		major_minor_file(d, &stat);
 	else
-		ft_putnbr(stat.st_size);
+	{
+		display_size_file(d, stat);
+	}
 	get_time_file(d, stat);
 	print_elem_in_color_file(d, stat, path, c_type);
 	read_link_file(d, stat, path, c_type);

@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 16:37:42 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/05 20:04:08 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/06 18:22:59 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,24 @@ void	print_elem_in_color(t_list_ls *list, t_d *d)
 	{
 		if (list->stat.st_mode & S_IXUSR || list->stat.st_mode & S_IXGRP ||
 				list->stat.st_mode & S_IXOTH)
-			printf(FG_RED);
+			ft_putstr(FG_RED);
 		else
-			printf(CS_RESET);
+			ft_putstr(CS_RESET);
 	}
 	else if (list->c_type == 'd')
-		printf(FG_LCYAN);
+		ft_putstr(FG_LCYAN);
 	else if (list->c_type == 'c')
-		printf("%s%s", FG_BLUE, BG_YELLOW);
+		print_elem_in_color_file_norme(FG_BLUE, BG_YELLOW);
 	else if (list->c_type == 'b')
-		printf("%s%s", FG_BLUE, BG_CYAN);
+		print_elem_in_color_file_norme(FG_BLUE, BG_CYAN);
 	else if (list->c_type == 'f')
-		printf(FG_YELLOW);
+		ft_putstr(FG_YELLOW);
 	else if (list->c_type == 'l')
-		printf(FG_MAGENTA);
+		ft_putstr(FG_MAGENTA);
 	else if (list->c_type == 's')
-		printf(FG_GREEN);
-	printf("%s", list->name);
-	printf(CS_RESET);
+		ft_putstr(FG_GREEN);
+	ft_putstr(list->name);
+	ft_putstr(CS_RESET);
 }
 
 void	major_minor(t_list_ls *list, t_d *d)
@@ -43,7 +43,11 @@ void	major_minor(t_list_ls *list, t_d *d)
 	int		major;
 	int		minor;
 
-	printf(" %d, %d ", MAJOR(list->stat.st_rdev), MINOR(list->stat.st_rdev));
+	ft_putchar(' ');
+	ft_putnbr(MAJOR(list->stat.st_rdev));
+	ft_putstr(", ");
+	ft_putnbr(MINOR(list->stat.st_rdev));
+	ft_putchar(' ');
 }
 
 void	left_side(t_list_ls *list, t_d *d)
@@ -51,27 +55,29 @@ void	left_side(t_list_ls *list, t_d *d)
 	struct passwd	*pw;
 	struct group	*gr;
 
-	printf("%c", list->c_type);
-	printf((list->stat.st_mode & S_IRUSR) ? "r" : "-");
-	printf((list->stat.st_mode & S_IWUSR) ? "w" : "-");
-	printf((list->stat.st_mode & S_IXUSR) ? "x" : "-");
-	printf((list->stat.st_mode & S_IRGRP) ? "r" : "-");
-	printf((list->stat.st_mode & S_IWGRP) ? "w" : "-");
-	printf((list->stat.st_mode & S_IXGRP) ? "x" : "-");
-	printf((list->stat.st_mode & S_IROTH) ? "r" : "-");
-	printf((list->stat.st_mode & S_IWOTH) ? "w" : "-");
-	printf((list->stat.st_mode & S_IXOTH) ? "x" : "-");
-	printf(" %d", list->stat.st_nlink);
+	ft_putchar(list->c_type);
+	ft_putchar((list->stat.st_mode & S_IRUSR) ? 'r' : '-');
+	ft_putchar((list->stat.st_mode & S_IWUSR) ? 'w' : '-');
+	ft_putchar((list->stat.st_mode & S_IXUSR) ? 'x' : '-');
+	ft_putchar((list->stat.st_mode & S_IRGRP) ? 'r' : '-');
+	ft_putchar((list->stat.st_mode & S_IWGRP) ? 'w' : '-');
+	ft_putchar((list->stat.st_mode & S_IXGRP) ? 'x' : '-');
+	ft_putchar((list->stat.st_mode & S_IROTH) ? 'r' : '-');
+	ft_putchar((list->stat.st_mode & S_IWOTH) ? 'w' : '-');
+	ft_putstr((list->stat.st_mode & S_IXOTH) ? "x " : "- ");
+	ft_putnbr(list->stat.st_nlink);
 	pw = getpwuid(list->stat.st_uid);
 	gr = getgrgid(list->stat.st_gid);
+	ft_putchar(' ');
 	if (pw != NULL)
-		printf(" %s", pw->pw_name);
+		ft_putstr(pw->pw_name);
 	else
-		printf(" %d", list->stat.st_uid);
+		ft_putnbr(list->stat.st_uid);
+	ft_putchar(' ');
 	if (gr != NULL)
-		printf(" %s", gr->gr_name);
+		ft_putstr(gr->gr_name);
 	else
-		printf(" %d", list->stat.st_gid);
+		ft_putnbr(list->stat.st_gid);
 }
 
 void	read_link(t_list_ls *list, t_d *d)
@@ -83,13 +89,14 @@ void	read_link(t_list_ls *list, t_d *d)
 	{
 		if ((len = readlink(list->path, buf, sizeof(buf) - 1)) != -1)
 			buf[len] = '\0';
-		printf(" -> %s", buf);
+		ft_putstr(" -> ");
+		ft_putstr(buf);
 	}
 }
 
 void	get_time_print(char *time_str, int *pos)
 {
-	printf("%c", time_str[*(pos)]);
+	ft_putchar(time_str[*(pos)]);
 	(*pos)++;
 }
 
@@ -115,21 +122,47 @@ void	get_time(t_list_ls *list, t_d *d)
 	}
 }
 
+void	display_size(t_list_ls *list, t_d *d)
+{
+	char		type;
+	float		nb;
+
+	if (d->tab_option[10] == 0)
+	{
+		ft_putnbr(list->stat.st_size);
+		ft_putchar(' ');
+		return ;
+	}
+	else
+	{
+		nb = list->stat.st_size;
+		type = human_function(&nb);
+		ft_putnbr(nb);
+		ft_putchar(type);
+	}
+}
+
 void	long_list_format(t_list_ls *list, t_d *d, char *path)
 {
-	printf("total %ld\n", d->total);
+	ft_putstr("total ");
+	ft_putnbr(d->total);
+	ft_putchar('\n');
 	while (list != NULL)
 	{
 		left_side(list, d);
+		ft_putchar(' ');
 		if (list->c_type == 'c' || list->c_type == 'b')
 			major_minor(list, d);
 		else
-			printf(" %lld ", list->stat.st_size);
+		{
+			display_size(list, d);
+			ft_putchar(' ');
+		}
 		get_time(list, d);
-		printf(" ");
+		ft_putchar(' ');
 		print_elem_in_color(list, d);
 		read_link(list, d);
-		printf("\n");
+		ft_putchar('\n');
 		list = list->next;
 	}
 	return ;
@@ -140,7 +173,7 @@ void	display_list_part_1(t_list_ls *list, t_d *d)
 	print_elem_in_color(list, d);
 	while (list->len_name < d->len_max)
 	{
-		printf(" ");
+		ft_putchar(' ');
 		list->len_name++;
 	}
 }
@@ -150,7 +183,7 @@ void	display_list_part_2(t_list_ls *list, t_d *d, int *tmp, int nb_name)
 	(*tmp)--;
 	if (*tmp == 0 && list != NULL)
 	{
-		printf("\n");
+		ft_putchar('\n');
 		*tmp = nb_name;
 	}
 }
@@ -158,11 +191,10 @@ void	display_list_part_2(t_list_ls *list, t_d *d, int *tmp, int nb_name)
 void	display_choose(t_list_ls *list, t_d *d, char *path)
 {
 	if (d->nb_display == 1)
-		printf("%s:\n", path);
-//	if (list != NULL)
-//		printf("\n");
-//	else
-//		return ;
+	{
+		ft_putstr(path);
+		ft_putstr(":\n");
+	}
 	if (d->tab_option[4] == 1)
 		return (long_list_format(list, d, path));
 	if (d->width < d->len_max || d->tab_option[6])
@@ -177,7 +209,9 @@ void	display_list(t_list_ls *list, t_d *d, char *path)
 
 	if (d->denied == 1)
 	{
-		printf("ls: %s: Permission denied FUCK THIS HORRIBLE PROJECT BLBLBLBLBL", path);
+		ft_putstr("ls: ");
+		ft_putstr(path);
+		ft_putstr(": Permission denied");
 		return ;
 	}
 	d->len_max++;
@@ -189,7 +223,7 @@ void	display_list(t_list_ls *list, t_d *d, char *path)
 		list = list->next;
 		display_list_part_2(list, d, &tmp, nb_name);
 	}
-	printf("\n");
+	ft_putchar('\n');
 	d->len_max = 0;
 }
 
@@ -197,39 +231,15 @@ void	display_list_1(t_list_ls *list, t_d *d, char *path)
 {
 	if (d->denied == 1)
 	{
-		printf("ls: %s: Permission denied FUCK", path);
+		ft_putstr("ls: ");
+		ft_putstr(path);
+		ft_putstr(": Permission denied");
 		return ;
 	}
 	while (list != NULL)
 	{
-	//	printf("list->stat.st_mtime = %ld\t", list->stat.st_mtime);
 		print_elem_in_color(list, d);
-		printf("\n");
+		ft_putchar('\n');
 		list = list->next;
-	}
-}
-
-void	tab_option_display(t_d *d)
-{
-	int		ac_var;
-
-	ac_var = 0;
-	while (ac_var != 8)
-	{
-		printf("d->tab_option[%d] = %d\n", ac_var, d->tab_option[ac_var]);
-		ac_var++;
-	}
-}
-
-void	av_display(int ac, char **av)
-{
-	int		ac_var;
-
-	ac_var = 0;
-	printf("\n");
-	while (ac_var != ac)
-	{
-		printf("argv[%d] = %s\n", ac_var, av[ac_var]);
-		ac_var++;
 	}
 }
