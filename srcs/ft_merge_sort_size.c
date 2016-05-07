@@ -6,16 +6,16 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 16:38:22 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/07 20:15:39 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/07 20:56:07 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void		partition_s(node_ptr head, node_ptr *front, node_ptr *back)
+void		partition_s(t_node_ptr head, t_node_ptr *front, t_node_ptr *back)
 {
-	node_ptr		fast;
-	node_ptr		slow;
+	t_node_ptr		fast;
+	t_node_ptr		slow;
 
 	if (head == NULL || head->next == NULL)
 	{
@@ -41,9 +41,9 @@ void		partition_s(node_ptr head, node_ptr *front, node_ptr *back)
 	}
 }
 
-node_ptr	merge_list_s(node_ptr a, node_ptr b)
+t_node_ptr	merge_list_s(t_node_ptr a, t_node_ptr b)
 {
-	node_ptr merged_list;
+	t_node_ptr merged_list;
 
 	merged_list = NULL;
 	if (a == NULL)
@@ -64,11 +64,11 @@ node_ptr	merge_list_s(node_ptr a, node_ptr b)
 	return (merged_list);
 }
 
-void		ft_merge_sort_size(node_ptr *source)
+void		ft_merge_sort_size(t_node_ptr *source)
 {
-	node_ptr		head;
-	node_ptr		a;
-	node_ptr		b;
+	t_node_ptr		head;
+	t_node_ptr		a;
+	t_node_ptr		b;
 
 	head = *source;
 	a = NULL;

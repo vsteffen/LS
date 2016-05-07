@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/07 20:43:36 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/07 20:57:47 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,7 @@ typedef struct			s_sortab
 	char				*name;
 }						t_sortab;
 
-typedef	t_list_ls		*node_ptr;
-
-node_ptr				global_head;
+typedef	t_list_ls		*t_node_ptr;
 
 int						main(int ac, char **av);
 
