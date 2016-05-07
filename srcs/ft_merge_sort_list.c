@@ -6,16 +6,16 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/12 19:13:55 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/06 19:00:15 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/07 20:15:18 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void		partition(nodePtr head, nodePtr *front, nodePtr *back)
+void			partition(node_ptr head, node_ptr *front, node_ptr *back)
 {
-	nodePtr		fast;
-	nodePtr		slow;
+	node_ptr		fast;
+	node_ptr		slow;
 
 	if (head == NULL || head->next == NULL)
 	{
@@ -41,9 +41,9 @@ void		partition(nodePtr head, nodePtr *front, nodePtr *back)
 	}
 }
 
-nodePtr		merge_list(nodePtr a, nodePtr b)
+node_ptr		merge_list(node_ptr a, node_ptr b)
 {
-	nodePtr merged_list;
+	node_ptr merged_list;
 
 	merged_list = NULL;
 	if (a == NULL)
@@ -63,11 +63,11 @@ nodePtr		merge_list(nodePtr a, nodePtr b)
 	return (merged_list);
 }
 
-void		ft_merge_sort_list(nodePtr *source)
+void			ft_merge_sort_list(node_ptr *source)
 {
-	nodePtr		head;
-	nodePtr		a;
-	nodePtr		b;
+	node_ptr		head;
+	node_ptr		a;
+	node_ptr		b;
 
 	head = *source;
 	a = NULL;
