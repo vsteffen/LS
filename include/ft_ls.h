@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/06 19:11:18 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/07 19:32:33 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ void					del_elem_tab_arg(t_d *d, int tmp);
 int						revert_file(t_d *d);
 void					revert_array(t_d *d);
 
-void					ls_core(t_d *d, char *path);//, int recur);
 char					*ft_pathjoin(char const *s1, char const *s2);
 //t_list_ls				*lst_new(char *d_name, char *path);
 //t_list_ls				*add_elem_4(t_list_ls *list, t_d *d, char *d_name);
@@ -173,4 +172,22 @@ void		display_file(t_d *d, char *path, int arg_pos);
 
 int			check_arg_spe2(char arg_tmp, t_d *d);
 void		detect_arg_true2(t_d *d, int ret);
+
+int			type_file(t_list_ls *list, t_d *d);
+t_list_ls	*lst_new(char *d_name, char *path, t_d *d);
+t_list_ls	*add_elem_4(t_list_ls *list, t_d *d, char *d_name, char *path);
+int			read_hidden(char *d_name, int status);
+void		choose_sort(t_list_ls **lst_deb, t_d *d);
+void		choose_sort2(t_list_ls **lst_deb, t_d *d);
+void		*list_dir2(t_d *d, char *path);
+void		*list_dir3(t_d *d);
+void		list_dir4(DIR **dir_s, struct dirent **dir_file, int *no_null);
+void		choose_sort_master(t_list_ls **lst_deb, t_d *d);
+void		list_dir5(DIR *dir_s);
+t_list_ls	*list_dir(t_list_ls *list, t_d *d, char *path, t_list_ls *lst_deb);
+char		*ft_pathjoin(char const *s1, char const *s2);
+void		free_element(t_list_ls *list);
+void		ls_core2(t_d *d);
+void		ls_core3(t_d *d, t_list_ls *lst_deb);
+void		ls_core(t_d *d, char *path);
 #endif

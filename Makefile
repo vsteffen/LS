@@ -6,7 +6,7 @@
 #    By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/03 17:41:16 by vsteffen          #+#    #+#              #
-#    Updated: 2016/05/06 19:09:46 by vsteffen         ###   ########.fr        #
+#    Updated: 2016/05/07 19:28:17 by vsteffen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,9 @@ SRC = maintest.c \
 	ft_merge_sort_size.c \
 	ft_merge_sortr_size.c \
 	ls_core.c \
+	ls_core2.c \
+	ls_core3.c \
+	ls_core4.c \
 	display.c \
 	display2.c \
 	display3.c \
