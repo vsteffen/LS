@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/07 20:57:47 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/07 20:59:10 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,14 +120,14 @@ void					display_list_part_1(t_list_ls *list, t_d *d);
 void					display_list_part_2(t_list_ls *list, t_d *d,
 		int *tmp, int nb_name);
 
-void					ft_merge_sort_list(node_ptr *source);
-void					ft_merge_sortr_list(node_ptr *source);
-void					ft_merge_sort_time(node_ptr *source);
-void					ft_merge_sortr_time(node_ptr *source);
-void					ft_merge_sort_time_u(node_ptr *source);
-void					ft_merge_sortr_time_u(node_ptr *source);
-void					ft_merge_sort_size(node_ptr *source);
-void					ft_merge_sortr_size(node_ptr *source);
+void					ft_merge_sort_list(t_node_ptr *source);
+void					ft_merge_sortr_list(t_node_ptr *source);
+void					ft_merge_sort_time(t_node_ptr *source);
+void					ft_merge_sortr_time(t_node_ptr *source);
+void					ft_merge_sort_time_u(t_node_ptr *source);
+void					ft_merge_sortr_time_u(t_node_ptr *source);
+void					ft_merge_sort_size(t_node_ptr *source);
+void					ft_merge_sortr_size(t_node_ptr *source);
 
 void					ini_tab(t_d *d);
 
