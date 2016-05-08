@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/07 20:59:10 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/08 17:48:38 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,17 +109,6 @@ void					del_elem_tab_arg(t_d *d, int tmp);
 int						revert_file(t_d *d);
 void					revert_array(t_d *d);
 
-void					print_elem_in_color(t_list_ls *list, t_d *d);
-void					major_minor(t_list_ls *list, t_d *d);
-void					left_side(t_list_ls *list, t_d *d);
-void					read_link(t_list_ls *list, t_d *d);
-void					get_time_print(char *time_str, int *pos);
-void					get_time(t_list_ls *list, t_d *d);
-void					long_list_format(t_list_ls *list, t_d *d, char *path);
-void					display_list_part_1(t_list_ls *list, t_d *d);
-void					display_list_part_2(t_list_ls *list, t_d *d,
-		int *tmp, int nb_name);
-
 void					ft_merge_sort_list(t_node_ptr *source);
 void					ft_merge_sortr_list(t_node_ptr *source);
 void					ft_merge_sort_time(t_node_ptr *source);
@@ -131,16 +120,16 @@ void					ft_merge_sortr_size(t_node_ptr *source);
 
 void					ini_tab(t_d *d);
 
-void					print_elem_in_color(t_list_ls *list, t_d *d);
-void					major_minor(t_list_ls *list, t_d *d);
-void					left_side(t_list_ls *list, t_d *d);
-void					read_link(t_list_ls *list, t_d *d);
+void					print_elem_in_color(t_list_ls *list);
+void					major_minor(t_list_ls *list);
+void					left_side(t_list_ls *list);
+void					read_link(t_list_ls *list);
 void					get_time_print(char *time_str, int *pos);
-void					get_time(t_list_ls *list, t_d *d);
+void					get_time(t_list_ls *list);
 void					display_size(t_list_ls *list, t_d *d);
-void					long_list_format(t_list_ls *list, t_d *d, char *path);
+void					long_list_format(t_list_ls *list, t_d *d);
 void					display_list_part_1(t_list_ls *list, t_d *d);
-void					display_list_part_2(t_list_ls *list, t_d *d,
+void					display_list_part_2(t_list_ls *list,
 		int *tmp, int nb_name);
 void					display_choose(t_list_ls *list, t_d *d, char *path);
 void					display_list(t_list_ls *list, t_d *d, char *path);
@@ -148,24 +137,24 @@ void					display_list_1(t_list_ls *list, t_d *d, char *path);
 
 void					print_elem_in_color_file_norme(char *color1,
 		char *color2);
-void					print_elem_in_color_file(t_d *d, t_stat stat,
+void					print_elem_in_color_file(t_stat stat,
 		char *path,
 		char c_type);
 
-char					type_file_file(t_d *d, t_stat *stat, char *path);
-void					left_side_file(t_d *d, t_stat *stat, char c_type);
-void					major_minor_file(t_d *d, t_stat *stat);
+char					type_file_file(t_stat *stat, char *path);
+void					left_side_file(t_stat *stat);
+void					major_minor_file(t_stat *stat);
 void					get_time_print_file(char *time_str, int *pos);
-void					get_time_file(t_d *d, t_stat stat);
-void					read_link_file(t_d *d, t_stat stat, char *path,
+void					get_time_file(t_stat stat);
+void					read_link_file(char *path,
 		int c_type);
 void					long_list_format_file(t_d *d, char *path);
 void					display_file(t_d *d, char *path, int arg_pos);
 
-int						check_arg_spe2(char arg_tmp, t_d *d);
+int						check_arg_spe2(char arg_tmp);
 void					detect_arg_true2(t_d *d, int ret);
 
-int						type_file(t_list_ls *list, t_d *d);
+int						type_file(t_list_ls *list);
 t_list_ls				*lst_new(char *d_name, char *path, t_d *d);
 t_list_ls				*add_elem_4(t_list_ls *list, t_d *d, char *d_name,
 		char *path);

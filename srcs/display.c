@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 16:37:42 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/06 18:42:59 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/08 17:19:51 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	display_choose(t_list_ls *list, t_d *d, char *path)
 		ft_putstr(":\n");
 	}
 	if (d->tab_option[4] == 1)
-		return (long_list_format(list, d, path));
+		return (long_list_format(list, d));
 	if (d->width < d->len_max || d->tab_option[6])
 		return (display_list_1(list, d, path));
 	display_list(list, d, path);
@@ -45,7 +45,7 @@ void	display_list(t_list_ls *list, t_d *d, char *path)
 	{
 		display_list_part_1(list, d);
 		list = list->next;
-		display_list_part_2(list, d, &tmp, nb_name);
+		display_list_part_2(list, &tmp, nb_name);
 	}
 	ft_putchar('\n');
 	d->len_max = 0;
@@ -62,7 +62,7 @@ void	display_list_1(t_list_ls *list, t_d *d, char *path)
 	}
 	while (list != NULL)
 	{
-		print_elem_in_color(list, d);
+		print_elem_in_color(list);
 		ft_putchar('\n');
 		list = list->next;
 	}

@@ -6,13 +6,13 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 18:41:51 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/06 18:42:30 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/08 17:21:10 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	get_time(t_list_ls *list, t_d *d)
+void	get_time(t_list_ls *list)
 {
 	char	*time_str;
 	int		pos;
@@ -54,7 +54,7 @@ void	display_size(t_list_ls *list, t_d *d)
 	}
 }
 
-void	long_list_format(t_list_ls *list, t_d *d, char *path)
+void	long_list_format(t_list_ls *list, t_d *d)
 {
 	ft_putstr("total ");
 	ft_putnbr(d->total);
@@ -62,19 +62,19 @@ void	long_list_format(t_list_ls *list, t_d *d, char *path)
 	while (list != NULL)
 	{
 		ft_putchar(list->c_type);
-		left_side(list, d);
+		left_side(list);
 		ft_putchar(' ');
 		if (list->c_type == 'c' || list->c_type == 'b')
-			major_minor(list, d);
+			major_minor(list);
 		else
 		{
 			display_size(list, d);
 			ft_putchar(' ');
 		}
-		get_time(list, d);
+		get_time(list);
 		ft_putchar(' ');
-		print_elem_in_color(list, d);
-		read_link(list, d);
+		print_elem_in_color(list);
+		read_link(list);
 		ft_putchar('\n');
 		list = list->next;
 	}
@@ -83,7 +83,7 @@ void	long_list_format(t_list_ls *list, t_d *d, char *path)
 
 void	display_list_part_1(t_list_ls *list, t_d *d)
 {
-	print_elem_in_color(list, d);
+	print_elem_in_color(list);
 	while (list->len_name < d->len_max)
 	{
 		ft_putchar(' ');
@@ -91,7 +91,7 @@ void	display_list_part_1(t_list_ls *list, t_d *d)
 	}
 }
 
-void	display_list_part_2(t_list_ls *list, t_d *d, int *tmp, int nb_name)
+void	display_list_part_2(t_list_ls *list, int *tmp, int nb_name)
 {
 	(*tmp)--;
 	if (*tmp == 0 && list != NULL)

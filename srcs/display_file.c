@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 16:37:42 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/06 16:15:39 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/08 17:54:58 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_elem_in_color_file_norme(char *color1, char *color2)
 	ft_putstr(color2);
 }
 
-void	print_elem_in_color_file(t_d *d, t_stat stat, char *path, char c_type)
+void	print_elem_in_color_file(t_stat stat, char *path, char c_type)
 {
 	if (c_type == '-')
 	{
@@ -44,7 +44,7 @@ void	print_elem_in_color_file(t_d *d, t_stat stat, char *path, char c_type)
 	ft_putstr(CS_RESET);
 }
 
-char	type_file_file(t_d *d, t_stat *stat, char *path)
+char	type_file_file(t_stat *stat, char *path)
 {
 	int				ret;
 
@@ -73,7 +73,7 @@ char	type_file_file(t_d *d, t_stat *stat, char *path)
 		return ('-');
 }
 
-void	left_side_file(t_d *d, t_stat *stat, char c_type)
+void	left_side_file(t_stat *stat)
 {
 	struct passwd	*pw;
 	struct group	*gr;
@@ -102,11 +102,8 @@ void	left_side_file(t_d *d, t_stat *stat, char c_type)
 		ft_putnbr(stat->st_gid);
 }
 
-void	major_minor_file(t_d *d, t_stat *stat)
+void	major_minor_file(t_stat *stat)
 {
-	int		major;
-	int		minor;
-
 	ft_putchar(' ');
 	ft_putnbr(MAJOR(stat->st_rdev));
 	ft_putstr(", ");

@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 17:23:09 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/07 19:40:09 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/08 17:03:05 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void		ls_core(t_d *d, char *path)
 
 	list = NULL;
 	ls_core2(d);
-	lst_deb = list_dir(list, d, path, lst_deb);
+	lst_deb = list_dir(list, d, path, NULL);
 	if (d->denied == 0)
 		display_choose(lst_deb, d, path);
 	else

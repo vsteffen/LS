@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:18:34 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/07 15:30:13 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/08 17:00:08 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,10 @@ int		norme_main_end(t_d *d)
 	return (EXIT_SUCCESS);
 }
 
-void	main_default(t_d *d, char *f_path)
+void	main_default(t_d *d)
 {
+	char *f_path;
+
 	f_path = ft_strdup(".");
 	ls_core(d, f_path);
 	free(f_path);
@@ -63,8 +65,6 @@ int		main(int ac, char **av)
 {
 	t_d		d;
 	int		arg_pos;
-	int		width;
-	char	*f_path;
 
 	struct_ini(&d, ac);
 	check_av(ac, av, &d);
@@ -83,6 +83,6 @@ int		main(int ac, char **av)
 		}
 	}
 	else
-		main_default(&d, f_path);
+		main_default(&d);
 	return (norme_main_end(&d));
 }

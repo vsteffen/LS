@@ -6,7 +6,7 @@
 #    By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/03 17:41:16 by vsteffen          #+#    #+#              #
-#    Updated: 2016/05/07 19:28:17 by vsteffen         ###   ########.fr        #
+#    Updated: 2016/05/08 19:04:15 by vsteffen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,6 @@ RANLIB = /usr/bin/ranlib
 LIBS = -framework OpenGL \
 	   -framework AppKit \
 	   $(ROOT)/libft/libft.a
-
-OBJ_NAME = $(wildcard $(ROOT)/srcs/*.c)
 
 SRC = maintest.c \
 	arg_h.c \
@@ -49,11 +47,11 @@ SRC = maintest.c \
 	display_file2.c \
 	bordel.c
 
+# OBJ_NAME = $(wildcard $(ROOT)/srcs/$(SRC))
+
 OBJ = $(patsubst %.c, $(OPATH)/%.o, $(SRC))
 
-CFLAGS = -I $(HPATH)
-
-#-Wall -Wextra -Werror -I $(HPATH)
+CFLAGS = -I $(HPATH) -Wall -Wextra -Werror -I $(HPATH)
 
 ROOT =		$(shell /bin/pwd)
 OPATH =		$(ROOT)/objs
@@ -66,7 +64,7 @@ showEndRule=\t\033[31m\033[4m\033[1mEnd of \"make $(MAKECMDGOALS)\" rule\033[0m
 
 .PHONY: all clean fclean re
 
-all: $(OPATH) $(NAME)
+all: $(OPATH) libft-make $(NAME)
 
 libclean: fclean
 	@echo "$(showStartRule) for libraries"
@@ -96,7 +94,7 @@ libft-re:
 	@echo "$(showEndRule) for libft"
 
 
-$(NAME): $(OBJ) libft-make	
+$(NAME): $(OBJ)
 	@echo " \033[33m\033[4m\033[1m → Make rule \033[0m"
 	@echo "Creating OBJ files if they do not exist"
 	@echo "Building $@"
@@ -106,7 +104,7 @@ $(NAME): $(OBJ) libft-make
 	@echo " ╚════════════════╝\033[0m"
 
 $(OPATH)/%.o: $(CPATH)/%.c
-	@$(CC) $(CFLAGS) -c $? -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OPATH):
 	@echo " \033[33m\033[4m\033[1m → Pre Make rule \033[0m"

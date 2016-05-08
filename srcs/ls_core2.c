@@ -6,13 +6,13 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/07 19:22:02 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/07 19:23:03 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/08 17:06:11 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int			type_file(t_list_ls *list, t_d *d)
+int			type_file(t_list_ls *list)
 {
 	int				ret;
 
@@ -44,9 +44,6 @@ int			type_file(t_list_ls *list, t_d *d)
 t_list_ls	*lst_new(char *d_name, char *path, t_d *d)
 {
 	t_list_ls		*list;
-	int				ret;
-	struct stat		sb;
-	int				size_name;
 	int				type;
 
 	if (!(list = (t_list_ls*)malloc(sizeof(t_list_ls))))
@@ -56,7 +53,7 @@ t_list_ls	*lst_new(char *d_name, char *path, t_d *d)
 	if (list->len_name > d->len_max)
 		d->len_max = list->len_name;
 	list->path = ft_pathjoin(path, d_name);
-	type = type_file(list, d);
+	type = type_file(list);
 	if (type == -1)
 		return (NULL);
 	list->c_type = type;

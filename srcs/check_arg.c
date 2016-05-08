@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 17:46:10 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/06 18:35:58 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/08 17:32:18 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int			check_arg_spe(char arg_tmp, t_d *d)
 		return (d->tab_option[9] = 1);
 	else if (arg_tmp == 'h')
 		return (d->tab_option[10] = 1);
-	return (check_arg_spe2(arg_tmp, d));
+	return (check_arg_spe2(arg_tmp));
 }
 
 void		assign_name_value_arg(char **av, t_d *d, int *ac_var)

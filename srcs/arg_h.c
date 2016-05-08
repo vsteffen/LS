@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/25 17:37:36 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/06 18:20:06 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/08 16:59:55 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 char	human_function(float *nb)
 {
 	int		count;
-	int		decimal;
-	double	round;
 
 	count = 0;
 	while (*nb >= 1000 && count < 4)

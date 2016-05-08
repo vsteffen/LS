@@ -6,13 +6,13 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 18:40:32 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/06 18:41:42 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/08 17:11:28 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	print_elem_in_color(t_list_ls *list, t_d *d)
+void	print_elem_in_color(t_list_ls *list)
 {
 	if (list->c_type == '-')
 	{
@@ -38,11 +38,8 @@ void	print_elem_in_color(t_list_ls *list, t_d *d)
 	ft_putstr(CS_RESET);
 }
 
-void	major_minor(t_list_ls *list, t_d *d)
+void	major_minor(t_list_ls *list)
 {
-	int		major;
-	int		minor;
-
 	ft_putchar(' ');
 	ft_putnbr(MAJOR(list->stat.st_rdev));
 	ft_putstr(", ");
@@ -50,7 +47,7 @@ void	major_minor(t_list_ls *list, t_d *d)
 	ft_putchar(' ');
 }
 
-void	left_side(t_list_ls *list, t_d *d)
+void	left_side(t_list_ls *list)
 {
 	struct passwd	*pw;
 	struct group	*gr;
@@ -79,7 +76,7 @@ void	left_side(t_list_ls *list, t_d *d)
 		ft_putnbr(list->stat.st_gid);
 }
 
-void	read_link(t_list_ls *list, t_d *d)
+void	read_link(t_list_ls *list)
 {
 	char		buf[1024];
 	ssize_t		len;
