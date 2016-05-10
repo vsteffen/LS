@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/11 18:09:51 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/08 20:43:00 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/10 18:46:19 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,25 +70,9 @@ void		proper_link(t_d *d, t_stat stat, int tmp)
 	ssize_t		len;
 	int			ret;
 
-	if (ft_strcmp("/var", d->tab_arg[tmp].name) == 0)
-	{
-		if (d->tab_option[3] == 0)
-		{
-			d->tab_arg[tmp].dir = 1;
-			return ;
-		}
-	}
-	if (ft_strcmp("/tmp", d->tab_arg[tmp].name) == 0 && d->tab_option[3] == 0)
-	{
-		d->tab_arg[tmp].dir = 1;
+	if (proper_link2(d, tmp) == 1)
 		return ;
-	}
-	if (ft_strcmp("/etc", d->tab_arg[tmp].name) == 0 && d->tab_option[3] == 0)
-	{
-		d->tab_arg[tmp].dir = 1;
-		return ;
-	}
-	if (d->tab_option[1] == 1 || d->tab_option[3] == 1)
+	if (d->tab_option[4] == 0 || d->tab_option[1] == 1)
 	{
 		if ((len = readlink(d->tab_arg[tmp].name, buf, sizeof(buf) - 1)) != -1)
 			buf[len] = '\0';

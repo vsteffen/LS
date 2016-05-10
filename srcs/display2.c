@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 18:40:32 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/08 17:11:28 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/10 19:11:36 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ void	left_side(t_list_ls *list)
 
 	ft_putchar((list->stat.st_mode & S_IRUSR) ? 'r' : '-');
 	ft_putchar((list->stat.st_mode & S_IWUSR) ? 'w' : '-');
-	ft_putchar((list->stat.st_mode & S_IXUSR) ? 'x' : '-');
+	stick3(list->stat.st_mode);
 	ft_putchar((list->stat.st_mode & S_IRGRP) ? 'r' : '-');
 	ft_putchar((list->stat.st_mode & S_IWGRP) ? 'w' : '-');
-	ft_putchar((list->stat.st_mode & S_IXGRP) ? 'x' : '-');
+	stick6(list->stat.st_mode);
 	ft_putchar((list->stat.st_mode & S_IROTH) ? 'r' : '-');
 	ft_putchar((list->stat.st_mode & S_IWOTH) ? 'w' : '-');
-	ft_putstr((list->stat.st_mode & S_IXOTH) ? "x " : "- ");
+	stick9(list->stat.st_mode); // rajouter dans display_file
 	ft_putnbr(list->stat.st_nlink);
 	pw = getpwuid(list->stat.st_uid);
 	gr = getgrgid(list->stat.st_gid);
