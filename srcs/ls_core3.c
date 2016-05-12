@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/07 19:23:46 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/07 19:26:40 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/12 15:39:47 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		choose_sort2(t_list_ls **lst_deb, t_d *d)
 
 void		*list_dir2(t_d *d, char *path)
 {
-	ft_putstr("ls:");
+	ft_putstr("ft_ls:");
 	ft_putstr(path);
 	ft_putstr(": ");
 	ft_putstr(strerror(errno));

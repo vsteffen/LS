@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 18:35:08 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/12 15:22:33 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/12 15:37:49 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int		check_arg_spe2(char arg_tmp)
 {
-	ft_putstr("ls: illegal option -- ");
+	ft_putstr("ft_ls: illegal option -- ");
 	ft_putchar(arg_tmp);
-	ft_putstr("\nusage: ls [-LRSahlrtu1]");
+	ft_putstr("\nusage: ft_ls [-LRSahlrtu1]");
 	ft_putstr(" [file ...]\n");
 	exit(0);
 	return (0);
@@ -24,7 +24,7 @@ int		check_arg_spe2(char arg_tmp)
 
 void	detect_arg_true2(t_d *d, int tmp)
 {
-	ft_putstr("ls: ");
+	ft_putstr("ft_ls: ");
 	ft_putstr(d->tab_arg[tmp].name);
 	ft_putstr(": No such file or directory\n");
 	del_elem_tab_arg(d, tmp);

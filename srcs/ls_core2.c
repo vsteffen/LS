@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/07 19:22:02 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/08 17:06:11 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/12 15:39:27 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int			type_file(t_list_ls *list)
 
 	if ((ret = lstat(list->path, &(list->stat))) == -1)
 	{
-		ft_putstr("ls: ");
+		ft_putstr("ft_ls: ");
 		ft_putstr(list->name);
 		ft_putstr(": Permission denied\n");
 		return (-1);

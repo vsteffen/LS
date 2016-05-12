@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 16:37:42 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/12 14:20:19 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/12 15:39:03 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	type_file_file(t_stat *stat, char *path)
 
 	if ((ret = lstat(path, stat)) == -1)
 	{
-		ft_putstr("ls: ");
+		ft_putstr("ft_ls: ");
 		ft_putstr(path);
 		ft_putstr(": Permission denied\n");
 		return (-1);

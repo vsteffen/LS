@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/11 18:09:51 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/10 18:46:19 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/12 15:40:17 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void		proper_link(t_d *d, t_stat stat, int tmp)
 		d->tab_arg[tmp].name = ft_strdup(buf);
 		if ((ret = lstat(d->tab_arg[tmp].name, &stat)) == -1)
 		{
-			ft_putstr("ls: ");
+			ft_putstr("ft_ls: ");
 			ft_putstr(d->tab_arg[tmp].name);
 			ft_putstr(": Permission denied\n");
 			return ;

@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 16:37:42 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/08 17:19:51 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/12 15:38:41 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	display_list(t_list_ls *list, t_d *d, char *path)
 
 	if (d->denied == 1)
 	{
-		ft_putstr("ls: ");
+		ft_putstr("ft_ls: ");
 		ft_putstr(path);
 		ft_putstr(": Permission denied");
 		return ;
@@ -55,7 +55,7 @@ void	display_list_1(t_list_ls *list, t_d *d, char *path)
 {
 	if (d->denied == 1)
 	{
-		ft_putstr("ls: ");
+		ft_putstr("ft_ls: ");
 		ft_putstr(path);
 		ft_putstr(": Permission denied");
 		return ;
