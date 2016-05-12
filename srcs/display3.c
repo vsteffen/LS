@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 18:41:51 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/08 17:21:10 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/12 15:07:45 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,8 @@ void	display_size(t_list_ls *list, t_d *d)
 
 void	long_list_format(t_list_ls *list, t_d *d)
 {
-	ft_putstr("total ");
-	ft_putnbr(d->total);
-	ft_putchar('\n');
+	if (list != NULL)
+		long_list_format_1(d);
 	while (list != NULL)
 	{
 		ft_putchar(list->c_type);

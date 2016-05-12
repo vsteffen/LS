@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 17:46:10 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/08 17:32:18 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/12 15:30:33 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,9 @@ int			check_av(int ac, char **av, t_d *d)
 	while (ac_var < ac)
 	{
 		check_arg(av, d, &ac_var, 0);
+		if (av[ac_var][0] == '\0')
+			ft_exit_prog("ft_ls: fts_open: No such file or directory\n"
+					, CS_RESET, 1);
 		ac_var++;
 	}
 	if (d->nb_option + 1 != ac)

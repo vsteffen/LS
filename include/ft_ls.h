@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 19:28:04 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/10 19:06:53 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/12 15:03:27 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,9 @@ void					detect_arg_true2(t_d *d, int ret);
 int						proper_link2(t_d *d, int tmp);
 void					stick3(mode_t mode);
 void					stick6(mode_t mode);
+
 void					stick9(mode_t mode);
+void					long_list_format_1(t_d *d);
 
 int						type_file(t_list_ls *list);
 t_list_ls				*lst_new(char *d_name, char *path, t_d *d);

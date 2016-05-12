@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 18:40:32 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/10 19:13:38 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/12 15:06:08 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	left_side(t_list_ls *list)
 	stick6(list->stat.st_mode);
 	ft_putchar((list->stat.st_mode & S_IROTH) ? 'r' : '-');
 	ft_putchar((list->stat.st_mode & S_IWOTH) ? 'w' : '-');
-	stick9(list->stat.st_mode); // rajouter dans display_file
+	stick9(list->stat.st_mode);
 	ft_putnbr(list->stat.st_nlink);
 	pw = getpwuid(list->stat.st_uid);
 	gr = getgrgid(list->stat.st_gid);

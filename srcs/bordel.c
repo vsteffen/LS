@@ -6,13 +6,13 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 18:35:08 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/10 19:13:35 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/12 15:22:33 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int			check_arg_spe2(char arg_tmp)
+int		check_arg_spe2(char arg_tmp)
 {
 	ft_putstr("ls: illegal option -- ");
 	ft_putchar(arg_tmp);
@@ -22,7 +22,7 @@ int			check_arg_spe2(char arg_tmp)
 	return (0);
 }
 
-void		detect_arg_true2(t_d *d, int tmp)
+void	detect_arg_true2(t_d *d, int tmp)
 {
 	ft_putstr("ls: ");
 	ft_putstr(d->tab_arg[tmp].name);
@@ -30,9 +30,8 @@ void		detect_arg_true2(t_d *d, int tmp)
 	del_elem_tab_arg(d, tmp);
 }
 
-int			proper_link2(t_d *d, int tmp)
+int		proper_link2(t_d *d, int tmp)
 {
-
 	if ((d->tab_arg[tmp].name[0] == '/' && d->tab_option[4] == 0)
 			|| d->tab_option[1] == 1)
 	{
@@ -42,7 +41,7 @@ int			proper_link2(t_d *d, int tmp)
 	return (0);
 }
 
-void    stick3(mode_t mode)
+void	stick3(mode_t mode)
 {
 	if (mode & S_ISUID && !(mode & S_IXUSR))
 	{
@@ -66,7 +65,7 @@ void    stick3(mode_t mode)
 	}
 }
 
-void    stick6(mode_t mode)
+void	stick6(mode_t mode)
 {
 	if (mode & S_ISGID && !(mode & S_IXGRP))
 	{
@@ -86,30 +85,6 @@ void    stick6(mode_t mode)
 	else
 	{
 		ft_putchar('-');
-		return ;
-	}
-}
-
-void    stick9(mode_t mode)
-{
-	if (mode & S_ISVTX && !(mode & S_IXOTH))
-	{
-	   	ft_putstr("T ");
-		return ;
-	}
-	else if (mode & S_ISVTX && (mode & S_IXOTH))
-	{
-		ft_putstr("t ");
-		return ;
-	}
-	else if (!(mode & S_ISVTX) && (mode & S_IXOTH))
-	{
-		ft_putstr("x ");
-		return ;
-	}
-	else
-	{
-		ft_putstr("- ");
 		return ;
 	}
 }

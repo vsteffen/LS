@@ -6,7 +6,7 @@
 /*   By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 16:37:42 by vsteffen          #+#    #+#             */
-/*   Updated: 2016/05/08 17:54:58 by vsteffen         ###   ########.fr       */
+/*   Updated: 2016/05/12 14:20:19 by vsteffen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ void	left_side_file(t_stat *stat)
 
 	ft_putchar((stat->st_mode & S_IRUSR) ? 'r' : '-');
 	ft_putchar((stat->st_mode & S_IWUSR) ? 'w' : '-');
-	ft_putchar((stat->st_mode & S_IXUSR) ? 'x' : '-');
+	stick3(stat->st_mode);
 	ft_putchar((stat->st_mode & S_IRGRP) ? 'r' : '-');
 	ft_putchar((stat->st_mode & S_IWGRP) ? 'w' : '-');
-	ft_putchar((stat->st_mode & S_IXGRP) ? 'x' : '-');
+	stick6(stat->st_mode);
 	ft_putchar((stat->st_mode & S_IROTH) ? 'r' : '-');
 	ft_putchar((stat->st_mode & S_IWOTH) ? 'w' : '-');
-	ft_putstr((stat->st_mode & S_IXOTH) ? "x " : "- ");
+	stick9(stat->st_mode);
 	ft_putnbr(stat->st_nlink);
 	pw = getpwuid(stat->st_uid);
 	gr = getgrgid(stat->st_gid);

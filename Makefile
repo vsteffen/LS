@@ -6,7 +6,7 @@
 #    By: vsteffen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/03 17:41:16 by vsteffen          #+#    #+#              #
-#    Updated: 2016/05/08 19:36:05 by vsteffen         ###   ########.fr        #
+#    Updated: 2016/05/12 15:03:48 by vsteffen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRC = maintest.c \
 	display3.c \
 	display_file.c \
 	display_file2.c \
-	bordel.c
+	bordel.c \
+	bordel2.c
 
 # OBJ_NAME = $(wildcard $(ROOT)/srcs/$(SRC))
 
